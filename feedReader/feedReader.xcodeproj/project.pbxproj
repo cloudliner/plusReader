@@ -10,6 +10,9 @@
 		411212D9167E1F7500794F99 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 417DDF16167E0B9C0049C68A /* SystemConfiguration.framework */; };
 		411212DC167E1FD800794F99 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 417DDF14167E0B620049C68A /* Security.framework */; };
 		41A89139167DDA7D00C79411 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A89138167DDA7D00C79411 /* LoginViewController.m */; };
+		41CEE3E816835D4200BF4015 /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CEE3E516835D4200BF4015 /* AFOAuth2Client.m */; };
+		41CEE3E916835D4200BF4015 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 41CEE3E616835D4200BF4015 /* LICENSE */; };
+		41CEE3EA16835D4200BF4015 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 41CEE3E716835D4200BF4015 /* README.md */; };
 		41F97990167C351100A223AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F9798F167C351100A223AD /* UIKit.framework */; };
 		41F97992167C351100A223AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F97991167C351100A223AD /* Foundation.framework */; };
 		41F97994167C351100A223AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F97993167C351100A223AD /* CoreGraphics.framework */; };
@@ -48,6 +51,10 @@
 		417DDF16167E0B9C0049C68A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		41A89137167DDA7D00C79411 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		41A89138167DDA7D00C79411 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		41CEE3E416835D4200BF4015 /* AFOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuth2Client.h; sourceTree = "<group>"; };
+		41CEE3E516835D4200BF4015 /* AFOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuth2Client.m; sourceTree = "<group>"; };
+		41CEE3E616835D4200BF4015 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		41CEE3E716835D4200BF4015 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		41F9798B167C351100A223AD /* feedReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feedReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F9798F167C351100A223AD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		41F97991167C351100A223AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -108,57 +115,28 @@
 		4112142E167E3FEB00794F99 /* Nimbus */ = {
 			isa = PBXGroup;
 			children = (
-				4112142F167E401400794F99 /* WebController */,
-				41121430167E402000794F99 /* Core */,
 			);
 			name = Nimbus;
-			sourceTree = "<group>";
-		};
-		4112142F167E401400794F99 /* WebController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = WebController;
-			sourceTree = "<group>";
-		};
-		41121430167E402000794F99 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Core;
 			sourceTree = "<group>";
 		};
 		411214FE16812A9400794F99 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				4112154A16813B7200794F99 /* AFOAuth2Client */,
-				411214FF16812ABF00794F99 /* AFNetworking */,
-				4112152416812AE000794F99 /* AFHTTPRequestOperationLogger */,
+				41CEE3E316835D4200BF4015 /* AFOAuth2Client */,
 			);
 			name = AFNetworking;
 			sourceTree = "<group>";
 		};
-		411214FF16812ABF00794F99 /* AFNetworking */ = {
+		41CEE3E316835D4200BF4015 /* AFOAuth2Client */ = {
 			isa = PBXGroup;
 			children = (
+				41CEE3E416835D4200BF4015 /* AFOAuth2Client.h */,
+				41CEE3E516835D4200BF4015 /* AFOAuth2Client.m */,
+				41CEE3E616835D4200BF4015 /* LICENSE */,
+				41CEE3E716835D4200BF4015 /* README.md */,
 			);
-			name = AFNetworking;
-			path = ../Temp/AFNetworking/AFNetworking/AFNetworking;
-			sourceTree = "<group>";
-		};
-		4112152416812AE000794F99 /* AFHTTPRequestOperationLogger */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = AFHTTPRequestOperationLogger;
-			path = ../Temp/AFNetworking/AFHTTPRequestOperationLogger;
-			sourceTree = "<group>";
-		};
-		4112154A16813B7200794F99 /* AFOAuth2Client */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AFOAuth2Client;
+			name = AFOAuth2Client;
+			path = ../AFOAuth2Client;
 			sourceTree = "<group>";
 		};
 		41F97980167C351100A223AD = {
@@ -325,6 +303,8 @@
 				41F979A8167C351100A223AD /* Default-568h@2x.png in Resources */,
 				41F979AB167C351100A223AD /* MainStoryboard_iPhone.storyboard in Resources */,
 				41F979AE167C351100A223AD /* MainStoryboard_iPad.storyboard in Resources */,
+				41CEE3E916835D4200BF4015 /* LICENSE in Resources */,
+				41CEE3EA16835D4200BF4015 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +345,7 @@
 				41F979B4167C351100A223AD /* MasterViewController.m in Sources */,
 				41F979B7167C351100A223AD /* DetailViewController.m in Sources */,
 				41A89139167DDA7D00C79411 /* LoginViewController.m in Sources */,
+				41CEE3E816835D4200BF4015 /* AFOAuth2Client.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
