@@ -198,6 +198,19 @@
 			path = ../AFOAuth2Client;
 			sourceTree = "<group>";
 		};
+		41928B99168A18E900311837 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				41F979B2167C351100A223AD /* MasterViewController.h */,
+				41F979B3167C351100A223AD /* MasterViewController.m */,
+				41A89137167DDA7D00C79411 /* LoginViewController.h */,
+				41A89138167DDA7D00C79411 /* LoginViewController.m */,
+				41F979B5167C351100A223AD /* DetailViewController.h */,
+				41F979B6167C351100A223AD /* DetailViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		41F97980167C351100A223AD = {
 			isa = PBXGroup;
 			children = (
@@ -241,12 +254,7 @@
 				41F979A1167C351100A223AD /* AppDelegate.m */,
 				41F979A9167C351100A223AD /* MainStoryboard_iPhone.storyboard */,
 				41F979AC167C351100A223AD /* MainStoryboard_iPad.storyboard */,
-				41F979B2167C351100A223AD /* MasterViewController.h */,
-				41F979B3167C351100A223AD /* MasterViewController.m */,
-				41A89137167DDA7D00C79411 /* LoginViewController.h */,
-				41A89138167DDA7D00C79411 /* LoginViewController.m */,
-				41F979B5167C351100A223AD /* DetailViewController.h */,
-				41F979B6167C351100A223AD /* DetailViewController.m */,
+				41928B99168A18E900311837 /* Controllers */,
 				41F979AF167C351100A223AD /* feedReader.xcdatamodeld */,
 				41F97998167C351100A223AD /* Supporting Files */,
 			);
