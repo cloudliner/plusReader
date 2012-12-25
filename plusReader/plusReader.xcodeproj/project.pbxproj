@@ -28,6 +28,9 @@
 		411215981681FF8900794F99 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4112156B1681FF8800794F99 /* CoreData.framework */; };
 		411215A01681FF8900794F99 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4112159E1681FF8900794F99 /* InfoPlist.strings */; };
 		411215A31681FF8900794F99 /* plusReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 411215A21681FF8900794F99 /* plusReaderTests.m */; };
+		41928B8A168A04A700311837 /* CLConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41928B89168A04A700311837 /* CLConfigViewController.m */; };
+		41928B8D168A097400311837 /* CLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41928B8C168A097400311837 /* CLLoginViewController.m */; };
+		41928B90168A0CA900311837 /* CLConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41928B8F168A0CA900311837 /* CLConsoleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,12 @@
 		4112159F1681FF8900794F99 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		411215A11681FF8900794F99 /* plusReaderTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plusReaderTests.h; sourceTree = "<group>"; };
 		411215A21681FF8900794F99 /* plusReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = plusReaderTests.m; sourceTree = "<group>"; };
+		41928B88168A04A700311837 /* CLConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLConfigViewController.h; sourceTree = "<group>"; };
+		41928B89168A04A700311837 /* CLConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLConfigViewController.m; sourceTree = "<group>"; };
+		41928B8B168A097400311837 /* CLLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLoginViewController.h; sourceTree = "<group>"; };
+		41928B8C168A097400311837 /* CLLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLoginViewController.m; sourceTree = "<group>"; };
+		41928B8E168A0CA900311837 /* CLConsoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLConsoleViewController.h; sourceTree = "<group>"; };
+		41928B8F168A0CA900311837 /* CLConsoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLConsoleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +143,12 @@
 				411215771681FF8800794F99 /* CLAppDelegate.m */,
 				4112157F1681FF8800794F99 /* MainStoryboard_iPhone.storyboard */,
 				411215821681FF8800794F99 /* MainStoryboard_iPad.storyboard */,
+				41928B88168A04A700311837 /* CLConfigViewController.h */,
+				41928B89168A04A700311837 /* CLConfigViewController.m */,
+				41928B8B168A097400311837 /* CLLoginViewController.h */,
+				41928B8C168A097400311837 /* CLLoginViewController.m */,
+				41928B8E168A0CA900311837 /* CLConsoleViewController.h */,
+				41928B8F168A0CA900311837 /* CLConsoleViewController.m */,
 				411215881681FF8800794F99 /* CLMasterViewController.h */,
 				411215891681FF8800794F99 /* CLMasterViewController.m */,
 				4112158B1681FF8800794F99 /* CLDetailViewController.h */,
@@ -294,6 +309,9 @@
 				411215871681FF8800794F99 /* plusReader.xcdatamodeld in Sources */,
 				4112158A1681FF8800794F99 /* CLMasterViewController.m in Sources */,
 				4112158D1681FF8800794F99 /* CLDetailViewController.m in Sources */,
+				41928B8A168A04A700311837 /* CLConfigViewController.m in Sources */,
+				41928B8D168A097400311837 /* CLLoginViewController.m in Sources */,
+				41928B90168A0CA900311837 /* CLConsoleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
