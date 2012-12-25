@@ -7,6 +7,7 @@
 //
 
 #import "CLConsoleViewController.h"
+#import "CLConsole.h"
 
 @interface CLConsoleViewController ()
 
@@ -28,7 +29,11 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-	// Do any additional setup after loading the view.
+  if (plusReader_CLConsole_textView != nil) {
+    _textView.text = plusReader_CLConsole_textView.text;
+    plusReader_CLConsole_textView = nil;
+  }
+	plusReader_CLConsole_textView = _textView;
 }
 
 - (void)didReceiveMemoryWarning {

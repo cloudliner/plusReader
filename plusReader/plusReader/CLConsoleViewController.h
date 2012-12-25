@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CLConsoleViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
