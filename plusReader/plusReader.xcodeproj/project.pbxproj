@@ -143,17 +143,8 @@
 				411215771681FF8800794F99 /* CLAppDelegate.m */,
 				4112157F1681FF8800794F99 /* MainStoryboard_iPhone.storyboard */,
 				411215821681FF8800794F99 /* MainStoryboard_iPad.storyboard */,
-				41928B88168A04A700311837 /* CLConfigViewController.h */,
-				41928B89168A04A700311837 /* CLConfigViewController.m */,
-				41928B8B168A097400311837 /* CLLoginViewController.h */,
-				41928B8C168A097400311837 /* CLLoginViewController.m */,
-				41928B8E168A0CA900311837 /* CLConsoleViewController.h */,
-				41928B8F168A0CA900311837 /* CLConsoleViewController.m */,
-				411215881681FF8800794F99 /* CLMasterViewController.h */,
-				411215891681FF8800794F99 /* CLMasterViewController.m */,
-				4112158B1681FF8800794F99 /* CLDetailViewController.h */,
-				4112158C1681FF8800794F99 /* CLDetailViewController.m */,
 				411215851681FF8800794F99 /* plusReader.xcdatamodeld */,
+				41EA87D4168A2250002BE6E0 /* Controllers */,
 				4112156E1681FF8800794F99 /* Supporting Files */,
 			);
 			path = plusReader;
@@ -190,6 +181,23 @@
 				4112159E1681FF8900794F99 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		41EA87D4168A2250002BE6E0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				41928B88168A04A700311837 /* CLConfigViewController.h */,
+				41928B89168A04A700311837 /* CLConfigViewController.m */,
+				41928B8B168A097400311837 /* CLLoginViewController.h */,
+				41928B8C168A097400311837 /* CLLoginViewController.m */,
+				41928B8E168A0CA900311837 /* CLConsoleViewController.h */,
+				41928B8F168A0CA900311837 /* CLConsoleViewController.m */,
+				411215881681FF8800794F99 /* CLMasterViewController.h */,
+				411215891681FF8800794F99 /* CLMasterViewController.m */,
+				4112158B1681FF8800794F99 /* CLDetailViewController.h */,
+				4112158C1681FF8800794F99 /* CLDetailViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
