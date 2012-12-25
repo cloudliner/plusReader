@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController<UIWebViewDelegate>
-
+@interface LoginViewController : UIViewController<UIWebViewDelegate> {
+  @private
+    NSMutableData *responseData;
+}
 @property (weak, nonatomic) IBOutlet UITextField *userId;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 
 @end
