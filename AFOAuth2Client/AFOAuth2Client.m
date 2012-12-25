@@ -44,8 +44,6 @@ NSString * const kAFOauthRefreshGrantType = @"refresh_token";
 }
 
 - (void)dealloc {
-    [_serviceProviderIdentifier release];
-    [super dealloc];
 }
 
 - (void)authenticateUsingOAuthWithPath:(NSString *)path
@@ -135,7 +133,7 @@ NSString * const kAFOauthRefreshGrantType = @"refresh_token";
 @dynamic expired;
 
 + (id)credentialWithOAuthToken:(NSString *)token tokenSecret:(NSString *)secret {
-    return [[[self alloc] initWithOAuthToken:token tokenSecret:secret] autorelease];
+  return [[self alloc] initWithOAuthToken:token tokenSecret:secret];
 }
 
 - (id)initWithOAuthToken:(NSString *)token tokenSecret:(NSString *)secret {
@@ -151,11 +149,6 @@ NSString * const kAFOauthRefreshGrantType = @"refresh_token";
 }
 
 - (void)dealloc {
-    [_accessToken release];
-    [_secret release];
-    [_refreshToken release];
-    [_expiration release];
-    [super dealloc];
 }
 
 - (NSString *)description {
@@ -210,7 +203,7 @@ NSString * const kAFOauthRefreshGrantType = @"refresh_token";
 @synthesize credential = _credential;
 
 + (id)accountWithUsername:(NSString *)username serviceProviderIdentifier:(NSString *)identifier credential:(AFOauthAccountCredential *)credential {
-    return [[[self alloc] initWithUsername:username serviceProviderIdentifier:identifier credential:credential] autorelease];
+    return [[self alloc] initWithUsername:username serviceProviderIdentifier:identifier credential:credential];
 }
 
 - (id)initWithUsername:(NSString *)username serviceProviderIdentifier:(NSString *)identifier credential:(AFOauthAccountCredential *)credential {
@@ -227,10 +220,6 @@ NSString * const kAFOauthRefreshGrantType = @"refresh_token";
 }
 
 - (void)dealloc {
-    [_username release];
-    [_serviceProviderIdentifier release];
-    [_credential release];
-    [super dealloc];
 }
 
 - (NSString *)description {
