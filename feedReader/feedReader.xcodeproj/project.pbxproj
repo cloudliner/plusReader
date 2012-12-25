@@ -173,7 +173,6 @@
 		41F97980167C351100A223AD = {
 			isa = PBXGroup;
 			children = (
-				41098B371689F02300DD69BE /* MobileCoreServices.framework */,
 				41098B1A1689EFF400DD69BE /* AFNetworking */,
 				41F97997167C351100A223AD /* feedReader */,
 				41F979C5167C351200A223AD /* feedReaderTests */,
@@ -201,6 +200,7 @@
 				41F97995167C351100A223AD /* CoreData.framework */,
 				417DDF16167E0B9C0049C68A /* SystemConfiguration.framework */,
 				417DDF14167E0B620049C68A /* Security.framework */,
+				41098B371689F02300DD69BE /* MobileCoreServices.framework */,
 				41F979BE167C351200A223AD /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
