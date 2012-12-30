@@ -41,6 +41,11 @@
   [path appendFormat:@"&client_id=%@", GOOGLE_OAUTH2_CLIENT_ID];
   
   [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]]];
+  
+  [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Login"
+                                                   withAction:@"load"
+                                                    withLabel:nil
+                                                    withValue:nil];
 }
 
 - (BOOL)webView:(UIWebView*) webView shouldStartLoadWithRequest:(NSURLRequest *) request navigationType:(UIWebViewNavigationType) navigationType {

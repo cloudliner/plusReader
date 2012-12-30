@@ -16,6 +16,8 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property (nonatomic, retain) id<GAITracker> tracker;
+
 // TODO: データの持ち方
 @property (nonatomic, retain) NSString *access_token;
 @property (nonatomic, retain) NSString *expires_in;

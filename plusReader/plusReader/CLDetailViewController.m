@@ -40,11 +40,16 @@
   }
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (void)viewDidLoad {
+  [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
   [self configureView];
+  
+  // GAI
+  [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Detail"
+                                                   withAction:@"load"
+                                                    withLabel:nil
+                                                    withValue:nil];
 }
 
 - (void)didReceiveMemoryWarning

@@ -25,15 +25,20 @@
     [super awakeFromNib];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (void)viewDidLoad {
+  [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
   self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
   self.navigationItem.rightBarButtonItem = addButton;
   self.detailViewController = (CLDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+  
+  // GAI
+  [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Master"
+                                                   withAction:@"load"
+                                                    withLabel:nil
+                                                    withValue:nil];
 }
 
 - (void)didReceiveMemoryWarning

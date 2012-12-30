@@ -40,6 +40,8 @@
 		416087E2168FC70300BCDAEE /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 416087E1168FC70300BCDAEE /* AFOAuth2Client.m */; };
 		416087E9168FC71200BCDAEE /* AFHTTPRequestOperationLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 416087E5168FC71200BCDAEE /* AFHTTPRequestOperationLogger.m */; };
 		416087EF168FC88400BCDAEE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 416087ED168FC86900BCDAEE /* Security.framework */; };
+		4176699D168FDAFD00C33609 /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4176699B168FDAFD00C33609 /* libGoogleAnalytics_debug.a */; };
+		4176699E168FDAFD00C33609 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4176699C168FDAFD00C33609 /* libGoogleAnalytics.a */; };
 		41928B8A168A04A700311837 /* CLConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41928B89168A04A700311837 /* CLConfigViewController.m */; };
 		41928B8D168A097400311837 /* CLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41928B8C168A097400311837 /* CLLoginViewController.m */; };
 		41928B90168A0CA900311837 /* CLConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41928B8F168A0CA900311837 /* CLConsoleViewController.m */; };
@@ -110,6 +112,13 @@
 		416087E4168FC71200BCDAEE /* AFHTTPRequestOperationLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationLogger.h; sourceTree = "<group>"; };
 		416087E5168FC71200BCDAEE /* AFHTTPRequestOperationLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperationLogger.m; sourceTree = "<group>"; };
 		416087ED168FC86900BCDAEE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		41766996168FDAFD00C33609 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = ../ThirdParty/GoogleAnalyticsSDK/GAI.h; sourceTree = "<group>"; };
+		41766997168FDAFD00C33609 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = ../ThirdParty/GoogleAnalyticsSDK/GAITrackedViewController.h; sourceTree = "<group>"; };
+		41766998168FDAFD00C33609 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = ../ThirdParty/GoogleAnalyticsSDK/GAITracker.h; sourceTree = "<group>"; };
+		41766999168FDAFD00C33609 /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransaction.h; path = ../ThirdParty/GoogleAnalyticsSDK/GAITransaction.h; sourceTree = "<group>"; };
+		4176699A168FDAFD00C33609 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransactionItem.h; path = ../ThirdParty/GoogleAnalyticsSDK/GAITransactionItem.h; sourceTree = "<group>"; };
+		4176699B168FDAFD00C33609 /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalytics_debug.a; path = ../ThirdParty/GoogleAnalyticsSDK/libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
+		4176699C168FDAFD00C33609 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = ../ThirdParty/GoogleAnalyticsSDK/libGoogleAnalytics.a; sourceTree = "<group>"; };
 		41928B88168A04A700311837 /* CLConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLConfigViewController.h; sourceTree = "<group>"; };
 		41928B89168A04A700311837 /* CLConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLConfigViewController.m; sourceTree = "<group>"; };
 		41928B8B168A097400311837 /* CLLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLoginViewController.h; sourceTree = "<group>"; };
@@ -135,6 +144,8 @@
 				41A5FE6C168A26C1002AD223 /* SystemConfiguration.framework in Frameworks */,
 				41A5FE6F168A2702002AD223 /* MobileCoreServices.framework in Frameworks */,
 				416087EF168FC88400BCDAEE /* Security.framework in Frameworks */,
+				4176699D168FDAFD00C33609 /* libGoogleAnalytics_debug.a in Frameworks */,
+				4176699E168FDAFD00C33609 /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				41A5FE39168A261B002AD223 /* AFNetworking */,
+				41766995168FDAE200C33609 /* GoogleAnalyticsSDK */,
 				411215651681FF8800794F99 /* UIKit.framework */,
 				411215671681FF8800794F99 /* Foundation.framework */,
 				411215691681FF8800794F99 /* CoreGraphics.framework */,
@@ -190,14 +202,10 @@
 		4112156D1681FF8800794F99 /* plusReader */ = {
 			isa = PBXGroup;
 			children = (
-				41A5FE7D168A3688002AD223 /* CLConsole.h */,
-				41A5FE80168A3841002AD223 /* CLConsole.m */,
-				411215761681FF8800794F99 /* CLAppDelegate.h */,
-				411215771681FF8800794F99 /* CLAppDelegate.m */,
-				41A5FE74168A27C2002AD223 /* CLGoogleOAuth.h */,
 				4112157F1681FF8800794F99 /* MainStoryboard_iPhone.storyboard */,
 				411215821681FF8800794F99 /* MainStoryboard_iPad.storyboard */,
 				411215851681FF8800794F99 /* plusReader.xcdatamodeld */,
+				4176699F168FDB4500C33609 /* Common */,
 				41EA87D4168A2250002BE6E0 /* Controllers */,
 				4112156E1681FF8800794F99 /* Supporting Files */,
 			);
@@ -284,6 +292,32 @@
 			path = ../ThirdParty/AFHTTPRequestOperationLogger;
 			sourceTree = "<group>";
 		};
+		41766995168FDAE200C33609 /* GoogleAnalyticsSDK */ = {
+			isa = PBXGroup;
+			children = (
+				41766996168FDAFD00C33609 /* GAI.h */,
+				41766997168FDAFD00C33609 /* GAITrackedViewController.h */,
+				41766998168FDAFD00C33609 /* GAITracker.h */,
+				41766999168FDAFD00C33609 /* GAITransaction.h */,
+				4176699A168FDAFD00C33609 /* GAITransactionItem.h */,
+				4176699B168FDAFD00C33609 /* libGoogleAnalytics_debug.a */,
+				4176699C168FDAFD00C33609 /* libGoogleAnalytics.a */,
+			);
+			name = GoogleAnalyticsSDK;
+			sourceTree = "<group>";
+		};
+		4176699F168FDB4500C33609 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				41A5FE7D168A3688002AD223 /* CLConsole.h */,
+				41A5FE80168A3841002AD223 /* CLConsole.m */,
+				411215761681FF8800794F99 /* CLAppDelegate.h */,
+				411215771681FF8800794F99 /* CLAppDelegate.m */,
+				41A5FE74168A27C2002AD223 /* CLGoogleOAuth.h */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		41A5FE39168A261B002AD223 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,7 +355,7 @@
 				4112155D1681FF8800794F99 /* Sources */,
 				4112155E1681FF8800794F99 /* Frameworks */,
 				4112155F1681FF8800794F99 /* Resources */,
-				416087A0168F623B00BCDAEE /* ShellScript */,
+				4139B8CD168FF45B00D3C8AD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -417,7 +451,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-		416087A0168F623B00BCDAEE /* ShellScript */ = {
+		4139B8CD168FF45B00D3C8AD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -573,6 +607,10 @@
 				GCC_PREFIX_HEADER = "plusReader/plusReader-Prefix.pch";
 				INFOPLIST_FILE = "plusReader/plusReader-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ThirdParty/GoogleAnalyticsSDK\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -586,6 +624,10 @@
 				GCC_PREFIX_HEADER = "plusReader/plusReader-Prefix.pch";
 				INFOPLIST_FILE = "plusReader/plusReader-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ThirdParty/GoogleAnalyticsSDK\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

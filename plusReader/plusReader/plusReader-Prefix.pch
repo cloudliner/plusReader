@@ -16,4 +16,11 @@
   #import <MobileCoreServices/MobileCoreServices.h>
   #import "AFNetworking.h"
   #import "AFOAuth2Client.h"
+  #import "GAI.h"
+#endif
+
+#ifdef DEBUG
+  #define NSLog(...) NSLog(__VA_ARGS__);
+#else
+  #define NSLog(...)
 #endif

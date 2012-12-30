@@ -17,23 +17,44 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  // TODO: とりあえずiPhoneに限定
+  /*
   if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-      UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-      UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-      splitViewController.delegate = (id)navigationController.topViewController;
+    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+    splitViewController.delegate = (id)navigationController.topViewController;
       
-      UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
-      CLMasterViewController *controller = (CLMasterViewController *)masterNavigationController.topViewController;
-      controller.managedObjectContext = self.managedObjectContext;
+    UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
+    CLMasterViewController *controller = (CLMasterViewController *)masterNavigationController.topViewController;
+    controller.managedObjectContext = self.managedObjectContext;
   } else {
-      UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-      CLMasterViewController *controller = (CLMasterViewController *)navigationController.topViewController;
-      controller.managedObjectContext = self.managedObjectContext;
+  */
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    CLMasterViewController *controller = (CLMasterViewController *)navigationController.topViewController;
+    controller.managedObjectContext = self.managedObjectContext;
+  /*
   }
-    return YES;
+  */
+  
+  // GAI
+#ifdef DEBUG
+  [GAI sharedInstance].debug = YES;
+  [GAI sharedInstance].trackUncaughtExceptions = YES;
+  [GAI sharedInstance].dispatchInterval = 30;
+#else
+  [GAI sharedInstance].debug = NO;
+  [GAI sharedInstance].trackUncaughtExceptions = NO;
+  [GAI sharedInstance].dispatchInterval = 120;
+#endif
+  [GAI sharedInstance].defaultTracker.useHttps = YES;
+  self.tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-11599435-3"];
+  
+  NSString *versionNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+  NSString *buildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+  NSLog(@"Version: %@ Build: %@", versionNum, buildNum);
+  
+  return YES;
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

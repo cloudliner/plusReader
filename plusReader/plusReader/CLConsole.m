@@ -21,7 +21,7 @@ void CLConsole(NSString *format, ...) {
   va_end(ap);
   
   NSLog(@"%@", message);
-
+  
   NSDate *now = [NSDate date];
   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
   [dateFormatter setDateFormat:@"[HH:mm:ss]"];
