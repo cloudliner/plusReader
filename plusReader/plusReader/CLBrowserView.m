@@ -8,7 +8,8 @@
 
 #import "CLBrowserView.h"
 
-#define kHeightOfAddressBar 52.0f
+// TODO: 定数の持ち方
+#define kNavigationBar 44.0f
 
 @interface CLBrowserView()
 - (void)clearNavigationBar;
@@ -22,10 +23,10 @@
   
   if (self) {
     [self clearNavigationBar];
-    CGRect frameOfAddressBar = CGRectMake(0, -kHeightOfAddressBar, self.frame.size.width, kHeightOfAddressBar);
-    _navigationBar = [[UINavigationBar alloc] initWithFrame:frameOfAddressBar];
+    CGRect frameOfNavigation = CGRectMake(0, -kNavigationBar, self.frame.size.width, kNavigationBar);
+    _navigationBar = [[UINavigationBar alloc] initWithFrame:frameOfNavigation];
     _navigationBar.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
-    // TODO: ナビゲーションバーのスタイル変更（黒）
+    _navigationBar.barStyle = UIBarStyleBlack;
     
     // ボタンの追加
     UINavigationItem *navigationItem = [UINavigationItem alloc];
@@ -47,8 +48,8 @@
       if ([subview isKindOfClass:[UIScrollView class]]) {
         UIScrollView *scrollView = (UIScrollView *)subview;
         scrollView.delegate = self;
-        scrollView.contentInset = UIEdgeInsetsMake(frameOfAddressBar.size.height, 0, 0, 0);
-        [scrollView setContentOffset:CGPointMake(0, frameOfAddressBar.origin.y) animated:NO];
+        scrollView.contentInset = UIEdgeInsetsMake(frameOfNavigation.size.height, 0, 0, 0);
+        [scrollView setContentOffset:CGPointMake(0, frameOfNavigation.origin.y) animated:NO];
         [scrollView addSubview:_navigationBar];
       }
     }
