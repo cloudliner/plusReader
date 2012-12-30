@@ -7,7 +7,6 @@
 //
 
 #import "CLConsoleViewController.h"
-#import "CLConsole.h"
 
 @interface CLConsoleViewController ()
 

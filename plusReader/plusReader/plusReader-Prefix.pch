@@ -17,6 +17,7 @@
   #import "AFNetworking.h"
   #import "AFOAuth2Client.h"
   #import "GAI.h"
+  #import "CLConsole.h"
 #endif
 
 #ifdef DEBUG

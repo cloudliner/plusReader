@@ -8,7 +8,6 @@
 
 #import "CLLoginViewController.h"
 #import "CLAppDelegate.h"
-#import "CLConsole.h"
 #import "CLGoogleOAuth.h"
 
 @interface CLLoginViewController ()
@@ -17,7 +16,8 @@
 
 @implementation CLLoginViewController
 
-- (IBAction)closeModalDialog:(id)sender {
+- (void)closeBrowser {
+  CLConsole(@"CLLoginViewController:closeBrowser");
   [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -32,7 +32,12 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  [_webView setDelegate:self];
+  self.browserView = [[CLBrowserView alloc] initWithFrame:self.view.bounds];
+  self.browserView.delegate = self;
+  [self.view addSubview:self.browserView];
+    
+  UIWebView *webView = self.browserView.webView;
+  [webView setDelegate:self];
   NSMutableString *path = [NSMutableString stringWithCapacity: 0];
   [path appendString:@"https://accounts.google.com/o/oauth2/auth"];
   [path appendString:@"?response_type=code"];
@@ -40,7 +45,7 @@
   [path appendFormat:@"&redirect_uri=%@", GOOGLE_OAUTH2_REDIRECT_URIS];
   [path appendFormat:@"&client_id=%@", GOOGLE_OAUTH2_CLIENT_ID];
   
-  [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]]];
+  [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]]];
   
   [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Login"
                                                    withAction:@"load"

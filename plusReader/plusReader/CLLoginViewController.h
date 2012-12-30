@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CLBrowserView.h"
 
-@interface CLLoginViewController : UIViewController<UIWebViewDelegate> {
+@interface CLLoginViewController : UIViewController<UIWebViewDelegate, CLBrowserViewDelegate> {
 @private
   NSMutableData *_responseData; // TODO: 誰が後始末をするのか？
 }
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic) CLBrowserView *browserView;
 
 @end
