@@ -9,7 +9,10 @@
 #ifndef plusReader_CLConsole_h
 #define plusReader_CLConsole_h
 
+#define __file__ (strrchr(__FILE__, '/') + 1)
+#define CLLog(format, ...) CLConsole(__PRETTY_FUNCTION__, __LINE__, __file__, format, ##__VA_ARGS__)
+
 UITextView *plusReader_CLConsole_textView;
-void CLConsole(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
+void CLConsole(const char *function, int line, const char *fileName, NSString *format, ...) NS_FORMAT_FUNCTION(4,5);
 
 #endif

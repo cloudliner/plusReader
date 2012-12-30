@@ -59,7 +59,7 @@
 }
 
 -(void) closeBrowser {
-  CLConsole(@"CLBrowserView:closeBrowser");
+  CLLog(@"");
   [self.delegate closeBrowser];
 }
 

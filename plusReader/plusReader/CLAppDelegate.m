@@ -52,7 +52,7 @@
   
   NSString *versionNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
   NSString *buildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-  NSLog(@"Version: %@ Build: %@", versionNum, buildNum);
+  CLLog(@"Version:%@, Build:%@", versionNum, buildNum);
   
   return YES;
 }

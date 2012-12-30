@@ -17,7 +17,7 @@
 @implementation CLLoginViewController
 
 - (void)closeBrowser {
-  CLConsole(@"CLLoginViewController:closeBrowser");
+  CLLog(@"");
   [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -55,9 +55,9 @@
 
 - (BOOL)webView:(UIWebView*) webView shouldStartLoadWithRequest:(NSURLRequest *) request navigationType:(UIWebViewNavigationType) navigationType {
   NSString *url = [request.URL absoluteString];
-  CLConsole(@"URL:%@", url);
+  CLLog(@"URL:%@", url);
   if ([url hasPrefix:@"https://accounts.google.com/o/oauth2/approval"]) {
-    CLConsole(@"requesting...");
+    CLLog(@"requesting...");
     [NSURLConnection connectionWithRequest:request delegate:self];
     return NO;
   }
@@ -65,22 +65,22 @@
 }
 
 - (void) connection:(NSURLConnection*) connection didReceiveResponse:(NSURLResponse*) response {
-  CLConsole(@"didReceiveResponse");
+  CLLog(@"");
   _responseData = [[NSMutableData alloc] init];
 }
 
 - (void) connection:(NSURLConnection*) connection didReceiveData:(NSData*) data {
-  CLConsole(@"didReceiveData");
+  CLLog(@"");
   [_responseData appendData:data];
 }
 
 - (void) connectionDidFinishLoading:(NSURLConnection*) connection {
   NSString* code = [self extractCode:_responseData];
-  CLConsole(@"connectionDidFinishLoading:code=%@", code);
+  CLLog(@"code=%@", code);
   if (code != nil) {
     [self getOAuthAccessToken:code];
   } else {
-    CLConsole(@"OAuth failed.");
+    CLLog(@"OAuth failed.");
   }
 }
 
@@ -112,8 +112,8 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
      NSDictionary *json = (NSDictionary *)JSON;
-     CLConsole(@"responseObject:%@", [json description]);
-     CLConsole(@"OAuth success.");
+     CLLog(@"responseObject:%@", [json description]);
+     CLLog(@"OAuth success.");
      
      CLAppDelegate *del = (CLAppDelegate *) [[UIApplication sharedApplication] delegate];
      del.access_token = [json valueForKey:@"access_token"];
@@ -125,7 +125,7 @@
    }
    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
      //
-     CLConsole(@"OAuth failed.");
+     CLLog(@"OAuth failed.");
    }];
   NSOperationQueue *queue = [[NSOperationQueue alloc] init];
   [queue addOperation:operation];

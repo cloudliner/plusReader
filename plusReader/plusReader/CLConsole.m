@@ -9,28 +9,32 @@
 #import "CLConsole.h"
 
 extern UITextView *plusReader_CLConsole_textView;
-extern void CLConsole(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
+extern void CLConsole(const char *function, int line, const char *fileName, NSString *format, ...) NS_FORMAT_FUNCTION(4,5);
 
-void CLConsole(NSString *format, ...) {
-  if (plusReader_CLConsole_textView == nil) {
-    return;
-  }
+void CLConsole(const char *function, int line, const char *fileName, NSString *format, ...) {
   va_list ap;
-  va_start(ap,format);
+  va_start(ap, format);
   NSString *message = [[NSString alloc] initWithFormat:format arguments:ap];
   va_end(ap);
   
-  NSLog(@"%@", message);
+  // 関数名、コード行の追加
+  NSMutableString *text = [NSMutableString stringWithCapacity: 0];
+  [text appendFormat:@"%s (%s:%d) ", function, fileName, line];
+  [text appendString:message];
   
+  // ログ出力
+  NSLog(@"%@", text);
+  
+  if (plusReader_CLConsole_textView == nil) {
+    return;
+  }
+  
+  // コンソール出力
   NSDate *now = [NSDate date];
   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
   [dateFormatter setDateFormat:@"[HH:mm:ss]"];
-
-  NSMutableString *text = [NSMutableString stringWithCapacity: 0];
-  [text appendString:plusReader_CLConsole_textView.text];
-  [text appendString:@"\r\n"];
-  [text appendString:[dateFormatter stringFromDate:now]];
-  [text appendString:@" "];
-  [text appendString:message];
+  [text insertString:[dateFormatter stringFromDate:now] atIndex:0];
+  [text insertString:@"\r\n" atIndex:0];
+  [text insertString:plusReader_CLConsole_textView.text atIndex:0];
   [plusReader_CLConsole_textView setText:text];
 }
