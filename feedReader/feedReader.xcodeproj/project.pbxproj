@@ -254,8 +254,8 @@
 				41F979A1167C351100A223AD /* AppDelegate.m */,
 				41F979A9167C351100A223AD /* MainStoryboard_iPhone.storyboard */,
 				41F979AC167C351100A223AD /* MainStoryboard_iPad.storyboard */,
-				41928B99168A18E900311837 /* Controllers */,
 				41F979AF167C351100A223AD /* feedReader.xcdatamodeld */,
+				41928B99168A18E900311837 /* Controllers */,
 				41F97998167C351100A223AD /* Supporting Files */,
 			);
 			path = feedReader;

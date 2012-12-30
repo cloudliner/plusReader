@@ -10,7 +10,7 @@
 
 @interface CLLoginViewController : UIViewController<UIWebViewDelegate> {
 @private
-  NSMutableData *_responseData; // TODO 誰が後始末をするのか？
+  NSMutableData *_responseData; // TODO: 誰が後始末をするのか？
 }
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;

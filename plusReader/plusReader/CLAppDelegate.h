@@ -16,7 +16,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-// TODO データの持ち方
+// TODO: データの持ち方
 @property (nonatomic, retain) NSString *access_token;
 @property (nonatomic, retain) NSString *expires_in;
 @property (nonatomic, retain) NSString *refresh_token;
