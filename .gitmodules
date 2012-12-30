@@ -1,0 +1,9 @@
+[submodule "ThirdParty/AFNetworking"]
+	path = ThirdParty/AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking.git
+[submodule "ThirdParty/AFHTTPRequestOperationLogger"]
+	path = ThirdParty/AFHTTPRequestOperationLogger
+	url = https://github.com/AFNetworking/AFHTTPRequestOperationLogger.git
+[submodule "ThirdParty/AFOAuth2Client"]
+	path = ThirdParty/AFOAuth2Client
+	url = https://github.com/cloudliner/AFOAuth2Client.git
