@@ -47,10 +47,13 @@
   
   [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]]];
   
+  // GAI
+  /*
   [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Login"
                                                    withAction:@"load"
                                                     withLabel:nil
                                                     withValue:nil];
+  */
 }
 
 - (BOOL)webView:(UIWebView*) webView shouldStartLoadWithRequest:(NSURLRequest *) request navigationType:(UIWebViewNavigationType) navigationType {
@@ -96,39 +99,34 @@
 }
 
 -(void)getOAuthAccessToken:(NSString*) code {
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params setObject:code forKey:@"code"];
-  [params setObject:@"authorization_code" forKey:@"grant_type"];
-  [params setObject:GOOGLE_OAUTH2_CLIENT_ID forKey:@"client_id"];
-  [params setObject:GOOGLE_OAUTH2_CLIENT_SECRET forKey:@"client_secret"];
-  [params setObject:GOOGLE_OAUTH2_REDIRECT_URIS forKey:@"redirect_uri"];
-
-  AFHTTPClient *httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"https://accounts.google.com/"]];
-
-  NSMutableURLRequest *request =[httpClient requestWithMethod:@"POST"
-                                                         path:@"https://accounts.google.com/o/oauth2/token"
-                                                   parameters:params];
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-     NSDictionary *json = (NSDictionary *)JSON;
-     CLLog(@"responseObject:%@", [json description]);
-     CLLog(@"OAuth success.");
-     
-     CLAppDelegate *del = (CLAppDelegate *) [[UIApplication sharedApplication] delegate];
-     del.access_token = [json valueForKey:@"access_token"];
-     del.expires_in = [json valueForKey:@"expires_in"];
-     del.refresh_token = [json valueForKey:@"refresh_token"];
-     del.token_type = [json valueForKey:@"token_type"];
-     
-     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-   }
-   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-     //
-     CLLog(@"OAuth failed.");
-   }];
-  NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-  [queue addOperation:operation];
+  CLAppDelegate *delegate = (CLAppDelegate *) [[UIApplication sharedApplication] delegate];
+  
+  [delegate.googleOAuthClient authenticateUsingOAuthWithPath:@"https://accounts.google.com/o/oauth2/token"
+                                                        code:code
+                                                 redirectURI:GOOGLE_OAUTH2_REDIRECT_URIS
+                                                     success:^(AFOAuthCredential *credential) {
+                                                       CLLog(@"success:%@", credential.description);
+                                                       
+                                                       // 設定ファイルに保存
+                                                       NSMutableDictionary *google_oauth = [NSMutableDictionary dictionary];
+                                                       [google_oauth setObject:credential.accessToken forKey:@"access_token"];
+                                                       [google_oauth setObject:credential.tokenType forKey:@"token_type"];
+                                                       [google_oauth setObject:credential.refreshToken forKey:@"refresh_token"];
+                                                       
+                                                       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                                       [defaults setObject:google_oauth forKey:@"google_oauth"];
+                                                       
+                                                       // 変数として保持
+                                                       [AFOAuthCredential storeCredential:credential
+                                                                           withIdentifier:@"google_oauth"];
+                                                       
+                                                       // ダイアログを閉じる
+                                                       [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+                                                       
+                                                     } failure:^(NSError *error) {
+                                                       CLLog(@"failure:%@", error.description);
+                                                       
+                                                     }];
 }
 
 - (void)didReceiveMemoryWarning {

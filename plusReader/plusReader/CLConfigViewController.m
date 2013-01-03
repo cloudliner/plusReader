@@ -34,10 +34,22 @@
   // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
   // GAI
+  /*
   [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Config"
                                                    withAction:@"load"
                                                     withLabel:nil
                                                     withValue:nil];
+  */
+  
+  // TODO: 動作しない
+  // OpenLogin
+  /*
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSObject *obj = [defaults objectForKey:@"google_oauth"];
+  if (obj == nil) {
+    [self performSegueWithIdentifier:@"openLoginView" sender:self];
+  }
+  */
 }
 
 - (void)didReceiveMemoryWarning {

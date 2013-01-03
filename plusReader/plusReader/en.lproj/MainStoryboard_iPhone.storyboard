@@ -68,7 +68,12 @@
                     <toolbarItems>
                         <barButtonItem title="Config" id="2cU-jN-2fn">
                             <connections>
-                                <segue destination="HGc-2u-97w" kind="modal" id="AVa-Bd-lyo"/>
+                                <segue destination="HGc-2u-97w" kind="modal" identifier="openConfigView" id="AVa-Bd-lyo"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Load" id="65V-ol-f1x">
+                            <connections>
+                                <action selector="loadFeeds:" destination="12" id="r2c-qa-kyo"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -126,7 +131,7 @@
                                             <constraint firstItem="SFj-Er-cgq" firstAttribute="centerX" secondItem="ciS-A3-8kp" secondAttribute="centerX" type="default" id="f7z-kE-fNa"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="x1E-3m-TGC" kind="modal" id="HyE-NY-0SB"/>
+                                            <segue destination="x1E-3m-TGC" kind="modal" identifier="openLoginView" id="HyE-NY-0SB"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" id="9I0-R6-fb6">
@@ -258,33 +263,6 @@
             <point key="canvasLocation" x="902" y="64"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="CLConfigViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLConfigViewController.h"/>
-        </class>
-        <class className="CLConsoleViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLConsoleViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="closeModalDialog:"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="CLDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLDetailViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CLLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLLoginViewController.h"/>
-        </class>
-        <class className="CLMasterViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLMasterViewController.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

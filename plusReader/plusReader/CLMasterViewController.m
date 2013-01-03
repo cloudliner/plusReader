@@ -9,6 +9,7 @@
 #import "CLMasterViewController.h"
 
 #import "CLDetailViewController.h"
+#import "CLGoogleOAuth.h"
 
 @interface CLMasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -16,13 +17,12 @@
 
 @implementation CLMasterViewController
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
   if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-      self.clearsSelectionOnViewWillAppear = NO;
-      self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+    self.clearsSelectionOnViewWillAppear = NO;
+    self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
   }
-    [super awakeFromNib];
+  [super awakeFromNib];
 }
 
 - (void)viewDidLoad {
@@ -35,10 +35,44 @@
   self.detailViewController = (CLDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
   
   // GAI
+  /*
   [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Master"
                                                    withAction:@"load"
                                                     withLabel:nil
                                                     withValue:nil];
+  */
+  
+  // OpenConfig
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSObject *google_oauth = [defaults objectForKey:@"google_oauth"];
+  if (google_oauth == nil) {
+    [self performSegueWithIdentifier:@"openConfigView" sender:self];
+  }
+}
+
+- (IBAction)loadFeeds:(id)sender {
+  // フィードを読み込む
+  AFHTTPClient *httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://www.google.com/"]];
+  
+  NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
+                                                         path:@"https://www.google.com/reader/api/0/subscription/list?output=json"
+                                                   parameters:nil];
+  
+  AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:@"google_oauth"];
+  [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
+  
+  AFJSONRequestOperation *operation =
+  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                    NSDictionary *json = (NSDictionary *)JSON;
+                                                    CLLog(@"success:%@, %@", request.description, json.description);
+                                                  }
+                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                    CLLog(@"failure:%@, %@", request.description, error.description);
+                                                  }];
+  
+  NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+  [queue addOperation:operation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +100,7 @@
         abort();
     }
 }
+
 
 #pragma mark - Table View
 

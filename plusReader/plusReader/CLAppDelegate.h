@@ -18,11 +18,7 @@
 
 @property (nonatomic, retain) id<GAITracker> tracker;
 
-// TODO: データの持ち方
-@property (nonatomic, retain) NSString *access_token;
-@property (nonatomic, retain) NSString *expires_in;
-@property (nonatomic, retain) NSString *refresh_token;
-@property (nonatomic, retain) NSString *token_type;
+@property (nonatomic, retain) AFOAuth2Client *googleOAuthClient;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
