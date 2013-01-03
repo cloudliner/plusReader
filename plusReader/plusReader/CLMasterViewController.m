@@ -43,9 +43,8 @@
   */
   
   // OpenConfig
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSObject *google_oauth = [defaults objectForKey:@"google_oauth"];
-  if (google_oauth == nil) {
+  AFOAuthCredential *storedCredential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
+  if (storedCredential == nil) {
     [self performSegueWithIdentifier:@"openConfigView" sender:self];
   }
 }
@@ -58,7 +57,7 @@
                                                          path:@"https://www.google.com/reader/api/0/subscription/list?output=json"
                                                    parameters:nil];
   
-  AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:@"google_oauth"];
+  AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
   [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
   
   AFJSONRequestOperation *operation =

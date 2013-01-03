@@ -59,36 +59,20 @@
                                             secret:GOOGLE_OAUTH2_CLIENT_SECRET];
   
   // 保存済みの認証情報を取得
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSObject *google_oauth = [defaults objectForKey:@"google_oauth"];
-  if (google_oauth != nil) {
-    NSString *access_token = [google_oauth valueForKey:@"access_token"];
-    NSString *refresh_token = [google_oauth valueForKey:@"refresh_token"];
-    NSString *token_type = [google_oauth valueForKey:@"token_type"];
-    
-    AFOAuthCredential *storedCredential = [AFOAuthCredential credentialWithOAuthToken:access_token
-                                                                      tokenType:token_type];
+  AFOAuthCredential *storedCredential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
+  if (storedCredential != nil && storedCredential.isExpired) {
     [_googleOAuthClient setAuthorizationHeaderWithCredential:storedCredential];
     
     // TODO: 起動時にネットワークがつながらない場合を考慮する必要あり
     // 認証をリフレッシュ
     [_googleOAuthClient authenticateUsingOAuthWithPath:@"https://accounts.google.com/o/oauth2/token"
-                              refreshToken:refresh_token
+                              refreshToken:storedCredential.refreshToken
                                    success:^(AFOAuthCredential *credential) {
                                      CLLog(@"success:%@", credential.description);
                                      
-                                     // 設定ファイルに保存
-                                     NSMutableDictionary *google_oauth = [NSMutableDictionary dictionary];
-                                     [google_oauth setObject:credential.accessToken forKey:@"access_token"];
-                                     [google_oauth setObject:credential.tokenType forKey:@"token_type"];
-                                     [google_oauth setObject:credential.refreshToken forKey:@"refresh_token"];
-                                     
-                                     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                                     [defaults setObject:google_oauth forKey:@"google_oauth"];
-                                     
-                                     // 変数として保持
+                                     // 認証データを保存
                                      [AFOAuthCredential storeCredential:credential
-                                                         withIdentifier:@"google_oauth"];
+                                                         withIdentifier:GOOGLE_OAUTH2_STORE_NAME];
                                      
                                    } failure:^(NSError *error) {
                                      CLLog(@"failure:%@", error.description);

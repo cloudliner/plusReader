@@ -106,10 +106,10 @@
                             </items>
                         </navigationBar>
                         <sections>
-                            <tableViewSection id="8Hb-SM-K2y">
+                            <tableViewSection headerTitle="Login" id="8Hb-SM-K2y">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" id="ciS-A3-8kp">
-                                        <rect key="frame" x="0.0" y="54" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="80" width="320" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="280" height="43"/>
@@ -134,16 +134,20 @@
                                             <segue destination="x1E-3m-TGC" kind="modal" identifier="openLoginView" id="HyE-NY-0SB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" id="9I0-R6-fb6">
-                                        <rect key="frame" x="0.0" y="99" width="320" height="45"/>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Debug" id="ztl-tU-hJc">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" id="u3t-EK-uqJ">
+                                        <rect key="frame" x="0.0" y="172" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Log Console" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ULS-Vx-JpN">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Log Console" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfh-ih-fCF">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="270" id="dS7-Ve-9lY"/>
+                                                        <constraint firstAttribute="width" constant="270" id="J1b-ef-Es1"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -153,12 +157,42 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="ULS-Vx-JpN" firstAttribute="centerX" secondItem="9I0-R6-fb6" secondAttribute="centerX" type="default" id="cjq-un-MNa"/>
-                                            <constraint firstItem="ULS-Vx-JpN" firstAttribute="top" secondItem="9I0-R6-fb6" secondAttribute="top" constant="11" id="zVJ-ZI-ZfE"/>
+                                            <constraint firstItem="Vfh-ih-fCF" firstAttribute="centerX" secondItem="u3t-EK-uqJ" secondAttribute="centerX" type="default" id="Qos-lP-fxo"/>
+                                            <constraint firstItem="Vfh-ih-fCF" firstAttribute="top" secondItem="u3t-EK-uqJ" secondAttribute="top" constant="12" id="qzB-oO-rXC"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="LS0-r2-l1W" kind="modal" id="anN-xE-weJ"/>
+                                            <segue destination="LS0-r2-l1W" kind="modal" id="RmF-SE-eSm"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="UYh-LG-fwb">
+                                        <rect key="frame" x="0.0" y="217" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Delete Credential" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsb-1Q-Ign">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="270" id="LDs-Yu-Hvn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yOl-DH-bvS">
+                                                    <connections>
+                                                        <action selector="deleteCredential:" destination="HGc-2u-97w" eventType="valueChanged" id="wbh-bq-shN"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="yOl-DH-bvS" firstAttribute="centerY" secondItem="Tsb-1Q-Ign" secondAttribute="centerY" type="default" id="9nD-eh-QmH"/>
+                                            <constraint firstAttribute="trailing" secondItem="yOl-DH-bvS" secondAttribute="trailing" constant="18" id="gHf-Ss-2vd"/>
+                                            <constraint firstItem="yOl-DH-bvS" firstAttribute="top" secondItem="UYh-LG-fwb" secondAttribute="top" constant="8" id="oBS-cG-wUX"/>
+                                            <constraint firstItem="Tsb-1Q-Ign" firstAttribute="centerX" secondItem="UYh-LG-fwb" secondAttribute="centerX" type="default" id="v1m-Ht-5x6"/>
+                                        </constraints>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -168,6 +202,7 @@
                             <outlet property="delegate" destination="HGc-2u-97w" id="Jxi-hZ-vc4"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iS2-lH-Icg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

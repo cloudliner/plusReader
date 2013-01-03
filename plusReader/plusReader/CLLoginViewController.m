@@ -107,18 +107,9 @@
                                                      success:^(AFOAuthCredential *credential) {
                                                        CLLog(@"success:%@", credential.description);
                                                        
-                                                       // 設定ファイルに保存
-                                                       NSMutableDictionary *google_oauth = [NSMutableDictionary dictionary];
-                                                       [google_oauth setObject:credential.accessToken forKey:@"access_token"];
-                                                       [google_oauth setObject:credential.tokenType forKey:@"token_type"];
-                                                       [google_oauth setObject:credential.refreshToken forKey:@"refresh_token"];
-                                                       
-                                                       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                                                       [defaults setObject:google_oauth forKey:@"google_oauth"];
-                                                       
-                                                       // 変数として保持
+                                                       // 認証データを保存
                                                        [AFOAuthCredential storeCredential:credential
-                                                                           withIdentifier:@"google_oauth"];
+                                                                           withIdentifier:GOOGLE_OAUTH2_STORE_NAME];
                                                        
                                                        // ダイアログを閉じる
                                                        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];

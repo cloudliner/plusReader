@@ -7,6 +7,7 @@
 //
 
 #import "CLConfigViewController.h"
+#import "CLGoogleOAuth.h"
 
 @interface CLConfigViewController ()
 
@@ -17,6 +18,14 @@
 - (IBAction)closeModalDialog:(id)sender {
   [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)deleteCredential:(id)sender {
+  // TODO: とりあえずの実装
+  CLLog(@"switch:%@", [sender description]);
+  // 認証情報を削除
+  [AFOAuthCredential deleteCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
+}
+
 
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
@@ -44,9 +53,8 @@
   // TODO: 動作しない
   // OpenLogin
   /*
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  NSObject *obj = [defaults objectForKey:@"google_oauth"];
-  if (obj == nil) {
+  AFOAuthCredential *storedCredential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
+  if (storedCredential == nil) {
     [self performSegueWithIdentifier:@"openLoginView" sender:self];
   }
   */
