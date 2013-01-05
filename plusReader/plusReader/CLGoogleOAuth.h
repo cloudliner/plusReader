@@ -23,7 +23,7 @@
 #endif
 
 #define GOOGLE_OAUTH2_REDIRECT_URIS @"urn:ietf:wg:oauth:2.0:oob"
-#define GOOGLE_OAUTH2_SCOPE @"https%3A%2F%2Fwww.google.com%2Freader%2Fapi"
+#define GOOGLE_OAUTH2_SCOPE CLEncodeURL(@"https://www.google.com/reader/api")
 #define GOOGLE_OAUTH2_STORE_NAME @"google_oauth"
 
 #endif

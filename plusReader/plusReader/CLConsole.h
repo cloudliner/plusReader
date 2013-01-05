@@ -15,4 +15,7 @@
 UITextView *plusReader_CLConsole_textView;
 void CLConsole(const char *function, int line, const char *fileName, NSString *format, ...) NS_FORMAT_FUNCTION(4,5);
 
+NSString *CLEncodeURL(NSString *plainString);
+NSString *CLDecodeURL(NSString *encodedString);
+
 #endif

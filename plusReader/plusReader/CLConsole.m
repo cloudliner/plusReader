@@ -11,6 +11,9 @@
 extern UITextView *plusReader_CLConsole_textView;
 extern void CLConsole(const char *function, int line, const char *fileName, NSString *format, ...) NS_FORMAT_FUNCTION(4,5);
 
+extern NSString *CLEncodeURL(NSString *plainString);
+extern NSString *CLDecodeURL(NSString *encodedString);
+
 void CLConsole(const char *function, int line, const char *fileName, NSString *format, ...) {
   va_list ap;
   va_start(ap, format);
@@ -38,3 +41,24 @@ void CLConsole(const char *function, int line, const char *fileName, NSString *f
   [text insertString:plusReader_CLConsole_textView.text atIndex:0];
   [plusReader_CLConsole_textView setText:text];
 }
+
+NSString *CLEncodeURL(NSString *plainString) {
+  // TODO: 実装が正しいかどうか要確認
+  NSString *encodedString = (__bridge NSString *)
+  CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                          (CFStringRef)plainString,
+                                          NULL,
+                                          (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                          kCFStringEncodingUTF8);
+  return encodedString;
+}
+
+NSString *CLDecodeURL(NSString *encodedString) {
+  NSString *decodedString = (__bridge NSString *)
+  CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+                                                          (CFStringRef) encodedString,
+                                                          CFSTR(""),
+                                                          kCFStringEncodingUTF8);
+  return decodedString;
+}
+
