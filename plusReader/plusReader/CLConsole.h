@@ -6,6 +6,8 @@
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 #ifndef plusReader_CLConsole_h
 #define plusReader_CLConsole_h
 
@@ -22,3 +24,9 @@ unsigned int CLHexStringToUInt(NSString *hexString);
 NSString *CLUIntToHexString(unsigned int number);
 
 #endif
+
+// TODO: 実機で単体テストを実行するための暫定対策
+@interface CLUtils : NSObject
++(unsigned int)CLHexStringToUInt:(NSString *)hexString;
++(NSString *)CLUIntToHexString:(unsigned int)number;
+@end

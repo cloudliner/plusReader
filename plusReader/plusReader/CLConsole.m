@@ -77,3 +77,12 @@ NSString *CLUIntToHexString(unsigned int number) {
   return hexString;
 }
 
+// TODO: 実機で単体テストを実行するための暫定対策
+@implementation CLUtils
++(unsigned int)CLHexStringToUInt:(NSString *)hexString {
+  return CLHexStringToUInt(hexString);
+}
++(NSString *)CLUIntToHexString:(unsigned int)number {
+  return CLUIntToHexString(number);
+}
+@end
