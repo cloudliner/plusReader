@@ -10,23 +10,30 @@
 
 @implementation plusReaderTests
 
-- (void)setUp
-{
-    [super setUp];
-    
-    // Set-up code here.
+- (void)setUp {
+  [super setUp];
+  // Set-up code here.
 }
 
-- (void)tearDown
-{
-    // Tear-down code here.
-    
-    [super tearDown];
+- (void)tearDown {
+  // Tear-down code here.
+  [super tearDown];
 }
 
-- (void)testExample
-{
-    STFail(@"Unit tests are not implemented yet in plusReaderTests");
+-(void)testCLHexStringToUInt {
+	unsigned int expected = 0xFF00FF00;
+	unsigned int result = CLHexStringToUInt(@"FF00FF00");
+	STAssertEquals(expected, result, @"");
+}
+
+-(void)testCLUIntToHexString {
+  NSString *expected = @"FFAAFFAA";
+  NSString *result = CLUIntToHexString(0xFFAAFFAA);
+  STAssertEqualObjects(expected, result, @"");
+}
+
+- (void)testExample {
+  // STFail(@"Unit tests are not implemented yet in plusReaderTests");
 }
 
 @end

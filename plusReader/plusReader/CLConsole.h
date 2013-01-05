@@ -18,4 +18,7 @@ void CLConsole(const char *function, int line, const char *fileName, NSString *f
 NSString *CLEncodeURL(NSString *plainString);
 NSString *CLDecodeURL(NSString *encodedString);
 
+unsigned int CLHexStringToUInt(NSString *hexString);
+NSString *CLUIntToHexString(unsigned int number);
+
 #endif

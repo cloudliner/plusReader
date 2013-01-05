@@ -14,6 +14,9 @@ extern void CLConsole(const char *function, int line, const char *fileName, NSSt
 extern NSString *CLEncodeURL(NSString *plainString);
 extern NSString *CLDecodeURL(NSString *encodedString);
 
+extern unsigned int CLHexStringToUInt(NSString *hexString);
+extern NSString *CLUIntToHexString(unsigned int number);
+
 void CLConsole(const char *function, int line, const char *fileName, NSString *format, ...) {
   va_list ap;
   va_start(ap, format);
@@ -60,5 +63,17 @@ NSString *CLDecodeURL(NSString *encodedString) {
                                                           CFSTR(""),
                                                           kCFStringEncodingUTF8);
   return decodedString;
+}
+
+unsigned int CLHexStringToUInt(NSString *hexString) {
+  NSScanner *scan = [NSScanner scannerWithString:hexString];
+  unsigned int number;
+  [scan scanHexInt:&number];
+  return number;
+}
+
+NSString *CLUIntToHexString(unsigned int number) {
+  NSString *hexString = [NSString stringWithFormat:@"%X", number];
+  return hexString;
 }
 
