@@ -16,9 +16,8 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-@property (nonatomic, retain) id<GAITracker> tracker;
-
-@property (nonatomic, retain) AFOAuth2Client *googleOAuthClient;
+@property (strong, nonatomic) id<GAITracker> tracker;
+@property (strong, nonatomic) AFOAuth2Client *googleOAuthClient;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

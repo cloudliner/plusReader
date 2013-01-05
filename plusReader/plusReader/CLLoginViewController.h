@@ -14,6 +14,6 @@
   NSMutableData *_responseData; // TODO: 誰が後始末をするのか？
 }
 
-@property (nonatomic) CLBrowserView *browserView;
+@property (strong, nonatomic) CLBrowserView *browserView;
 
 @end

@@ -12,7 +12,7 @@
 
 @interface CLBrowserView : UIView <UIWebViewDelegate, UIScrollViewDelegate>
 
-@property (nonatomic,assign) id<CLBrowserViewDelegate> delegate;
+@property (weak, nonatomic) id<CLBrowserViewDelegate> delegate;
 
 @property (nonatomic, readonly) UINavigationBar *navigationBar;
 @property (nonatomic, readonly) UIWebView *webView;

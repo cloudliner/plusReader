@@ -10,6 +10,7 @@
 
 #import "CLDetailViewController.h"
 #import "CLGoogleOAuth.h"
+#import "CLGRRetrieve.h"
 
 @interface CLMasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -51,284 +52,38 @@
 
 - (IBAction)loadFeeds:(id)sender {
   // フィードを読み込む
-  AFHTTPClient *httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://www.google.com/"]];
-  NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-  AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
+  CLGRRetrieve *grRetrieve = [[CLGRRetrieve alloc] init];
+  
   // List API
   // tag/list
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/tag/list?output=json"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    [queue addOperation:operation];
-  }
-  /*
+  [grRetrieve listTag];
   // subscription/list
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/subscription/list?output=json"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    [queue addOperation:operation];
-  }
+  [grRetrieve listSubscription];
   // preference/list
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/preference/list?output=json"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    [queue addOperation:operation];
-  }
+  [grRetrieve listPreference];
+  // preference-stream
+  [grRetrieve listStreamPreference];
   // unread-count
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/unread-count?output=json"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    [queue addOperation:operation];
-  }
-  */
+  [grRetrieve listUnreadCount];
   
   // Stream Contents API
-  /*
   // stream-contents-feed
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"http://www.google.com/reader/api/0/stream/contents/feed%2Fhttp%3A%2F%2Flkhjkljkljdkljl.hatenablog.com%2Ffeed?n=10"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    
-    [queue addOperation:operation];
-  }
+  [grRetrieve streamContentsWithFeed:@"feed/http://lkhjkljkljdkljl.hatenablog.com/feed"];
   // stream-contents-feed-unread
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/stream/contents/feed%2Fhttp%3A%2F%2Flkhjkljkljdkljl.hatenablog.com%2Ffeed?n=10&xt=user%2F-%2Fstate%2Fcom.google%2Fread"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    
-    [queue addOperation:operation];
-  }
+  [grRetrieve streamUnreadContentsWithFeed:@"feed/http://lkhjkljkljdkljl.hatenablog.com/feed"];
   // stream-contents-reading-list
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/stream/contents/user%2F-%2Fstate%2Fcom.google%2Freading-list"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    
-    [queue addOperation:operation];
-  }
+  [grRetrieve streamContentsWithId:@"user/-/state/com.google/reading-list"];
   // stream-contents-starred
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/stream/contents/user%2F-%2Fstate%2Fcom.google%2Fstarred"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    
-    [queue addOperation:operation];
-  }
+  [grRetrieve streamContentsWithId:@"user/-/state/com.google/starred"];
   // stream-contents-tag
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/stream/contents/user%2F-%2Flabel%2FBusiness?n=10"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    
-    [queue addOperation:operation];
-  }
-  */
+  [grRetrieve streamContentsWithId:@"user/-/label/Business"];
   
   // Stream Items API
-  /*
   // stream-ids-read
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/stream/items/ids?s=user%2F-%2Fstate%2Fcom.google%2Fread&n=40&output=json"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    
-    [queue addOperation:operation];
-  }
-   */
+  [grRetrieve streamIdsWithId:@"user/-/state/com.google/read"];
   
   // Search
-  /*
-  // search-ids
-  {
-    NSMutableURLRequest *request =[httpClient requestWithMethod:@"GET"
-                                                           path:@"https://www.google.com/reader/api/0/search/items/ids?q=iPad&num=30&output=json"
-                                                     parameters:nil];
-    
-    [request setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-    
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                      CLLog(@"success:%@ %@", request.description, json.description);
-                                                      NSArray *idList = [json valueForKey:@"results"];
-                                                      
-                                                      // TODO: 複数パラメータの送信
-                                                      // NSMutableArray *idArray = [NSMutableArray array];
-                                                      // for (NSDictionary *idItem in idList) {
-                                                      //   [idArray addObject:[idItem valueForKey:@"id"]];
-                                                      // }
-                                                      // NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                                                      // [params setObject:idArray forKey:@"i"];
-                                                      
-                                                      NSMutableString *path = [NSMutableString string];
-                                                      [path appendString:@"https://www.google.com/reader/api/0/stream/items/contents?output=json"];
-                                                      for (NSDictionary *idItem in idList) {
-                                                        [path appendFormat:@"&i=%@", [idItem valueForKey:@"id"]];
-                                                      }
-                                                      
-                                                      // search-contents
-                                                      NSMutableURLRequest *contentsRequest =[httpClient requestWithMethod:@"GET"
-                                                                                                             path:path
-                                                                                                       parameters:nil];
-                                                      
-                                                      [contentsRequest setValue:[NSString stringWithFormat:@"%@ %@", credential.tokenType, credential.accessToken] forHTTPHeaderField:@"Authorization"];
-                                                      
-                                                      AFJSONRequestOperation *contentsOperation =
-                                                      [AFJSONRequestOperation JSONRequestOperationWithRequest:contentsRequest
-                                                                                                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                                        NSDictionary *json = (NSDictionary *)JSON;
-                                                                                                        CLLog(@"success:%@ %@", request.description, json.description);
-                                                                                                      }
-                                                                                                      failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                                        CLLog(@"failure:%@ %@", request.description, error.description);
-                                                                                                      }];
-                                                      
-                                                      [queue addOperation:contentsOperation];
-                                                    }
-                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                      CLLog(@"failure:%@ %@", request.description, error.description);
-                                                    }];
-    
-    [queue addOperation:operation];
-  }
-  */
+  [grRetrieve searchWithKeyword:@"iPad"];
 }
 
 - (void)didReceiveMemoryWarning
