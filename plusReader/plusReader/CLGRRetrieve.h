@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^CLGRRetrieveSuccessBlock)(NSDictionary* JSON);
+
 @interface CLGRRetrieve : NSObject
 
 @property (strong, nonatomic) AFHTTPClient *httpClient;
 @property (strong, nonatomic) NSOperationQueue *queue;
 @property (strong, nonatomic) AFOAuthCredential *credential;
 
--(void)listTag;
+-(void)listTag:(CLGRRetrieveSuccessBlock)successBlock;
 -(void)listSubscription;
 -(void)listPreference;
 -(void)listStreamPreference;

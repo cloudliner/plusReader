@@ -19,6 +19,7 @@
   _httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://www.google.com/"]];
   _queue = [[NSOperationQueue alloc] init];
   _credential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
+  
   return self;
 }
 
@@ -28,7 +29,7 @@
                      self.credential.accessToken] forHTTPHeaderField:@"Authorization"];
 }
 
--(void)listTag {
+-(void)listTag:(CLGRRetrieveSuccessBlock)successBlock {
   // tag/list
   NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
                                                               path:@"https://www.google.com/reader/api/0/tag/list?output=json"
@@ -41,6 +42,7 @@
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
                                                     CLLog(@"success:%@ %@", request.description, json.description);
+                                                    successBlock(json);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                     CLLog(@"failure:%@ %@", request.description, error.description);
