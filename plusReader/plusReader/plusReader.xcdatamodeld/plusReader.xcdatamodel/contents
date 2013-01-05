@@ -5,12 +5,6 @@
         <relationship name="feed" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" syncable="YES"/>
         <relationship name="tag" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" syncable="YES"/>
     </entity>
-    <entity name="Event">
-        <attribute name="timeStamp" optional="YES" attributeType="Date">
-            <userInfo/>
-        </attribute>
-        <userInfo/>
-    </entity>
     <entity name="Feed" syncable="YES">
         <attribute name="htmlUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
@@ -29,10 +23,9 @@
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="342" positionY="75" width="128" height="60"/>
-        <element name="Tag" positionX="-216" positionY="75" width="128" height="105"/>
-        <element name="Feed" positionX="36" positionY="72" width="128" height="120"/>
         <element name="Category" positionX="-101" positionY="207" width="128" height="90"/>
+        <element name="Feed" positionX="36" positionY="72" width="128" height="120"/>
         <element name="Ordering" positionX="180" positionY="72" width="128" height="73"/>
+        <element name="Tag" positionX="-216" positionY="75" width="128" height="105"/>
     </elements>
 </model>

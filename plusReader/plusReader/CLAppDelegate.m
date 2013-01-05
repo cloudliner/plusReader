@@ -172,6 +172,13 @@
         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
         // * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
         // @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
+        
+        // データストアを再作成
+        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+          CLLog(@"Unresolved error %@, %@", error, [error userInfo]);
+          abort();
+        }
       } else {
         abort();
       }
