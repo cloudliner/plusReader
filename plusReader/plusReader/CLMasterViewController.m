@@ -130,6 +130,7 @@
         } else {
           tagObject.index = [rootOrder indexWithSortid:sortid];
         }
+        // TODO: orderingObject を設定していない
       }
             
       // 古いオブジェクトを削除
