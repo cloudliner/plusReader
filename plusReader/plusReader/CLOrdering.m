@@ -8,11 +8,41 @@
 
 #import "CLOrdering.h"
 
+const int kSORTID_LENGTH = 8;
 
 @implementation CLOrdering
 
 @dynamic idString;
 @dynamic value;
 @dynamic update;
+
+-(NSArray *)sortidArray {
+  // value を unsigned int の配列に変換したものを返す
+  [self willAccessValueForKey:@"value"];
+  NSString *value = [self primitiveValueForKey:@"value"];
+  [self didAccessValueForKey:@"value"];
+  if (value == nil || value.length == 0) {
+    return nil;
+  }
+  int arraySize = value.length/kSORTID_LENGTH;
+  NSMutableArray *rtnArray = [NSMutableArray arrayWithCapacity:arraySize];
+  for (int i = 0; i < arraySize; i ++) {
+    NSString *sortidString = [value substringWithRange:NSMakeRange(i * kSORTID_LENGTH, kSORTID_LENGTH)];
+    NSNumber *sortid = [NSNumber numberWithUnsignedInt:CLHexStringToUInt(sortidString)];
+    [rtnArray addObject:(sortid)];
+  }
+  return rtnArray;
+}
+
+-(int)indexWithSortid:(unsigned int)sortid {
+  NSArray *sortidArray = [self sortidArray];
+  for (int i = 0; i < sortidArray.count; i ++) {
+    unsigned int currentSortid = [[sortidArray objectAtIndex:i] unsignedIntValue];
+    if (currentSortid == sortid) {
+      return i;
+    }
+  }
+  return -1;
+}
 
 @end

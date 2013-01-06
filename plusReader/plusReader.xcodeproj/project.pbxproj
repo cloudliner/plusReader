@@ -54,6 +54,9 @@
 		41A5FE6F168A2702002AD223 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A5FE6D168A26D4002AD223 /* MobileCoreServices.framework */; };
 		41A5FE81168A3841002AD223 /* CLConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A5FE80168A3841002AD223 /* CLConsole.m */; };
 		41A698BD16980CDC000010C9 /* CLGRRetrieve.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A698BC16980CDC000010C9 /* CLGRRetrieve.m */; };
+		41B8E60D1699C65500E7D51A /* CLOrdering.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8E60C1699C65500E7D51A /* CLOrdering.m */; };
+		41B8E6101699C65600E7D51A /* CLTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8E60F1699C65600E7D51A /* CLTag.m */; };
+		41B8E6131699C65700E7D51A /* CLFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8E6121699C65700E7D51A /* CLFeed.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +147,12 @@
 		41A5FE80168A3841002AD223 /* CLConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLConsole.m; sourceTree = "<group>"; };
 		41A698BB16980CDC000010C9 /* CLGRRetrieve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLGRRetrieve.h; sourceTree = "<group>"; };
 		41A698BC16980CDC000010C9 /* CLGRRetrieve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLGRRetrieve.m; sourceTree = "<group>"; };
+		41B8E60B1699C65500E7D51A /* CLOrdering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLOrdering.h; sourceTree = "<group>"; };
+		41B8E60C1699C65500E7D51A /* CLOrdering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLOrdering.m; sourceTree = "<group>"; };
+		41B8E60E1699C65600E7D51A /* CLTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLTag.h; sourceTree = "<group>"; };
+		41B8E60F1699C65600E7D51A /* CLTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTag.m; sourceTree = "<group>"; };
+		41B8E6111699C65700E7D51A /* CLFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLFeed.h; sourceTree = "<group>"; };
+		41B8E6121699C65700E7D51A /* CLFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLFeed.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,11 +368,25 @@
 		41A698BE1698115A000010C9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				41B8E6141699CEE700E7D51A /* Objects */,
 				411215851681FF8800794F99 /* plusReader.xcdatamodeld */,
 				41A698BB16980CDC000010C9 /* CLGRRetrieve.h */,
 				41A698BC16980CDC000010C9 /* CLGRRetrieve.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		41B8E6141699CEE700E7D51A /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				41B8E60E1699C65600E7D51A /* CLTag.h */,
+				41B8E60F1699C65600E7D51A /* CLTag.m */,
+				41B8E6111699C65700E7D51A /* CLFeed.h */,
+				41B8E6121699C65700E7D51A /* CLFeed.m */,
+				41B8E60B1699C65500E7D51A /* CLOrdering.h */,
+				41B8E60C1699C65500E7D51A /* CLOrdering.m */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 		41EA87D4168A2250002BE6E0 /* Controllers */ = {
@@ -535,6 +558,9 @@
 				416087E9168FC71200BCDAEE /* AFHTTPRequestOperationLogger.m in Sources */,
 				418329BD1690085E00B045ED /* CLBrowserView.m in Sources */,
 				41A698BD16980CDC000010C9 /* CLGRRetrieve.m in Sources */,
+				41B8E60D1699C65500E7D51A /* CLOrdering.m in Sources */,
+				41B8E6101699C65600E7D51A /* CLTag.m in Sources */,
+				41B8E6131699C65700E7D51A /* CLFeed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,4 +16,7 @@
 @property (nonatomic, retain) NSString * value;
 @property (nonatomic) NSTimeInterval update;
 
+-(NSArray *)sortidArray;
+-(int)indexWithSortid:(unsigned int)sortid;
+
 @end

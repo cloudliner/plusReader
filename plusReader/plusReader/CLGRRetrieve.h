@@ -17,10 +17,10 @@ typedef void (^CLGRRetrieveSuccessBlock)(NSDictionary* JSON);
 @property (strong, nonatomic) AFOAuthCredential *credential;
 
 -(void)listTag:(CLGRRetrieveSuccessBlock)successBlock;
--(void)listSubscription;
+-(void)listSubscription:(CLGRRetrieveSuccessBlock)successBlock;
 -(void)listPreference;
--(void)listStreamPreference;
--(void)listUnreadCount;
+-(void)listStreamPreference:(CLGRRetrieveSuccessBlock)successBlock;
+-(void)listUnreadCount:(CLGRRetrieveSuccessBlock)successBlock;
 
 -(void)streamContentsWithFeed:(NSString *)feedUrl;
 -(void)streamUnreadContentsWithFeed:(NSString *)feedUrl;

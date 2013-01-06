@@ -51,7 +51,7 @@
   [self.queue addOperation:operation];
 }
 
--(void)listSubscription {
+-(void)listSubscription:(CLGRRetrieveSuccessBlock)successBlock {
   // subscription/list
   NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
                                                               path:@"https://www.google.com/reader/api/0/subscription/list?output=json"
@@ -64,6 +64,7 @@
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
                                                     CLLog(@"success:%@ %@", request.description, json.description);
+                                                    successBlock(json);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                     CLLog(@"failure:%@ %@", request.description, error.description);
@@ -93,7 +94,7 @@
   [self.queue addOperation:operation];  
 }
 
--(void)listStreamPreference {
+-(void)listStreamPreference:(CLGRRetrieveSuccessBlock)successBlock {
   // preference-stream
   NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
                                                               path:@"https://www.google.com/reader/api/0/preference/stream/list?output=json"
@@ -106,6 +107,7 @@
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
                                                     CLLog(@"success:%@ %@", request.description, json.description);
+                                                    successBlock(json);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                     CLLog(@"failure:%@ %@", request.description, error.description);
@@ -114,7 +116,7 @@
   [self.queue addOperation:operation];
 }
 
--(void)listUnreadCount {
+-(void)listUnreadCount:(CLGRRetrieveSuccessBlock)successBlock {
   // unread-count
   NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
                                                               path:@"https://www.google.com/reader/api/0/unread-count?output=json"
@@ -127,6 +129,7 @@
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
                                                     CLLog(@"success:%@ %@", request.description, json.description);
+                                                    successBlock(json);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                     CLLog(@"failure:%@ %@", request.description, error.description);

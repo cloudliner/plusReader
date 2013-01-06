@@ -12,6 +12,7 @@
 #import "CLGoogleOAuth.h"
 #import "CLGRRetrieve.h"
 #import "CLTag.h"
+#import "CLOrdering.h"
 
 @interface CLMasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -49,87 +50,137 @@
 }
 
 - (IBAction)loadFeeds:(id)sender {
-  // フィードを読み込む
+  // ツリーを生成する
   CLGRRetrieve *grRetrieve = [[CLGRRetrieve alloc] init];
+  NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+  NSManagedObjectContext *context = self.managedObjectContext;
   
-  // List API
-  // tag/list
-  [grRetrieve listTag:^(NSDictionary *JSON) {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSArray *tags = [JSON valueForKey:@"tags"];
-    int index = 0;
-    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-    for (NSDictionary *tag in tags) {
-      // TODO: 以下のidのタグを除外
-      // "user/-/state/com.google/starred"
-      // "user/-/state/com.google/broadcast"
-      // "user/-/state/com.blogger/blogger-following"
-
-      NSString *idString = [tag valueForKey:@"id"];
-      NSString *sortidString = [tag valueForKey:@"sortid"];
-      unsigned int sortid = CLHexStringToUInt(sortidString);
-      NSString *title = [tag valueForKey:@"title"];
-      if (title == nil) {
-        NSRange range = [idString rangeOfString:@"/" options:NSBackwardsSearch];
-        title = [idString substringWithRange:NSMakeRange(range.location + 1, idString.length - range.location - 1)];
+  // Orderingの取得・更新
+  [grRetrieve listStreamPreference:^(NSDictionary *JSON) {
+    CLOrdering* rootOrder = nil;
+    NSEntityDescription *orderingEntity = [NSEntityDescription entityForName:@"Ordering"
+                                                      inManagedObjectContext:context];
+    
+    NSDictionary *streamprefs = [JSON valueForKey:@"streamprefs"];
+    for (NSString *idString in [streamprefs keyEnumerator]) {
+      // 無関係の設定を除外
+      // TODO: 不要かも...
+      if ([idString hasPrefix:@"feed"] ||
+          [idString hasPrefix:@"pop"]) {
+        continue;
+      }
+      NSString *value = nil;
+      NSArray *prefArray = [streamprefs valueForKey:idString];
+      for (NSDictionary *pref in prefArray) {
+        NSString *prefKey = [pref valueForKey:@"id"] ;
+        if ([prefKey isEqualToString:@"subscription-ordering"]) {
+          value = [pref valueForKey:@"value"];
+          break;
+        }
+      }
+      if (value != nil) {
+        CLOrdering *orderingObject = [NSEntityDescription insertNewObjectForEntityForName:[orderingEntity name] inManagedObjectContext:context];
+        orderingObject.idString = idString;
+        orderingObject.value = value;
+        orderingObject.update = now;
+        
+        // ルート階層の順序を保存しておく
+        if ([idString hasSuffix:@"/state/com.google/root"]) {
+          rootOrder = orderingObject;
+        }
+      }
+    }
+    
+    // Tagの取得・更新
+    [grRetrieve listTag:^(NSDictionary *JSON) {
+      // NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+      // NSEntityDescription *tagEntity = [[self.fetchedResultsController fetchRequest] entity];
+      NSEntityDescription *tagEntity = [NSEntityDescription entityForName:@"Tag"
+                                                   inManagedObjectContext:context];
+      
+      NSArray *tags = [JSON valueForKey:@"tags"];
+      int index = 0;
+      for (NSDictionary *tag in tags) {
+        NSString *idString = [tag valueForKey:@"id"];
+        // 以下のidのタグを除外
+        // "user/-/state/com.google/starred"
+        // "user/-/state/com.google/broadcast"
+        // "user/-/state/com.blogger/blogger-following"
+        if ([idString hasSuffix:@"/state/com.google/starred"] ||
+            [idString hasSuffix:@"/state/com.google/broadcast"] ||
+            [idString hasSuffix:@"/state/com.blogger/blogger-following"]) {
+          continue;
+        }
+        
+        NSString *sortidString = [tag valueForKey:@"sortid"];
+        unsigned int sortid = CLHexStringToUInt(sortidString);
+        NSString *title = [tag valueForKey:@"title"];
+        if (title == nil) {
+          NSRange range = [idString rangeOfString:@"/" options:NSBackwardsSearch];
+          title = [idString substringWithRange:NSMakeRange(range.location + 1, idString.length - range.location - 1)];
+        }
+        
+        CLTag *tagObject = [NSEntityDescription insertNewObjectForEntityForName:[tagEntity name] inManagedObjectContext:context];
+        tagObject.idString = idString;
+        tagObject.title = title;
+        tagObject.sortid = sortid;
+        tagObject.update = now;
+        if (rootOrder == nil) {
+          tagObject.index = index ++;
+        } else {
+          tagObject.index = [rootOrder indexWithSortid:sortid];
+        }
+      }
+            
+      // 古いオブジェクトを削除
+      NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+      [fetchRequest setEntity:tagEntity];
+      [fetchRequest setFetchBatchSize:20];
+      
+      NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"update" ascending:YES];
+      [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+      
+      NSPredicate *predidate = [NSPredicate predicateWithFormat:@"update != %@", [NSDate dateWithTimeIntervalSinceReferenceDate:now]];
+      
+      [fetchRequest setPredicate:predidate];
+      
+      NSFetchedResultsController *fetchedResultsController
+      = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                            managedObjectContext:context
+                                              sectionNameKeyPath:nil
+                                                       cacheName:nil];
+      
+      NSError *error = nil;
+      if (![fetchedResultsController performFetch:&error]) {
+        CLLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
       }
       
-      CLTag *tagObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-      tagObject.idString = idString;
-      tagObject.title = title;
-      tagObject.sortid = sortid;
-      tagObject.update = now;
-      tagObject.index = index ++;
-    }
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-      // Replace this implementation with code to handle the error appropriately.
-      // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-      CLLog(@"Unresolved error %@, %@", error, [error userInfo]);
-      abort();
-    }
-    
-    // 古いオブジェクトを削除
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"update" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    NSPredicate *predidate = [NSPredicate predicateWithFormat:@"update != %@", [NSDate dateWithTimeIntervalSinceReferenceDate:now]];
-    
-    CLLog(@"now=%@", [NSDate dateWithTimeIntervalSinceReferenceDate:now]);
-    
-    [fetchRequest setPredicate:predidate];
-    
-    NSFetchedResultsController *fetchedResultsController
-    = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                          managedObjectContext:context
-                                            sectionNameKeyPath:nil
-                                                     cacheName:nil];
-    
-    if (![fetchedResultsController performFetch:&error]) {
-      CLLog(@"Unresolved error %@, %@", error, [error userInfo]);
-      abort();
-    }
-    
-    NSArray *arrayToDelete = [fetchedResultsController fetchedObjects];
-    for (NSManagedObject *object in arrayToDelete) {
-      [context deleteObject:object];
-    }
+      NSArray *arrayToDelete = [fetchedResultsController fetchedObjects];
+      for (NSManagedObject *object in arrayToDelete) {
+        [context deleteObject:object];
+      }
+      
+      // Save the context.
+      if (![context save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        CLLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+      }
+
+      // TODO: Feedの取得・更新
+      // TODO: 未読件数の更新
+    }];
+
   }];
   
+  // 未使用メソッド
   /*
   // subscription/list
   [grRetrieve listSubscription];
   // preference/list
   [grRetrieve listPreference];
-  // preference-stream
-  [grRetrieve listStreamPreference];
   // unread-count
   [grRetrieve listUnreadCount];
   
@@ -234,21 +285,7 @@
   [fetchRequest setFetchBatchSize:20];
   
   // Edit the sort key as appropriate.
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
-  
-  // TODO: comparator blocks are not supported
-  /*
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title"
-                                                                 ascending:YES
-                                                                comparator:^NSComparisonResult(id obj1, id obj2) {
-                                                                  NSNumber *n1 = [obj1 valueForKey:@"sortid"];
-                                                                  unsigned int ui1 = [n1 unsignedIntValue];
-                                                                  NSNumber *n2 = [obj2 valueForKey:@"sortid"];
-                                                                  unsigned int ui2 = [n2 unsignedIntValue];
-                                                                  // TODO: 配列のデータを取得してソートする
-                                                                  return [n1 compare:n2];
-                                                                }];
-  */
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];
   
   [fetchRequest setSortDescriptors:sortDescriptors];
