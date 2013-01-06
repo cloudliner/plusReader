@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Category" syncable="YES">
-        <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
-        <relationship name="feed" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" syncable="YES"/>
-        <relationship name="tag" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" syncable="YES"/>
-    </entity>
     <entity name="Feed" syncable="YES">
         <attribute name="htmlUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="icon" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="index" attributeType="Integer 16" defaultValueString="-1" syncable="YES"/>
         <attribute name="sortid" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="unreadCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
+        <relationship name="tag" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="feed" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="Ordering" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Tag" syncable="YES">
-        <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="index" attributeType="Integer 16" defaultValueString="-1" indexed="YES" syncable="YES"/>
         <attribute name="sortid" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="unreadCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
+        <relationship name="feed" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feed" inverseName="tag" inverseEntity="Feed" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Category" positionX="-101" positionY="207" width="128" height="90"/>
-        <element name="Feed" positionX="36" positionY="72" width="128" height="120"/>
-        <element name="Ordering" positionX="180" positionY="72" width="128" height="73"/>
-        <element name="Tag" positionX="-216" positionY="75" width="128" height="105"/>
+        <element name="Feed" positionX="-36" positionY="54" width="128" height="178"/>
+        <element name="Ordering" positionX="115" positionY="54" width="128" height="73"/>
+        <element name="Tag" positionX="-243" positionY="56" width="128" height="148"/>
     </elements>
 </model>
