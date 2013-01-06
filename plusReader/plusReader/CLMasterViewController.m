@@ -11,6 +11,7 @@
 #import "CLDetailViewController.h"
 #import "CLGoogleOAuth.h"
 #import "CLGRRetrieve.h"
+#import "CLTag.h"
 
 @interface CLMasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -57,8 +58,8 @@
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     NSArray *tags = [JSON valueForKey:@"tags"];
-    
-    NSDate *now = [NSDate date];
+    int index = 0;
+    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
     for (NSDictionary *tag in tags) {
       // TODO: 以下のidのタグを除外
       // "user/-/state/com.google/starred"
@@ -67,18 +68,19 @@
 
       NSString *idString = [tag valueForKey:@"id"];
       NSString *sortidString = [tag valueForKey:@"sortid"];
-      NSNumber *sortid = [NSNumber numberWithUnsignedInt:CLHexStringToUInt(sortidString)];
+      unsigned int sortid = CLHexStringToUInt(sortidString);
       NSString *title = [tag valueForKey:@"title"];
       if (title == nil) {
         NSRange range = [idString rangeOfString:@"/" options:NSBackwardsSearch];
         title = [idString substringWithRange:NSMakeRange(range.location + 1, idString.length - range.location - 1)];
       }
       
-      NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-      [newManagedObject setValue:idString forKey:@"id"];
-      [newManagedObject setValue:title forKey:@"title"];
-      [newManagedObject setValue:sortid forKey:@"sortid"];
-      [newManagedObject setValue:now forKey:@"update"];
+      CLTag *tagObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+      tagObject.idString = idString;
+      tagObject.title = title;
+      tagObject.sortid = sortid;
+      tagObject.update = now;
+      tagObject.index = index ++;
     }
     
     // Save the context.
@@ -98,7 +100,10 @@
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"update" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
-    NSPredicate *predidate = [NSPredicate predicateWithFormat:@"update != %@", now];
+    NSPredicate *predidate = [NSPredicate predicateWithFormat:@"update != %@", [NSDate dateWithTimeIntervalSinceReferenceDate:now]];
+    
+    CLLog(@"now=%@", [NSDate dateWithTimeIntervalSinceReferenceDate:now]);
+    
     [fetchRequest setPredicate:predidate];
     
     NSFetchedResultsController *fetchedResultsController
@@ -208,8 +213,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   if ([[segue identifier] isEqualToString:@"showDetail"]) {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    [[segue destinationViewController] setDetailItem:object];
+    CLTag *tagObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    [[segue destinationViewController] setDetailItem:tagObject];
   }
 }
 
@@ -322,8 +327,8 @@
  */
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-  NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.textLabel.text = [[object valueForKey:@"title"] description];
+  CLTag *tagObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  cell.textLabel.text = tagObject.title;
 }
 
 @end
