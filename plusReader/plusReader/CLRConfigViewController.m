@@ -1,19 +1,19 @@
 //
-//  CLConfigViewController.m
+//  CLRConfigViewController.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/26.
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLConfigViewController.h"
-#import "CLGoogleOAuth.h"
+#import "CLRConfigViewController.h"
+#import "CLRGoogleOAuth.h"
 
-@interface CLConfigViewController ()
+@interface CLRConfigViewController ()
 
 @end
 
-@implementation CLConfigViewController
+@implementation CLRConfigViewController
 
 - (IBAction)closeModalDialog:(id)sender {
   [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
@@ -21,7 +21,7 @@
 
 - (IBAction)deleteCredential:(id)sender {
   // TODO: とりあえずの実装
-  CLLog(@"switch:%@", [sender description]);
+  CLRLog(@"switch:%@", [sender description]);
   // 認証情報を削除
   [AFOAuthCredential deleteCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
 }

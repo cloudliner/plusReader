@@ -1,5 +1,5 @@
 //
-//  CLFeed.h
+//  CLRFeed.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2013/01/06.
@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class CLTag;
+@class CLRTag;
 
-@interface CLFeed : NSManagedObject
+@interface CLRFeed : NSManagedObject
 
 @property (nonatomic, retain) NSString * htmlUrl;
 @property (nonatomic, retain) NSData * icon;
@@ -24,10 +24,10 @@
 @property (nonatomic, retain) NSSet *tag;
 @end
 
-@interface CLFeed (CoreDataGeneratedAccessors)
+@interface CLRFeed (CoreDataGeneratedAccessors)
 
-- (void)addTagObject:(CLTag *)value;
-- (void)removeTagObject:(CLTag *)value;
+- (void)addTagObject:(CLRTag *)value;
+- (void)removeTagObject:(CLRTag *)value;
 - (void)addTag:(NSSet *)values;
 - (void)removeTag:(NSSet *)values;
 

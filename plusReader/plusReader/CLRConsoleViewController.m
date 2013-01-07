@@ -1,18 +1,18 @@
 //
-//  CLConsoleViewController.m
+//  CLRConsoleViewController.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/26.
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLConsoleViewController.h"
+#import "CLRConsoleViewController.h"
 
-@interface CLConsoleViewController ()
+@interface CLRConsoleViewController ()
 
 @end
 
-@implementation CLConsoleViewController
+@implementation CLRConsoleViewController
 
 - (IBAction)closeModalDialog:(id)sender {
   [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];

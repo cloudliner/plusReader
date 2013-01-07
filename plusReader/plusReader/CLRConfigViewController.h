@@ -1,5 +1,5 @@
 //
-//  CLConfigViewController.h
+//  CLRConfigViewController.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/26.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CLConfigViewController : UITableViewController
+@interface CLRConfigViewController : UITableViewController
 
 @end

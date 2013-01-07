@@ -1,15 +1,15 @@
 //
-//  CLGRRetrieve.m
+//  CLRGRRetrieve.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2013/01/05.
 //  Copyright (c) 2013年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLGRRetrieve.h"
-#import "CLGoogleOAuth.h"
+#import "CLRGRRetrieve.h"
+#import "CLRGoogleOAuth.h"
 
-@implementation CLGRRetrieve
+@implementation CLRGRRetrieve
 
 -(id)init {
   self = [super init];
@@ -41,11 +41,11 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                     successBlock(json);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   [self.queue addOperation:operation];
@@ -63,11 +63,11 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                     successBlock(json);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   [self.queue addOperation:operation];
@@ -85,10 +85,10 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   [self.queue addOperation:operation];  
@@ -106,11 +106,11 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                     successBlock(json);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   [self.queue addOperation:operation];
@@ -128,11 +128,11 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                     successBlock(json);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   [self.queue addOperation:operation];
@@ -145,9 +145,9 @@
   [path appendString:@"http://www.google.com/reader/api/0/stream/contents/"];
   // TODO: feed/ の扱いについて要検討
   if (![feedUrl hasPrefix:@"feed"]) {
-    [path appendString:CLEncodeURL(@"feed/")];
+    [path appendString:CLREncodeURL(@"feed/")];
   }
-  [path appendString:CLEncodeURL(feedUrl)];
+  [path appendString:CLREncodeURL(feedUrl)];
   [path appendFormat:@"?n=%d", 10];
   
   NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
@@ -160,10 +160,10 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   [self.queue addOperation:operation];
@@ -176,11 +176,11 @@
   [path appendString:@"https://www.google.com/reader/api/0/stream/contents/"];
   // TODO: feed/ の扱いについて要検討
   if (![feedUrl hasPrefix:@"feed"]) {
-    [path appendString:CLEncodeURL(@"feed/")];
+    [path appendString:CLREncodeURL(@"feed/")];
   }
-  [path appendString:CLEncodeURL(feedUrl)];
+  [path appendString:CLREncodeURL(feedUrl)];
   [path appendFormat:@"?n=%d", 10];
-  [path appendFormat:@"&xt=%@", CLEncodeURL(@"user/-/state/com.google/read")];
+  [path appendFormat:@"&xt=%@", CLREncodeURL(@"user/-/state/com.google/read")];
 
   NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
                                                               path:path
@@ -192,10 +192,10 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   [self.queue addOperation:operation];
@@ -208,7 +208,7 @@
 
   NSMutableString *path = [NSMutableString string];
   [path appendString:@"https://www.google.com/reader/api/0/stream/contents/"];
-  [path appendString:CLEncodeURL(streamId)];
+  [path appendString:CLREncodeURL(streamId)];
   [path appendFormat:@"?n=%d", 10];
   
   NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
@@ -221,10 +221,10 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   
@@ -236,7 +236,7 @@
 
   NSMutableString *path = [NSMutableString string];
   [path appendString:@"https://www.google.com/reader/api/0/stream/items/ids?s="];
-  [path appendString:CLEncodeURL(streamId)];
+  [path appendString:CLREncodeURL(streamId)];
   [path appendFormat:@"&output=json&n=%d", 40];
 
   NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
@@ -249,10 +249,10 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   [self.queue addOperation:operation];
@@ -262,7 +262,7 @@
   // search-ids
   NSMutableString *path = [NSMutableString string];
   [path appendString:@"https://www.google.com/reader/api/0/search/items/ids?q="];
-  [path appendString:CLEncodeURL(keyword)];
+  [path appendString:CLREncodeURL(keyword)];
   [path appendFormat:@"&output=json&num=%d", 20];
   
   NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
@@ -275,7 +275,7 @@
   [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLLog(@"success:%@ %@", request.description, json.description);
+                                                    CLRLog(@"success:%@ %@", request.description, json.description);
                                                     NSArray *idList = [json valueForKey:@"results"];
                                                     
                                                     // TODO: 複数パラメータの送信
@@ -303,16 +303,16 @@
                                                     [AFJSONRequestOperation JSONRequestOperationWithRequest:contentsRequest
                                                                                                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                                       NSDictionary *json = (NSDictionary *)JSON;
-                                                                                                      CLLog(@"success:%@ %@", request.description, json.description);
+                                                                                                      CLRLog(@"success:%@ %@", request.description, json.description);
                                                                                                     }
                                                                                                     failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                                      CLLog(@"failure:%@ %@", request.description, error.description);
+                                                                                                      CLRLog(@"failure:%@ %@", request.description, error.description);
                                                                                                     }];
                                                     
                                                     [self.queue addOperation:contentsOperation];
                                                   }
                                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLLog(@"failure:%@ %@", request.description, error.description);
+                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
                                                   }];
   
   [self.queue addOperation:operation];

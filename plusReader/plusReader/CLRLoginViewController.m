@@ -1,23 +1,23 @@
 //
-//  CLLoginViewController.m
+//  CLRLoginViewController.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/26.
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLLoginViewController.h"
-#import "CLAppDelegate.h"
-#import "CLGoogleOAuth.h"
+#import "CLRLoginViewController.h"
+#import "CLRAppDelegate.h"
+#import "CLRGoogleOAuth.h"
 
-@interface CLLoginViewController ()
+@interface CLRLoginViewController ()
 
 @end
 
-@implementation CLLoginViewController
+@implementation CLRLoginViewController
 
 - (void)closeBrowser {
-  CLLog(@"");
+  CLRLog(@"");
   [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  self.browserView = [[CLBrowserView alloc] initWithFrame:self.view.bounds];
+  self.browserView = [[CLRBrowserView alloc] initWithFrame:self.view.bounds];
   self.browserView.delegate = self;
   [self.view addSubview:self.browserView];
     
@@ -58,9 +58,9 @@
 
 - (BOOL)webView:(UIWebView*) webView shouldStartLoadWithRequest:(NSURLRequest *) request navigationType:(UIWebViewNavigationType) navigationType {
   NSString *url = [request.URL absoluteString];
-  CLLog(@"URL:%@", url);
+  CLRLog(@"URL:%@", url);
   if ([url hasPrefix:@"https://accounts.google.com/o/oauth2/approval"]) {
-    CLLog(@"requesting...");
+    CLRLog(@"requesting...");
     [NSURLConnection connectionWithRequest:request delegate:self];
     return NO;
   }
@@ -68,22 +68,22 @@
 }
 
 - (void) connection:(NSURLConnection*) connection didReceiveResponse:(NSURLResponse*) response {
-  CLLog(@"");
+  CLRLog(@"");
   _responseData = [[NSMutableData alloc] init];
 }
 
 - (void) connection:(NSURLConnection*) connection didReceiveData:(NSData*) data {
-  CLLog(@"");
+  CLRLog(@"");
   [_responseData appendData:data];
 }
 
 - (void) connectionDidFinishLoading:(NSURLConnection*) connection {
   NSString* code = [self extractCode:_responseData];
-  CLLog(@"code=%@", code);
+  CLRLog(@"code=%@", code);
   if (code != nil) {
     [self getOAuthAccessToken:code];
   } else {
-    CLLog(@"OAuth failed.");
+    CLRLog(@"OAuth failed.");
   }
 }
 
@@ -99,13 +99,13 @@
 }
 
 -(void)getOAuthAccessToken:(NSString*) code {
-  CLAppDelegate *delegate = (CLAppDelegate *) [[UIApplication sharedApplication] delegate];
+  CLRAppDelegate *delegate = (CLRAppDelegate *) [[UIApplication sharedApplication] delegate];
   
   [delegate.googleOAuthClient authenticateUsingOAuthWithPath:@"https://accounts.google.com/o/oauth2/token"
                                                         code:code
                                                  redirectURI:GOOGLE_OAUTH2_REDIRECT_URIS
                                                      success:^(AFOAuthCredential *credential) {
-                                                       CLLog(@"success:%@", credential.description);
+                                                       CLRLog(@"success:%@", credential.description);
                                                        
                                                        // 認証データを保存
                                                        [AFOAuthCredential storeCredential:credential
@@ -115,7 +115,7 @@
                                                        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
                                                        
                                                      } failure:^(NSError *error) {
-                                                       CLLog(@"failure:%@", error.description);
+                                                       CLRLog(@"failure:%@", error.description);
                                                        
                                                      }];
 }

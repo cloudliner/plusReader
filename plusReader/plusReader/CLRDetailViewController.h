@@ -1,5 +1,5 @@
 //
-//  CLDetailViewController.h
+//  CLRDetailViewController.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/19.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CLDetailViewController : UIViewController <UISplitViewControllerDelegate>
+@interface CLRDetailViewController : UIViewController <UISplitViewControllerDelegate>
 
 @property (strong, nonatomic) id detailItem;
 

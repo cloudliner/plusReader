@@ -1,5 +1,5 @@
 //
-//  CLBrowserView.h
+//  CLRBrowserView.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/30.
@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol CLBrowserViewDelegate;
+@protocol CLRBrowserViewDelegate;
 
-@interface CLBrowserView : UIView <UIWebViewDelegate, UIScrollViewDelegate>
+@interface CLRBrowserView : UIView <UIWebViewDelegate, UIScrollViewDelegate>
 
-@property (weak, nonatomic) id<CLBrowserViewDelegate> delegate;
+@property (weak, nonatomic) id<CLRBrowserViewDelegate> delegate;
 
 @property (nonatomic, readonly) UINavigationBar *navigationBar;
 @property (nonatomic, readonly) UIWebView *webView;
@@ -21,7 +21,7 @@
 
 @end
 
-@protocol CLBrowserViewDelegate <NSObject>
+@protocol CLRBrowserViewDelegate <NSObject>
 -(void)closeBrowser;
 @optional
 @end

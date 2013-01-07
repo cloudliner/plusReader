@@ -1,5 +1,5 @@
 //
-//  CLAppDelegate.h
+//  CLRAppDelegate.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/19.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CLAppDelegate : UIResponder <UIApplicationDelegate>
+@interface CLRAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

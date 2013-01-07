@@ -1,23 +1,23 @@
 //
-//  CLConsole.m
+//  CLRConsole.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/26.
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLConsole.h"
+#import "CLRConsole.h"
 
 extern UITextView *plusReader_CLConsole_textView;
-extern void CLConsole(const char *function, int line, const char *fileName, NSString *format, ...) NS_FORMAT_FUNCTION(4,5);
+extern void CLRConsole(const char *function, int line, const char *fileName, NSString *format, ...) NS_FORMAT_FUNCTION(4,5);
 
-extern NSString *CLEncodeURL(NSString *plainString);
-extern NSString *CLDecodeURL(NSString *encodedString);
+extern NSString *CLREncodeURL(NSString *plainString);
+extern NSString *CLRDecodeURL(NSString *encodedString);
 
-extern unsigned int CLHexStringToUInt(NSString *hexString);
-extern NSString *CLUIntToHexString(unsigned int number);
+extern unsigned int CLRHexStringToUInt(NSString *hexString);
+extern NSString *CLRUIntToHexString(unsigned int number);
 
-void CLConsole(const char *function, int line, const char *fileName, NSString *format, ...) {
+void CLRConsole(const char *function, int line, const char *fileName, NSString *format, ...) {
   va_list ap;
   va_start(ap, format);
   NSString *message = [[NSString alloc] initWithFormat:format arguments:ap];
@@ -45,7 +45,7 @@ void CLConsole(const char *function, int line, const char *fileName, NSString *f
   [plusReader_CLConsole_textView setText:text];
 }
 
-NSString *CLEncodeURL(NSString *plainString) {
+NSString *CLREncodeURL(NSString *plainString) {
   // TODO: 実装が正しいかどうか要確認
   NSString *encodedString = (__bridge NSString *)
   CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
@@ -56,7 +56,7 @@ NSString *CLEncodeURL(NSString *plainString) {
   return encodedString;
 }
 
-NSString *CLDecodeURL(NSString *encodedString) {
+NSString *CLRDecodeURL(NSString *encodedString) {
   NSString *decodedString = (__bridge NSString *)
   CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
                                                           (CFStringRef) encodedString,
@@ -65,24 +65,24 @@ NSString *CLDecodeURL(NSString *encodedString) {
   return decodedString;
 }
 
-unsigned int CLHexStringToUInt(NSString *hexString) {
+unsigned int CLRHexStringToUInt(NSString *hexString) {
   NSScanner *scan = [NSScanner scannerWithString:hexString];
   unsigned int number;
   [scan scanHexInt:&number];
   return number;
 }
 
-NSString *CLUIntToHexString(unsigned int number) {
+NSString *CLRUIntToHexString(unsigned int number) {
   NSString *hexString = [NSString stringWithFormat:@"%X", number];
   return hexString;
 }
 
 // TODO: 実機で単体テストを実行するための暫定対策
-@implementation CLUtils
-+(unsigned int)CLHexStringToUInt:(NSString *)hexString {
-  return CLHexStringToUInt(hexString);
+@implementation CLRUtils
++(unsigned int)CLRHexStringToUInt:(NSString *)hexString {
+  return CLRHexStringToUInt(hexString);
 }
-+(NSString *)CLUIntToHexString:(unsigned int)number {
-  return CLUIntToHexString(number);
++(NSString *)CLRUIntToHexString:(unsigned int)number {
+  return CLRUIntToHexString(number);
 }
 @end

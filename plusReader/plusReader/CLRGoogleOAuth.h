@@ -1,5 +1,5 @@
 //
-//  CLGoogleOAuth.h
+//  CLRGoogleOAuth.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/26.
@@ -23,7 +23,7 @@
 #endif
 
 #define GOOGLE_OAUTH2_REDIRECT_URIS @"urn:ietf:wg:oauth:2.0:oob"
-#define GOOGLE_OAUTH2_SCOPE CLEncodeURL(@"https://www.google.com/reader/api")
+#define GOOGLE_OAUTH2_SCOPE CLREncodeURL(@"https://www.google.com/reader/api")
 #define GOOGLE_OAUTH2_STORE_NAME @"google_oauth"
 
 #endif

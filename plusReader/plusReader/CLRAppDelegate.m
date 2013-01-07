@@ -1,17 +1,17 @@
 //
-//  CLAppDelegate.m
+//  CLRAppDelegate.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/19.
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLAppDelegate.h"
+#import "CLRAppDelegate.h"
 
-#import "CLMasterViewController.h"
-#import "CLGoogleOAuth.h"
+#import "CLRMasterViewController.h"
+#import "CLRGoogleOAuth.h"
 
-@implementation CLAppDelegate
+@implementation CLRAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -32,7 +32,7 @@
   } else {
   */
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    CLMasterViewController *controller = (CLMasterViewController *)navigationController.topViewController;
+    CLRMasterViewController *controller = (CLRMasterViewController *)navigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
   /*
   }
@@ -68,14 +68,14 @@
     [_googleOAuthClient authenticateUsingOAuthWithPath:@"https://accounts.google.com/o/oauth2/token"
                               refreshToken:storedCredential.refreshToken
                                    success:^(AFOAuthCredential *credential) {
-                                     CLLog(@"success:%@", credential.description);
+                                     CLRLog(@"success:%@", credential.description);
                                      
                                      // 認証データを保存
                                      [AFOAuthCredential storeCredential:credential
                                                          withIdentifier:GOOGLE_OAUTH2_STORE_NAME];
                                      
                                    } failure:^(NSError *error) {
-                                     CLLog(@"failure:%@", error.description);
+                                     CLRLog(@"failure:%@", error.description);
                                      
                                    }];
   }
@@ -83,7 +83,7 @@
   // バージョン表示
   NSString *versionNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
   NSString *buildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-  CLLog(@"Version:%@, Build:%@", versionNum, buildNum);
+  CLRLog(@"Version:%@, Build:%@", versionNum, buildNum);
   
   return YES;
 }
@@ -165,7 +165,7 @@
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
       
-      CLLog(@"Unresolved error %@, %@", error, [error userInfo]);
+      CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
       
       if (error.code == 134100) {
         // TODO: データ型が合わなかった場合にはとりあえず削除（マイグレーションについては後で検討）
@@ -176,7 +176,7 @@
         // データストアを再作成
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
         if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-          CLLog(@"Unresolved error %@, %@", error, [error userInfo]);
+          CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
           abort();
         }
       } else {

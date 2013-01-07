@@ -1,5 +1,5 @@
 //
-//  CLGRRetrieve.h
+//  CLRGRRetrieve.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2013/01/05.
@@ -10,7 +10,7 @@
 
 typedef void (^CLGRRetrieveSuccessBlock)(NSDictionary* JSON);
 
-@interface CLGRRetrieve : NSObject
+@interface CLRGRRetrieve : NSObject
 
 @property (strong, nonatomic) AFHTTPClient *httpClient;
 @property (strong, nonatomic) NSOperationQueue *queue;

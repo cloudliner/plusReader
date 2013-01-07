@@ -1,5 +1,5 @@
 //
-//  CLMasterViewController.h
+//  CLRMasterViewController.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/19.
@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class CLDetailViewController;
+@class CLRDetailViewController;
 
 #import <CoreData/CoreData.h>
 
-@interface CLMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface CLRMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) CLDetailViewController *detailViewController;
+@property (strong, nonatomic) CLRDetailViewController *detailViewController;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

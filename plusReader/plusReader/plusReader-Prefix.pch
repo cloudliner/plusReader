@@ -17,7 +17,7 @@
   #import "AFNetworking.h"
   #import "AFOAuth2Client.h"
   #import "GAI.h"
-  #import "CLConsole.h"
+  #import "CLRConsole.h"
 #endif
 
 #if !defined(DEBUG) || !(TARGET_IPHONE_SIMULATOR)

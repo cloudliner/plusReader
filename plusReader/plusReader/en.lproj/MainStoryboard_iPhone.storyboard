@@ -30,7 +30,7 @@
         <!--Master View Controller - Master-->
         <scene sceneID="18">
             <objects>
-                <tableViewController storyboardIdentifier="" title="Master" id="12" customClass="CLMasterViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="" title="Master" id="12" customClass="CLRMasterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="13">
                         <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -87,7 +87,7 @@
         <!--Config View Controller-->
         <scene sceneID="IGs-rx-Rjw">
             <objects>
-                <tableViewController id="HGc-2u-97w" customClass="CLConfigViewController" sceneMemberID="viewController">
+                <tableViewController id="HGc-2u-97w" customClass="CLRConfigViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="zra-TA-XtM">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -211,7 +211,7 @@
         <!--Login View Controller-->
         <scene sceneID="2RE-Qf-Auh">
             <objects>
-                <viewController id="x1E-3m-TGC" customClass="CLLoginViewController" sceneMemberID="viewController">
+                <viewController id="x1E-3m-TGC" customClass="CLRLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ptf-ch-OC0">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -225,7 +225,7 @@
         <!--Console View Controller-->
         <scene sceneID="Zsu-y1-w5N">
             <objects>
-                <viewController id="LS0-r2-l1W" customClass="CLConsoleViewController" sceneMemberID="viewController">
+                <viewController id="LS0-r2-l1W" customClass="CLRConsoleViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GIu-yK-4kt">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -269,7 +269,7 @@
         <!--Detail View Controller - Detail-->
         <scene sceneID="24">
             <objects>
-                <viewController storyboardIdentifier="" title="Detail" id="21" customClass="CLDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="" title="Detail" id="21" customClass="CLRDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="22">
                         <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

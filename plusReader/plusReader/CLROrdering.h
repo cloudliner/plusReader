@@ -1,5 +1,5 @@
 //
-//  CLOrdering.h
+//  CLROrdering.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2013/01/06.
@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface CLOrdering : NSManagedObject
+@interface CLROrdering : NSManagedObject
 
 @property (nonatomic, retain) NSString * idString;
 @property (nonatomic, retain) NSString * value;

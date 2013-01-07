@@ -1,24 +1,24 @@
 //
-//  CLMasterViewController.m
+//  CLRMasterViewController.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/19.
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLMasterViewController.h"
+#import "CLRMasterViewController.h"
 
-#import "CLDetailViewController.h"
-#import "CLGoogleOAuth.h"
-#import "CLGRRetrieve.h"
-#import "CLTag.h"
-#import "CLOrdering.h"
+#import "CLRDetailViewController.h"
+#import "CLRGoogleOAuth.h"
+#import "CLRGRRetrieve.h"
+#import "CLRTag.h"
+#import "CLROrdering.h"
 
-@interface CLMasterViewController ()
+@interface CLRMasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@implementation CLMasterViewController
+@implementation CLRMasterViewController
 
 - (void)awakeFromNib {
   // TODO: iPhone限定
@@ -35,7 +35,7 @@
   [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
   self.navigationItem.leftBarButtonItem = self.editButtonItem;
-  self.detailViewController = (CLDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+  self.detailViewController = (CLRDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
   
   // GAI
   /*
@@ -54,13 +54,13 @@
 
 - (IBAction)loadFeeds:(id)sender {
   // ツリーを生成する
-  CLGRRetrieve *grRetrieve = [[CLGRRetrieve alloc] init];
+  CLRGRRetrieve *grRetrieve = [[CLRGRRetrieve alloc] init];
   NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
   NSManagedObjectContext *context = self.managedObjectContext;
   
   // Orderingの取得・更新
   [grRetrieve listStreamPreference:^(NSDictionary *JSON) {
-    CLOrdering* rootOrder = nil;
+    CLROrdering* rootOrder = nil;
     NSEntityDescription *orderingEntity = [NSEntityDescription entityForName:@"Ordering"
                                                       inManagedObjectContext:context];
     
@@ -82,7 +82,7 @@
         }
       }
       if (value != nil) {
-        CLOrdering *orderingObject = [NSEntityDescription insertNewObjectForEntityForName:[orderingEntity name] inManagedObjectContext:context];
+        CLROrdering *orderingObject = [NSEntityDescription insertNewObjectForEntityForName:[orderingEntity name] inManagedObjectContext:context];
         orderingObject.idString = idString;
         orderingObject.value = value;
         orderingObject.update = now;
@@ -116,14 +116,14 @@
         }
         
         NSString *sortidString = [tag valueForKey:@"sortid"];
-        unsigned int sortid = CLHexStringToUInt(sortidString);
+        unsigned int sortid = CLRHexStringToUInt(sortidString);
         NSString *title = [tag valueForKey:@"title"];
         if (title == nil) {
           NSRange range = [idString rangeOfString:@"/" options:NSBackwardsSearch];
           title = [idString substringWithRange:NSMakeRange(range.location + 1, idString.length - range.location - 1)];
         }
         
-        CLTag *tagObject = [NSEntityDescription insertNewObjectForEntityForName:[tagEntity name] inManagedObjectContext:context];
+        CLRTag *tagObject = [NSEntityDescription insertNewObjectForEntityForName:[tagEntity name] inManagedObjectContext:context];
         tagObject.idString = idString;
         tagObject.title = title;
         tagObject.sortid = sortid;
@@ -156,7 +156,7 @@
       
       NSError *error = nil;
       if (![fetchedResultsController performFetch:&error]) {
-        CLLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
       }
       
@@ -169,7 +169,7 @@
       if (![context save:&error]) {
         // Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        CLLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
       }
 
@@ -268,7 +268,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   if ([[segue identifier] isEqualToString:@"showDetail"]) {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    CLTag *tagObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    CLRTag *tagObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     [[segue destinationViewController] setDetailItem:tagObject];
   }
 }
@@ -368,7 +368,7 @@
  */
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-  CLTag *tagObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  CLRTag *tagObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.textLabel.text = tagObject.title;
 }
 

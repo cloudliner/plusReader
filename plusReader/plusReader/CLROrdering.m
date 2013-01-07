@@ -1,16 +1,16 @@
 //
-//  CLOrdering.m
+//  CLROrdering.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2013/01/06.
 //  Copyright (c) 2013年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLOrdering.h"
+#import "CLROrdering.h"
 
 const int kSORTID_LENGTH = 8;
 
-@implementation CLOrdering
+@implementation CLROrdering
 
 @dynamic idString;
 @dynamic value;
@@ -28,7 +28,7 @@ const int kSORTID_LENGTH = 8;
   NSMutableArray *rtnArray = [NSMutableArray arrayWithCapacity:arraySize];
   for (int i = 0; i < arraySize; i ++) {
     NSString *sortidString = [value substringWithRange:NSMakeRange(i * kSORTID_LENGTH, kSORTID_LENGTH)];
-    NSNumber *sortid = [NSNumber numberWithUnsignedInt:CLHexStringToUInt(sortidString)];
+    NSNumber *sortid = [NSNumber numberWithUnsignedInt:CLRHexStringToUInt(sortidString)];
     [rtnArray addObject:(sortid)];
   }
   return rtnArray;

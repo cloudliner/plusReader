@@ -1,22 +1,22 @@
 //
-//  CLBrowserView.m
+//  CLRBrowserView.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/30.
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLBrowserView.h"
+#import "CLRBrowserView.h"
 
 // TODO: 定数の持ち方
 #define kNavigationBar 44.0f
 
-@interface CLBrowserView()
+@interface CLRBrowserView()
 - (void)clearNavigationBar;
 - (void)clearWebView;
 @end
 
-@implementation CLBrowserView
+@implementation CLRBrowserView
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
@@ -59,7 +59,7 @@
 }
 
 -(void) closeBrowser {
-  CLLog(@"");
+  CLRLog(@"");
   [self.delegate closeBrowser];
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Feed" representedClassName="CLFeed" syncable="YES">
+    <entity name="Feed" representedClassName="CLRFeed" syncable="YES">
         <attribute name="htmlUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="idString" attributeType="String" indexed="YES" syncable="YES"/>
@@ -11,13 +11,13 @@
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
         <relationship name="tag" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="feed" inverseEntity="Tag" syncable="YES"/>
     </entity>
-    <entity name="Ordering" representedClassName="CLOrdering" syncable="YES">
+    <entity name="Ordering" representedClassName="CLROrdering" syncable="YES">
         <attribute name="idString" attributeType="String" syncable="YES"/>
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tag" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="ordering" inverseEntity="Tag" syncable="YES"/>
     </entity>
-    <entity name="Tag" representedClassName="CLTag" syncable="YES">
+    <entity name="Tag" representedClassName="CLRTag" syncable="YES">
         <attribute name="idString" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="index" attributeType="Integer 16" defaultValueString="-1" indexed="YES" syncable="YES"/>
         <attribute name="sortid" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
@@ -28,8 +28,8 @@
         <relationship name="ordering" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Ordering" inverseName="tag" inverseEntity="Ordering" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Feed" positionX="-36" positionY="47" width="128" height="178"/>
-        <element name="Ordering" positionX="-245" positionY="245" width="128" height="103"/>
-        <element name="Tag" positionX="-243" positionY="47" width="128" height="163"/>
+        <element name="Feed" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Ordering" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Tag" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

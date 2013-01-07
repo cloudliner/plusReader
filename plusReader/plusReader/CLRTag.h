@@ -1,5 +1,5 @@
 //
-//  CLTag.h
+//  CLRTag.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2013/01/06.
@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class CLFeed, CLOrdering;
+@class CLRFeed, CLROrdering;
 
-@interface CLTag : NSManagedObject
+@interface CLRTag : NSManagedObject
 
 @property (nonatomic, retain) NSString * idString;
 @property (nonatomic) int16_t index;
@@ -20,13 +20,13 @@
 @property (nonatomic) int16_t unreadCount;
 @property (nonatomic) NSTimeInterval update;
 @property (nonatomic, retain) NSSet *feed;
-@property (nonatomic, retain) CLOrdering *ordering;
+@property (nonatomic, retain) CLROrdering *ordering;
 @end
 
-@interface CLTag (CoreDataGeneratedAccessors)
+@interface CLRTag (CoreDataGeneratedAccessors)
 
-- (void)addFeedObject:(CLFeed *)value;
-- (void)removeFeedObject:(CLFeed *)value;
+- (void)addFeedObject:(CLRFeed *)value;
+- (void)removeFeedObject:(CLRFeed *)value;
 - (void)addFeed:(NSSet *)values;
 - (void)removeFeed:(NSSet *)values;
 
