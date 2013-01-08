@@ -10,39 +10,59 @@
 
 const int kSORTID_LENGTH = 8;
 
+@interface CLROrdering() {
+  unsigned int *_sortidArray;
+  int _arraySize;
+}
+@end
+
 @implementation CLROrdering
 
 @dynamic idString;
 @dynamic value;
 @dynamic update;
 
--(NSArray *)sortidArray {
-  // value を unsigned int の配列に変換したものを返す
-  [self willAccessValueForKey:@"value"];
-  NSString *value = [self primitiveValueForKey:@"value"];
-  [self didAccessValueForKey:@"value"];
+-(void)setValue:(NSString *)value {
+  [self willChangeValueForKey:@"value"];
+  [self setPrimitiveValue:value forKey:@"value"];
+  [self didChangeValueForKey:@"value"];
+  
   if (value == nil || value.length == 0) {
-    return nil;
+    return;
   }
   int arraySize = value.length/kSORTID_LENGTH;
-  NSMutableArray *rtnArray = [NSMutableArray arrayWithCapacity:arraySize];
+  unsigned int *sortidArray = (unsigned int *)malloc(sizeof(unsigned int) * arraySize);
+  // TODO: mallocした配列の初期化は必要？
   for (int i = 0; i < arraySize; i ++) {
     NSString *sortidString = [value substringWithRange:NSMakeRange(i * kSORTID_LENGTH, kSORTID_LENGTH)];
-    NSNumber *sortid = [NSNumber numberWithUnsignedInt:CLRHexStringToUInt(sortidString)];
-    [rtnArray addObject:(sortid)];
+    unsigned int sortid = CLRHexStringToUInt(sortidString);
+    sortidArray[i] = sortid;
   }
-  return rtnArray;
+  // TODO: メモリを解放する際の順序はこれでいいのか？
+  unsigned int *arrayToDelete = _sortidArray;
+  _sortidArray = sortidArray;
+  _arraySize = arraySize;
+  if (arrayToDelete != NULL) {
+    free(arrayToDelete);
+  }
 }
 
 -(int)indexWithSortid:(unsigned int)sortid {
-  NSArray *sortidArray = [self sortidArray];
-  for (int i = 0; i < sortidArray.count; i ++) {
-    unsigned int currentSortid = [[sortidArray objectAtIndex:i] unsignedIntValue];
-    if (currentSortid == sortid) {
-      return i;
+  // TODO: スレッドセーフじゃない？
+  if (_sortidArray != NULL) {
+    for (int i = 0; i < _arraySize; i ++) {
+      if (sortid == _sortidArray[i]) {
+        return i;
+      }
     }
   }
   return -1;
+}
+
+-(void)dealloc {
+  if (_sortidArray != NULL) {
+    free(_sortidArray);
+  }
 }
 
 @end
