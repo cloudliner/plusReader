@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class CLRTag;
 
 @interface CLROrdering : NSManagedObject
 
-@property (nonatomic, retain) NSString * idString;
-@property (nonatomic, retain) NSString * value;
+@property (nonatomic, retain) NSString * streamId;
 @property (nonatomic) NSTimeInterval update;
+@property (nonatomic, retain) NSString * value;
+@property (nonatomic, retain) CLRTag *tag;
 
 -(int)indexWithSortid:(unsigned int)sortid;
 

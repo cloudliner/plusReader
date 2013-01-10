@@ -7,6 +7,7 @@
 //
 
 #import "CLROrdering.h"
+#import "CLRTag.h"
 
 const int kSORTID_LENGTH = 8;
 
@@ -18,9 +19,10 @@ const int kSORTID_LENGTH = 8;
 
 @implementation CLROrdering
 
-@dynamic idString;
-@dynamic value;
+@dynamic streamId;
 @dynamic update;
+@dynamic value;
+@dynamic tag;
 
 -(void)setValue:(NSString *)value {
   [self willChangeValueForKey:@"value"];

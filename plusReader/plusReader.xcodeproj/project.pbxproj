@@ -46,6 +46,10 @@
 		41768516169091BE00A29A6D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 41768515169091BE00A29A6D /* Icon@2x.png */; };
 		41768518169091DB00A29A6D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 41768517169091DB00A29A6D /* Icon-72.png */; };
 		4176851A169091DF00A29A6D /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 41768519169091DF00A29A6D /* Icon-72@2x.png */; };
+		41795C15169F80EC00140DBC /* CLRStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 41795C14169F80EC00140DBC /* CLRStream.m */; };
+		41795C1B169F80ED00140DBC /* CLRItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = 41795C1A169F80ED00140DBC /* CLRItemList.m */; };
+		41795C21169F80EE00140DBC /* CLRItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 41795C20169F80EE00140DBC /* CLRItem.m */; };
+		41795C24169F80EE00140DBC /* CLRStreamList.m in Sources */ = {isa = PBXBuildFile; fileRef = 41795C23169F80EE00140DBC /* CLRStreamList.m */; };
 		418329BD1690085E00B045ED /* CLRBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 418329BC1690085E00B045ED /* CLRBrowserView.m */; };
 		41928B8A168A04A700311837 /* CLRConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41928B89168A04A700311837 /* CLRConfigViewController.m */; };
 		41928B8D168A097400311837 /* CLRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41928B8C168A097400311837 /* CLRLoginViewController.m */; };
@@ -132,6 +136,14 @@
 		41768515169091BE00A29A6D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		41768517169091DB00A29A6D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../Icon-72.png"; sourceTree = "<group>"; };
 		41768519169091DF00A29A6D /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "../Icon-72@2x.png"; sourceTree = "<group>"; };
+		41795C13169F80EC00140DBC /* CLRStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRStream.h; sourceTree = "<group>"; };
+		41795C14169F80EC00140DBC /* CLRStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRStream.m; sourceTree = "<group>"; };
+		41795C19169F80ED00140DBC /* CLRItemList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRItemList.h; sourceTree = "<group>"; };
+		41795C1A169F80ED00140DBC /* CLRItemList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRItemList.m; sourceTree = "<group>"; };
+		41795C1F169F80EE00140DBC /* CLRItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRItem.h; sourceTree = "<group>"; };
+		41795C20169F80EE00140DBC /* CLRItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRItem.m; sourceTree = "<group>"; };
+		41795C22169F80EE00140DBC /* CLRStreamList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRStreamList.h; sourceTree = "<group>"; };
+		41795C23169F80EE00140DBC /* CLRStreamList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRStreamList.m; sourceTree = "<group>"; };
 		418329BB1690085E00B045ED /* CLRBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRBrowserView.h; sourceTree = "<group>"; };
 		418329BC1690085E00B045ED /* CLRBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRBrowserView.m; sourceTree = "<group>"; };
 		41928B88168A04A700311837 /* CLRConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRConfigViewController.h; sourceTree = "<group>"; };
@@ -379,10 +391,18 @@
 		41B8E6141699CEE700E7D51A /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				41795C1F169F80EE00140DBC /* CLRItem.h */,
+				41795C20169F80EE00140DBC /* CLRItem.m */,
+				41795C19169F80ED00140DBC /* CLRItemList.h */,
+				41795C1A169F80ED00140DBC /* CLRItemList.m */,
+				41795C13169F80EC00140DBC /* CLRStream.h */,
+				41795C14169F80EC00140DBC /* CLRStream.m */,
 				41B8E60E1699C65600E7D51A /* CLRTag.h */,
 				41B8E60F1699C65600E7D51A /* CLRTag.m */,
 				41B8E6111699C65700E7D51A /* CLRFeed.h */,
 				41B8E6121699C65700E7D51A /* CLRFeed.m */,
+				41795C22169F80EE00140DBC /* CLRStreamList.h */,
+				41795C23169F80EE00140DBC /* CLRStreamList.m */,
 				41B8E60B1699C65500E7D51A /* CLROrdering.h */,
 				41B8E60C1699C65500E7D51A /* CLROrdering.m */,
 			);
@@ -561,6 +581,10 @@
 				41B8E60D1699C65500E7D51A /* CLROrdering.m in Sources */,
 				41B8E6101699C65600E7D51A /* CLRTag.m in Sources */,
 				41B8E6131699C65700E7D51A /* CLRFeed.m in Sources */,
+				41795C15169F80EC00140DBC /* CLRStream.m in Sources */,
+				41795C1B169F80ED00140DBC /* CLRItemList.m in Sources */,
+				41795C21169F80EE00140DBC /* CLRItem.m in Sources */,
+				41795C24169F80EE00140DBC /* CLRStreamList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

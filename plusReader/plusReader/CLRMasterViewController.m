@@ -83,7 +83,7 @@
       }
       if (value != nil) {
         CLROrdering *orderingObject = [NSEntityDescription insertNewObjectForEntityForName:[orderingEntity name] inManagedObjectContext:context];
-        orderingObject.idString = idString;
+        orderingObject.streamId = idString;
         orderingObject.value = value;
         orderingObject.update = now;
         
@@ -124,9 +124,9 @@
         }
         
         CLRTag *tagObject = [NSEntityDescription insertNewObjectForEntityForName:[tagEntity name] inManagedObjectContext:context];
-        tagObject.idString = idString;
+        tagObject.streamId = idString;
         tagObject.title = title;
-        tagObject.sortid = sortid;
+        tagObject.sortId = sortid;
         tagObject.update = now;
         if (rootOrder == nil) {
           tagObject.index = index ++;

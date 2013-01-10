@@ -1,35 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Feed" representedClassName="CLRFeed" syncable="YES">
+    <entity name="Feed" representedClassName="CLRFeed" parentEntity="Stream" syncable="YES">
         <attribute name="htmlUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="idString" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="index" attributeType="Integer 16" defaultValueString="-1" syncable="YES"/>
-        <attribute name="sortid" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="title" attributeType="String" syncable="YES"/>
-        <attribute name="unreadCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
         <relationship name="tag" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="feed" inverseEntity="Tag" syncable="YES"/>
     </entity>
+    <entity name="Item" representedClassName="CLRItem" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="href" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="streamId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="update" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="itemList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemList" inverseName="item" inverseEntity="ItemList" syncable="YES"/>
+    </entity>
+    <entity name="ItemList" representedClassName="CLRItemList" syncable="YES">
+        <attribute name="itemId" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="itemList" inverseEntity="Item" syncable="YES"/>
+        <relationship name="streamList" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StreamList" inverseName="itemList" inverseEntity="StreamList" syncable="YES"/>
+    </entity>
     <entity name="Ordering" representedClassName="CLROrdering" syncable="YES">
-        <attribute name="idString" attributeType="String" syncable="YES"/>
+        <attribute name="streamId" attributeType="String" syncable="YES"/>
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tag" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="ordering" inverseEntity="Tag" syncable="YES"/>
     </entity>
-    <entity name="Tag" representedClassName="CLRTag" syncable="YES">
-        <attribute name="idString" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="index" attributeType="Integer 16" defaultValueString="-1" indexed="YES" syncable="YES"/>
-        <attribute name="sortid" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="title" attributeType="String" syncable="YES"/>
+    <entity name="Stream" representedClassName="CLRStream" isAbstract="YES" syncable="YES">
+        <attribute name="index" attributeType="Integer 16" defaultValueString="-1" syncable="YES"/>
+        <attribute name="sortId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="streamId" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unreadCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="update" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="streamList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StreamList" inverseName="stream" inverseEntity="StreamList" syncable="YES"/>
+    </entity>
+    <entity name="StreamList" representedClassName="CLRStreamList" syncable="YES">
+        <attribute name="sortId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
+        <relationship name="itemList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemList" inverseName="streamList" inverseEntity="ItemList" syncable="YES"/>
+        <relationship name="stream" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stream" inverseName="streamList" inverseEntity="Stream" syncable="YES"/>
+    </entity>
+    <entity name="Tag" representedClassName="CLRTag" parentEntity="Stream" syncable="YES">
         <relationship name="feed" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feed" inverseName="tag" inverseEntity="Feed" syncable="YES"/>
         <relationship name="ordering" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Ordering" inverseName="tag" inverseEntity="Ordering" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Feed" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Ordering" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Tag" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Feed" positionX="-99" positionY="-232" width="128" height="88"/>
+        <element name="Ordering" positionX="-279" positionY="-373" width="128" height="103"/>
+        <element name="Tag" positionX="-281" positionY="-235" width="128" height="73"/>
+        <element name="Item" positionX="79" positionY="-162" width="128" height="178"/>
+        <element name="StreamList" positionX="-189" positionY="72" width="128" height="133"/>
+        <element name="Stream" positionX="-182" positionY="-103" width="128" height="148"/>
+        <element name="ItemList" positionX="72" positionY="72" width="128" height="133"/>
     </elements>
 </model>

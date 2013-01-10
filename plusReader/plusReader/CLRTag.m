@@ -13,12 +13,6 @@
 
 @implementation CLRTag
 
-@dynamic idString;
-@dynamic index;
-@dynamic sortid;
-@dynamic title;
-@dynamic unreadCount;
-@dynamic update;
 @dynamic feed;
 @dynamic ordering;
 

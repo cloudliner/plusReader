@@ -8,19 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "CLRStream.h"
 
 @class CLRTag;
 
-@interface CLRFeed : NSManagedObject
+@interface CLRFeed : CLRStream
 
 @property (nonatomic, retain) NSString * htmlUrl;
 @property (nonatomic, retain) NSData * icon;
-@property (nonatomic, retain) NSString * idString;
-@property (nonatomic) int16_t index;
-@property (nonatomic) int32_t sortid;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic) int16_t unreadCount;
-@property (nonatomic) NSTimeInterval update;
 @property (nonatomic, retain) NSSet *tag;
 @end
 

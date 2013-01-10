@@ -14,12 +14,6 @@
 
 @dynamic htmlUrl;
 @dynamic icon;
-@dynamic idString;
-@dynamic index;
-@dynamic sortid;
-@dynamic title;
-@dynamic unreadCount;
-@dynamic update;
 @dynamic tag;
 
 @end
