@@ -13,7 +13,7 @@
         <attribute name="streamId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="update" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
         <relationship name="itemList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemList" inverseName="item" inverseEntity="ItemList" syncable="YES"/>
     </entity>
     <entity name="ItemList" representedClassName="CLRItemList" syncable="YES">
@@ -28,7 +28,7 @@
         <attribute name="streamId" attributeType="String" syncable="YES"/>
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="tag" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="ordering" inverseEntity="Tag" syncable="YES"/>
+        <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="ordering" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="Stream" representedClassName="CLRStream" isAbstract="YES" syncable="YES">
         <attribute name="index" attributeType="Integer 16" defaultValueString="-1" syncable="YES"/>
@@ -36,7 +36,7 @@
         <attribute name="streamId" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unreadCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="update" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
         <relationship name="streamList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StreamList" inverseName="stream" inverseEntity="StreamList" syncable="YES"/>
     </entity>
     <entity name="StreamList" representedClassName="CLRStreamList" syncable="YES">
@@ -49,15 +49,15 @@
     </entity>
     <entity name="Tag" representedClassName="CLRTag" parentEntity="Stream" syncable="YES">
         <relationship name="feed" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feed" inverseName="tag" inverseEntity="Feed" syncable="YES"/>
-        <relationship name="ordering" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Ordering" inverseName="tag" inverseEntity="Ordering" syncable="YES"/>
+        <relationship name="ordering" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ordering" inverseName="tag" inverseEntity="Ordering" syncable="YES"/>
     </entity>
     <elements>
         <element name="Feed" positionX="-99" positionY="-232" width="128" height="88"/>
-        <element name="Ordering" positionX="-279" positionY="-373" width="128" height="103"/>
-        <element name="Tag" positionX="-281" positionY="-235" width="128" height="73"/>
         <element name="Item" positionX="79" positionY="-162" width="128" height="178"/>
-        <element name="StreamList" positionX="-189" positionY="72" width="128" height="133"/>
-        <element name="Stream" positionX="-182" positionY="-103" width="128" height="148"/>
         <element name="ItemList" positionX="72" positionY="72" width="128" height="133"/>
+        <element name="Ordering" positionX="-279" positionY="-373" width="128" height="103"/>
+        <element name="Stream" positionX="-182" positionY="-121" width="128" height="148"/>
+        <element name="StreamList" positionX="-189" positionY="72" width="128" height="133"/>
+        <element name="Tag" positionX="-281" positionY="-235" width="128" height="73"/>
     </elements>
 </model>
