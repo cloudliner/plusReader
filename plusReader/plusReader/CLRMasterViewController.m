@@ -105,15 +105,6 @@
       int index = 0;
       for (NSDictionary *tag in tags) {
         NSString *idString = [tag valueForKey:@"id"];
-        // 以下のidのタグを除外
-        // "user/-/state/com.google/starred"
-        // "user/-/state/com.google/broadcast"
-        // "user/-/state/com.blogger/blogger-following"
-        if ([idString hasSuffix:@"/state/com.google/starred"] ||
-            [idString hasSuffix:@"/state/com.google/broadcast"] ||
-            [idString hasSuffix:@"/state/com.blogger/blogger-following"]) {
-          continue;
-        }
         
         NSString *sortidString = [tag valueForKey:@"sortid"];
         unsigned int sortid = CLRHexStringToUInt(sortidString);
@@ -288,6 +279,13 @@
   // Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
   
+  // 以下のstreamIdのタグを除外
+  // "user/-/state/com.google/starred"
+  // "user/-/state/com.google/broadcast"
+  // "user/-/state/com.blogger/blogger-following"
+  NSPredicate *predidate =  [NSPredicate predicateWithFormat:@"%K like %@", @"streamId", @"*/label/*"];
+  [fetchRequest setPredicate:predidate];
+
   // Edit the sort key as appropriate.
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];
@@ -296,7 +294,7 @@
   
   // Edit the section name key path and cache name if appropriate.
   // nil for section name key path means "no sections".
-  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
   aFetchedResultsController.delegate = self;
   self.fetchedResultsController = aFetchedResultsController;
   

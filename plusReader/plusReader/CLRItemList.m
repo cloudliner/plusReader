@@ -8,16 +8,12 @@
 
 #import "CLRItemList.h"
 #import "CLRItem.h"
-#import "CLRStreamList.h"
 
 
 @implementation CLRItemList
 
 @dynamic itemId;
-@dynamic title;
-@dynamic update;
-@dynamic type;
+@dynamic timestamp;
 @dynamic item;
-@dynamic streamList;
 
 @end

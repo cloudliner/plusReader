@@ -1,5 +1,5 @@
 //
-//  CLRStreamList.h
+//  CLRList.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2013/01/11.
@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "CLRList.h"
 
-@class CLRStream;
 
-@interface CLRStreamList : CLRList
+@interface CLRList : NSManagedObject
 
-@property (nonatomic, retain) CLRStream *stream;
+@property (nonatomic) int32_t sortId;
+@property (nonatomic) int16_t type;
+@property (nonatomic) NSTimeInterval update;
 
 @end

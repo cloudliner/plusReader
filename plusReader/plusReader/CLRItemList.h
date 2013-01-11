@@ -8,16 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "CLRList.h"
 
-@class CLRItem, CLRStreamList;
+@class CLRItem;
 
-@interface CLRItemList : NSManagedObject
+@interface CLRItemList : CLRList
 
 @property (nonatomic) int64_t itemId;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic) NSTimeInterval update;
-@property (nonatomic) int16_t type;
+@property (nonatomic) int64_t timestamp;
 @property (nonatomic, retain) CLRItem *item;
-@property (nonatomic, retain) CLRStreamList *streamList;
 
 @end
