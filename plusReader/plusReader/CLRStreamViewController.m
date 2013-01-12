@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLRMasterViewController.h"
+#import "CLRStreamViewController.h"
 
 #import "CLRDetailViewController.h"
 #import "CLRGoogleOAuth.h"
@@ -14,11 +14,11 @@
 #import "CLRTag.h"
 #import "CLROrdering.h"
 
-@interface CLRMasterViewController ()
+@interface CLRStreamViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@implementation CLRMasterViewController
+@implementation CLRStreamViewController
 
 - (void)awakeFromNib {
   // TODO: iPhone限定
@@ -119,11 +119,14 @@
         tagObject.title = title;
         tagObject.sortId = sortid;
         tagObject.update = now;
+        // TODO: index は CLRStreamList に移動
+        /*
         if (rootOrder == nil) {
           tagObject.index = index ++;
         } else {
           tagObject.index = [rootOrder indexWithSortid:sortid];
         }
+         */
         // TODO: orderingObject を設定していない
       }
             
@@ -286,8 +289,9 @@
   NSPredicate *predidate =  [NSPredicate predicateWithFormat:@"%K like %@", @"streamId", @"*/label/*"];
   [fetchRequest setPredicate:predidate];
 
+  // TODO: index は CLRStreamList に移動
   // Edit the sort key as appropriate.
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];
   
   [fetchRequest setSortDescriptors:sortDescriptors];

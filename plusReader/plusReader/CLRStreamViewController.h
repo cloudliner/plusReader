@@ -12,7 +12,7 @@
 
 #import <CoreData/CoreData.h>
 
-@interface CLRMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface CLRStreamViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) CLRDetailViewController *detailViewController;
 

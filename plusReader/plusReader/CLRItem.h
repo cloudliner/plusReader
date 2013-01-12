@@ -9,26 +9,19 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class CLRItemList;
+@class CLRFeed;
 
 @interface CLRItem : NSManagedObject
 
-@property (nonatomic, retain) NSString * href;
 @property (nonatomic, retain) NSString * author;
-@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * content;
-@property (nonatomic) int64_t timestamp;
+@property (nonatomic, retain) NSString * href;
 @property (nonatomic) int64_t itemId;
 @property (nonatomic, retain) NSString * streamId;
+@property (nonatomic) int64_t timestamp;
+@property (nonatomic, retain) NSString * title;
 @property (nonatomic) NSTimeInterval update;
-@property (nonatomic, retain) NSSet *itemList;
-@end
-
-@interface CLRItem (CoreDataGeneratedAccessors)
-
-- (void)addItemListObject:(CLRItemList *)value;
-- (void)removeItemListObject:(CLRItemList *)value;
-- (void)addItemList:(NSSet *)values;
-- (void)removeItemList:(NSSet *)values;
+@property (nonatomic) int32_t published;
+@property (nonatomic, retain) CLRFeed *feed;
 
 @end

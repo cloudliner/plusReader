@@ -14,10 +14,8 @@
 
 @dynamic sortId;
 @dynamic streamId;
-@dynamic index;
 @dynamic title;
 @dynamic unreadCount;
-@dynamic update;
 @dynamic streamList;
 
 @end

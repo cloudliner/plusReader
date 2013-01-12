@@ -8,17 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "CLRType.h"
 
 @class CLRStreamList;
 
-@interface CLRStream : NSManagedObject
+@interface CLRStream : CLRType
 
 @property (nonatomic) int32_t sortId;
 @property (nonatomic, retain) NSString * streamId;
-@property (nonatomic) int16_t index;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic) int16_t unreadCount;
-@property (nonatomic) NSTimeInterval update;
 @property (nonatomic, retain) CLRStreamList *streamList;
 
 @end

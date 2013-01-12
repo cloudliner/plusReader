@@ -8,12 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "CLRType.h"
 
 
-@interface CLRList : NSManagedObject
+@interface CLRList : CLRType
 
 @property (nonatomic) int32_t sortId;
-@property (nonatomic) int16_t type;
-@property (nonatomic) NSTimeInterval update;
 
 @end

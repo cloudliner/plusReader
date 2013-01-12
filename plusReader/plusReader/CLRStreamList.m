@@ -12,6 +12,7 @@
 
 @implementation CLRStreamList
 
+@dynamic index;
 @dynamic stream;
 
 @end

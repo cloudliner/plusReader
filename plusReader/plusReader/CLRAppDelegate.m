@@ -8,7 +8,7 @@
 
 #import "CLRAppDelegate.h"
 
-#import "CLRMasterViewController.h"
+#import "CLRStreamViewController.h"
 #import "CLRGoogleOAuth.h"
 
 @implementation CLRAppDelegate
@@ -32,7 +32,7 @@
   } else {
   */
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    CLRMasterViewController *controller = (CLRMasterViewController *)navigationController.topViewController;
+    CLRStreamViewController *controller = (CLRStreamViewController *)navigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
   /*
   }

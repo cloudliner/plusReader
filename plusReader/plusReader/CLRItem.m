@@ -7,19 +7,20 @@
 //
 
 #import "CLRItem.h"
-#import "CLRItemList.h"
+#import "CLRFeed.h"
 
 
 @implementation CLRItem
 
-@dynamic href;
 @dynamic author;
-@dynamic title;
 @dynamic content;
-@dynamic timestamp;
+@dynamic href;
 @dynamic itemId;
 @dynamic streamId;
+@dynamic timestamp;
+@dynamic title;
 @dynamic update;
-@dynamic itemList;
+@dynamic published;
+@dynamic feed;
 
 @end

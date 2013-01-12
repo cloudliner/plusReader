@@ -12,7 +12,5 @@
 @implementation CLRList
 
 @dynamic sortId;
-@dynamic type;
-@dynamic update;
 
 @end

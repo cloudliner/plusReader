@@ -14,6 +14,7 @@
 
 @interface CLRStreamList : CLRList
 
+@property (nonatomic) int32_t index;
 @property (nonatomic, retain) CLRStream *stream;
 
 @end
