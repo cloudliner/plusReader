@@ -13,7 +13,7 @@
 #import "CLRGRRetrieve.h"
 #import "CLRTag.h"
 #import "CLROrdering.h"
-#import "CLRStreamList.h"
+#import "CLRStreamCursor.h"
 
 @interface CLRStreamViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -276,22 +276,22 @@
   NSArray *tagArray = [tagFetchedResultsController fetchedObjects];
   for (CLRTag *tagObject in tagArray) {
     //
-    CLRStreamList *streamListObject = [NSEntityDescription insertNewObjectForEntityForName:@"StreamList" inManagedObjectContext:context];
-    streamListObject.stream = tagObject;
-    streamListObject.sortId = tagObject.sortId;
-    streamListObject.type = CLRTypeEnumerationTagNormal;
-    streamListObject.update = now;
-    streamListObject.index = [rootOrder indexWithSortid:tagObject.sortId];
+    CLRStreamCursor *streamCursorObject = [NSEntityDescription insertNewObjectForEntityForName:@"StreamCursor" inManagedObjectContext:context];
+    streamCursorObject.stream = tagObject;
+    streamCursorObject.sortId = tagObject.sortId;
+    streamCursorObject.type = CLRTypeEnumerationTagNormal;
+    streamCursorObject.update = now;
+    streamCursorObject.index = [rootOrder indexWithSortid:tagObject.sortId];
   }
   
-  // TODO: FeedからStreamListを更新
+  // TODO: FeedからStreamCursorを更新
   
   // 古いオブジェクトを削除
   NSFetchRequest *deleteRequest = [[NSFetchRequest alloc] init];
   [deleteRequest setFetchBatchSize:20];
-  NSEntityDescription *streamListEntity = [NSEntityDescription entityForName:@"StreamList"
+  NSEntityDescription *streamCursorEntity = [NSEntityDescription entityForName:@"StreamCursor"
                                                inManagedObjectContext:context];
-  [deleteRequest setEntity:streamListEntity];
+  [deleteRequest setEntity:streamCursorEntity];
   
   NSPredicate *deletePredidate = [NSPredicate predicateWithFormat:@"update != %@", [NSDate dateWithTimeIntervalSinceReferenceDate:now]];
   [deleteRequest setPredicate:deletePredidate];
@@ -377,8 +377,8 @@
   // TODO: 遷移処理の変更
   if ([[segue identifier] isEqualToString:@"showItem"]) {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    CLRStreamList *streamListObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    [[segue destinationViewController] setStreamList:streamListObject];
+    CLRStreamCursor *streamCursorObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    [[segue destinationViewController] setStreamCursor:streamCursorObject];
   }
 }
 
@@ -391,8 +391,8 @@
   
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   // Edit the entity name as appropriate.
-  NSEntityDescription *streamListEntity = [NSEntityDescription entityForName:@"StreamList" inManagedObjectContext:self.managedObjectContext];
-  [fetchRequest setEntity:streamListEntity];
+  NSEntityDescription *streamCursorEntity = [NSEntityDescription entityForName:@"StreamCursor" inManagedObjectContext:self.managedObjectContext];
+  [fetchRequest setEntity:streamCursorEntity];
   
   // Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
@@ -480,7 +480,7 @@
  */
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-  CLRStreamList *streamListObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  CLRStreamCursor *streamListObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.textLabel.text = streamListObject.stream.title;
 }
 

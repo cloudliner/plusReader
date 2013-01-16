@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "CLRType.h"
 
-@class CLRStreamList;
+@class CLRStreamCursor;
 
 @interface CLRStream : CLRType
 
@@ -18,6 +18,6 @@
 @property (nonatomic, retain) NSString * streamId;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic) int16_t unreadCount;
-@property (nonatomic, retain) CLRStreamList *streamList;
+@property (nonatomic, retain) CLRStreamCursor *streamCursor;
 
 @end

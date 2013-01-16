@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Cursor" representedClassName="CLRCursor" isAbstract="YES" parentEntity="Type" syncable="YES">
+        <attribute name="sortId" attributeType="Integer 32" indexed="YES" syncable="YES"/>
+    </entity>
     <entity name="Feed" representedClassName="CLRFeed" parentEntity="Stream" syncable="YES">
         <attribute name="htmlUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -17,13 +20,10 @@
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
         <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" syncable="YES"/>
     </entity>
-    <entity name="ItemList" representedClassName="CLRItemList" parentEntity="List" syncable="YES">
+    <entity name="ItemCursor" representedClassName="CLRItemCursor" parentEntity="Cursor" syncable="YES">
         <attribute name="itemId" attributeType="Integer 64" indexed="YES" syncable="YES"/>
         <attribute name="timestamp" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" syncable="YES"/>
-    </entity>
-    <entity name="List" representedClassName="CLRList" isAbstract="YES" parentEntity="Type" syncable="YES">
-        <attribute name="sortId" attributeType="Integer 32" indexed="YES" syncable="YES"/>
     </entity>
     <entity name="Ordering" representedClassName="CLROrdering" syncable="YES">
         <attribute name="streamId" attributeType="String" syncable="YES"/>
@@ -36,11 +36,11 @@
         <attribute name="streamId" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unreadCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="streamList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StreamList" inverseName="stream" inverseEntity="StreamList" syncable="YES"/>
+        <relationship name="streamCursor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StreamCursor" inverseName="stream" inverseEntity="StreamCursor" syncable="YES"/>
     </entity>
-    <entity name="StreamList" representedClassName="CLRStreamList" parentEntity="List" syncable="YES">
+    <entity name="StreamCursor" representedClassName="CLRStreamCursor" parentEntity="Cursor" syncable="YES">
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="stream" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stream" inverseName="streamList" inverseEntity="Stream" syncable="YES"/>
+        <relationship name="stream" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stream" inverseName="streamCursor" inverseEntity="Stream" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName="CLRTag" parentEntity="Stream" syncable="YES">
         <relationship name="feed" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feed" inverseName="tag" inverseEntity="Feed" syncable="YES"/>
@@ -51,14 +51,14 @@
         <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Feed" positionX="-99" positionY="-232" width="128" height="88"/>
-        <element name="Item" positionX="70" positionY="-229" width="128" height="193"/>
-        <element name="ItemList" positionX="36" positionY="54" width="128" height="88"/>
-        <element name="List" positionX="-47" positionY="171" width="128" height="58"/>
-        <element name="Ordering" positionX="-245" positionY="-369" width="128" height="103"/>
-        <element name="Stream" positionX="-198" positionY="-115" width="128" height="118"/>
-        <element name="StreamList" positionX="-119" positionY="54" width="128" height="73"/>
-        <element name="Tag" positionX="-281" positionY="-235" width="128" height="73"/>
-        <element name="Type" positionX="-198" positionY="167" width="128" height="73"/>
+        <element name="Cursor" positionX="25" positionY="273" width="128" height="60"/>
+        <element name="Feed" positionX="70" positionY="-117" width="128" height="90"/>
+        <element name="Item" positionX="234" positionY="-114" width="128" height="195"/>
+        <element name="ItemCursor" positionX="97" positionY="153" width="128" height="90"/>
+        <element name="Ordering" positionX="-99" positionY="-252" width="128" height="105"/>
+        <element name="Stream" positionX="-20" positionY="-3" width="128" height="120"/>
+        <element name="StreamCursor" positionX="-47" positionY="159" width="128" height="75"/>
+        <element name="Tag" positionX="-90" positionY="-117" width="128" height="75"/>
+        <element name="Type" positionX="-209" positionY="159" width="128" height="75"/>
     </elements>
 </model>

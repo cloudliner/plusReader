@@ -1,18 +1,16 @@
 //
-//  CLRStreamList.m
+//  CLRList.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2013/01/11.
 //  Copyright (c) 2013年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLRStreamList.h"
-#import "CLRStream.h"
+#import "CLRCursor.h"
 
 
-@implementation CLRStreamList
+@implementation CLRCursor
 
-@dynamic index;
-@dynamic stream;
+@dynamic sortId;
 
 @end

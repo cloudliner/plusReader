@@ -6,11 +6,11 @@
 //  Copyright (c) 2013年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLRItemList.h"
+#import "CLRItemCursor.h"
 #import "CLRItem.h"
 
 
-@implementation CLRItemList
+@implementation CLRItemCursor
 
 @dynamic itemId;
 @dynamic timestamp;

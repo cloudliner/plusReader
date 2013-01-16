@@ -1,5 +1,5 @@
 //
-//  CLRList.h
+//  CLRStreamList.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2013/01/11.
@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "CLRType.h"
+#import "CLRCursor.h"
 
+@class CLRStream;
 
-@interface CLRList : CLRType
+@interface CLRStreamCursor : CLRCursor
 
-@property (nonatomic) int32_t sortId;
+@property (nonatomic) int32_t index;
+@property (nonatomic, retain) CLRStream *stream;
 
 @end

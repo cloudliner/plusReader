@@ -7,7 +7,7 @@
 //
 
 #import "CLRStream.h"
-#import "CLRStreamList.h"
+#import "CLRStreamCursor.h"
 
 
 @implementation CLRStream
@@ -16,6 +16,6 @@
 @dynamic streamId;
 @dynamic title;
 @dynamic unreadCount;
-@dynamic streamList;
+@dynamic streamCursor;
 
 @end

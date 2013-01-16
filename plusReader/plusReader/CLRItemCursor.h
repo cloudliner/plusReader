@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "CLRList.h"
+#import "CLRCursor.h"
 
 @class CLRItem;
 
-@interface CLRItemList : CLRList
+@interface CLRItemCursor : CLRCursor
 
 @property (nonatomic) int64_t itemId;
 @property (nonatomic) int64_t timestamp;

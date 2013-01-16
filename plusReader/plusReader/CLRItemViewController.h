@@ -12,7 +12,7 @@
 
 @interface CLRItemViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) id streamList;
+@property (strong, nonatomic) id streamCursor;
 
 @property (strong, nonatomic) CLRDetailViewController *detailViewController;
 
