@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		410359F116A6F7BD007719C0 /* CLRItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 410359EF16A6F7BD007719C0 /* CLRItemViewController.m */; };
 		411215661681FF8800794F99 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 411215651681FF8800794F99 /* UIKit.framework */; };
 		411215681681FF8800794F99 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 411215671681FF8800794F99 /* Foundation.framework */; };
 		4112156A1681FF8800794F99 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 411215691681FF8800794F99 /* CoreGraphics.framework */; };
@@ -76,6 +77,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		410359EE16A6F7BD007719C0 /* CLRItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRItemViewController.h; sourceTree = "<group>"; };
+		410359EF16A6F7BD007719C0 /* CLRItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRItemViewController.m; sourceTree = "<group>"; };
 		411215611681FF8800794F99 /* plusReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = plusReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		411215651681FF8800794F99 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		411215671681FF8800794F99 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -430,6 +433,8 @@
 				41928B8F168A0CA900311837 /* CLRConsoleViewController.m */,
 				411215881681FF8800794F99 /* CLRStreamViewController.h */,
 				411215891681FF8800794F99 /* CLRStreamViewController.m */,
+				410359EE16A6F7BD007719C0 /* CLRItemViewController.h */,
+				410359EF16A6F7BD007719C0 /* CLRItemViewController.m */,
 				4112158B1681FF8800794F99 /* CLRDetailViewController.h */,
 				4112158C1681FF8800794F99 /* CLRDetailViewController.m */,
 			);
@@ -597,6 +602,7 @@
 				4171D83616A10E9000B15D36 /* CLRStream.m in Sources */,
 				4171D83916A10E9000B15D36 /* CLRTag.m in Sources */,
 				4171D83C16A10E9000B15D36 /* CLRType.m in Sources */,
+				410359F116A6F7BD007719C0 /* CLRItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

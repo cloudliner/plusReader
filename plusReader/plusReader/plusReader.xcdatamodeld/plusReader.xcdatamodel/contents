@@ -54,11 +54,11 @@
         <element name="Feed" positionX="-99" positionY="-232" width="128" height="88"/>
         <element name="Item" positionX="70" positionY="-229" width="128" height="193"/>
         <element name="ItemList" positionX="36" positionY="54" width="128" height="88"/>
+        <element name="List" positionX="-47" positionY="171" width="128" height="58"/>
         <element name="Ordering" positionX="-245" positionY="-369" width="128" height="103"/>
         <element name="Stream" positionX="-198" positionY="-115" width="128" height="118"/>
         <element name="StreamList" positionX="-119" positionY="54" width="128" height="73"/>
         <element name="Tag" positionX="-281" positionY="-235" width="128" height="73"/>
-        <element name="List" positionX="-47" positionY="171" width="128" height="58"/>
         <element name="Type" positionX="-198" positionY="167" width="128" height="73"/>
     </elements>
 </model>
