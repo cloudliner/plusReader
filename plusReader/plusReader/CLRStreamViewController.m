@@ -127,6 +127,8 @@
         if (ordering != nil) {
           tagObject.ordering = ordering;
         }
+        
+         CLRLog(@" tag: title=%@, sortId=%d", tagObject.title, tagObject.sortId);
       }
             
       // 古いオブジェクトを削除
@@ -206,6 +208,7 @@
   NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
   NSArray *tagArray = [coreData copyResultForEntity:CLREntityTag predicate:tagPredidate];
   for (CLRTag *tagObject in tagArray) {
+    CLRLog(@" tag: title=%@, sortId=%d", tagObject.title, tagObject.sortId);
     CLRStreamCursor *streamCursorObject = [coreData insertNewObjectForEntity:CLREntityStreamCursor];
     streamCursorObject.stream = tagObject;
     streamCursorObject.sortId = tagObject.sortId;
@@ -378,6 +381,7 @@
   CLRStreamCursor *streamCursorObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
   CLRStream *streamObject = streamCursorObject.stream;
   cell.textLabel.text = streamObject.title;
+  CLRLog(@" stream: tag=%@, sortId=%d", streamObject, streamObject.sortId);
 }
 
 @end
