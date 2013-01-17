@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class CLRDetailViewController;
+@class CLRCoreData;
 
 #import <CoreData/CoreData.h>
 
@@ -17,6 +18,7 @@
 @property (strong, nonatomic) CLRDetailViewController *detailViewController;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+//@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) CLRCoreData *coreData;
 
 @end

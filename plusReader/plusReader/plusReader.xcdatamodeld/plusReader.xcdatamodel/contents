@@ -40,7 +40,7 @@
     </entity>
     <entity name="StreamCursor" representedClassName="CLRStreamCursor" parentEntity="Cursor" syncable="YES">
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="stream" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Stream" inverseName="streamCursor" inverseEntity="Stream" syncable="YES"/>
+        <relationship name="stream" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stream" inverseName="streamCursor" inverseEntity="Stream" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName="CLRTag" parentEntity="Stream" syncable="YES">
         <relationship name="feed" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feed" inverseName="tag" inverseEntity="Feed" syncable="YES"/>
@@ -57,7 +57,7 @@
         <element name="ItemCursor" positionX="97" positionY="153" width="128" height="90"/>
         <element name="Ordering" positionX="-99" positionY="-252" width="128" height="105"/>
         <element name="Stream" positionX="-20" positionY="-3" width="128" height="120"/>
-        <element name="StreamCursor" positionX="-47" positionY="159" width="128" height="75"/>
+        <element name="StreamCursor" positionX="-47" positionY="159" width="128" height="73"/>
         <element name="Tag" positionX="-90" positionY="-117" width="128" height="75"/>
         <element name="Type" positionX="-209" positionY="159" width="128" height="75"/>
     </elements>

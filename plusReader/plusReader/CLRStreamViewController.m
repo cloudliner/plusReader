@@ -14,6 +14,7 @@
 #import "CLRTag.h"
 #import "CLROrdering.h"
 #import "CLRStreamCursor.h"
+#import "CLRCoreData.h"
 
 @interface CLRStreamViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -22,7 +23,7 @@
 @implementation CLRStreamViewController
 
 - (void)awakeFromNib {
-  // TODO: iPhone限定
+  // TODO: とりあえずiPhoneに限定
   /*
   if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
     self.clearsSelectionOnViewWillAppear = NO;
@@ -57,15 +58,10 @@
   // ツリーを生成する
   CLRGRRetrieve *grRetrieve = [[CLRGRRetrieve alloc] init];
   NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-  NSManagedObjectContext *context = self.managedObjectContext;
+  CLRCoreData *coreData = self.coreData;
   
   // Orderingの取得・更新
   [grRetrieve listStreamPreference:^(NSDictionary *JSON) {
-    // TODO: 不要かも...
-    CLROrdering* rootOrder = nil;
-    NSEntityDescription *orderingEntity = [NSEntityDescription entityForName:@"Ordering"
-                                                      inManagedObjectContext:context];
-    
     NSDictionary *streamprefs = [JSON valueForKey:@"streamprefs"];
     NSMutableDictionary *orderings = [NSMutableDictionary dictionary];
     for (NSString *streamId in [streamprefs keyEnumerator]) {
@@ -85,26 +81,17 @@
         }
       }
       if (value != nil) {
-        CLROrdering *orderingObject = [NSEntityDescription insertNewObjectForEntityForName:[orderingEntity name] inManagedObjectContext:context];
+        CLROrdering *orderingObject = [coreData insertNewObjectForEntity:CLREntityOrdering];
         orderingObject.streamId = streamId;
         orderingObject.value = value;
         orderingObject.update = now;
         
         [orderings setObject:orderingObject forKey:streamId];
-        // ルート階層の順序を保存しておく
-        if ([streamId hasSuffix:@"/state/com.google/root"]) {
-          rootOrder = orderingObject;
-        }
       }
     }
     
     // Tagの取得・更新
-    [grRetrieve listTag:^(NSDictionary *JSON) {
-      // NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-      // NSEntityDescription *tagEntity = [[self.fetchedResultsController fetchRequest] entity];
-      NSEntityDescription *tagEntity = [NSEntityDescription entityForName:@"Tag"
-                                                   inManagedObjectContext:context];
-      
+    [grRetrieve listTag:^(NSDictionary *JSON) {      
       NSArray *tags = [JSON valueForKey:@"tags"];
       for (NSDictionary *tag in tags) {
         NSString *streamId = [tag valueForKey:@"id"];
@@ -117,7 +104,7 @@
           title = [streamId substringWithRange:NSMakeRange(range.location + 1, streamId.length - range.location - 1)];
         }
         
-        CLRTag *tagObject = [NSEntityDescription insertNewObjectForEntityForName:[tagEntity name] inManagedObjectContext:context];
+        CLRTag *tagObject = [coreData insertNewObjectForEntity:CLREntityTag];
         tagObject.streamId = streamId;
         tagObject.title = title;
         tagObject.sortId = sortid;
@@ -143,49 +130,19 @@
       }
             
       // 古いオブジェクトを削除
-      NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-      [fetchRequest setEntity:tagEntity];
-      [fetchRequest setFetchBatchSize:20];
+      // [coreData deleteForEntity:CLREntityTag timestamp:now];
+      // [coreData deleteForEntity:CLREntityOrdering timestamp:now];
       
-      NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"update" ascending:YES];
-      [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-      
-      NSPredicate *predidate = [NSPredicate predicateWithFormat:@"update != %@", [NSDate dateWithTimeIntervalSinceReferenceDate:now]];
-      
-      [fetchRequest setPredicate:predidate];
-      
-      NSFetchedResultsController *fetchedResultsController
-      = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                            managedObjectContext:context
-                                              sectionNameKeyPath:nil
-                                                       cacheName:nil];
-      
-      NSError *error = nil;
-      if (![fetchedResultsController performFetch:&error]) {
-        CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-      }
-      
-      NSArray *arrayToDelete = [fetchedResultsController fetchedObjects];
-      for (NSManagedObject *object in arrayToDelete) {
-        [context deleteObject:object];
-      }
-      
-      // TODO: "Ordering" エンティティの削除
-      
-      // Save the context.
-      if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-      }
-
       // TODO: Feedの取得・更新
       // TODO: 未読件数の更新
+      // 保存
+      [coreData saveContext];
       
       // StreamListの更新
       [self updateStreamList];
+      
+      // 保存
+      [coreData saveContext];
     }];
   }];
   
@@ -220,24 +177,16 @@
 }
 
 - (void)updateStreamList {
-  // TODO: 作成
   // ルート階層を取得
-  NSManagedObjectContext *context = self.managedObjectContext;
   NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"update" ascending:YES];
-  NSEntityDescription *orderingEntity = [NSEntityDescription entityForName:@"Ordering"
-                                                    inManagedObjectContext:context];
+  CLRCoreData *coreData = self.coreData;
   NSFetchRequest *orderingRequest = [[NSFetchRequest alloc] init];
-  [orderingRequest setFetchBatchSize:20];
-  [orderingRequest setEntity:orderingEntity];
   NSPredicate *orderingPredidate =  [NSPredicate predicateWithFormat:@"%K like %@", @"streamId", @"*/state/com.google/root"];
   [orderingRequest setPredicate:orderingPredidate];
   [orderingRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
   
   NSFetchedResultsController *rootFetchedResultsController
-  = [[NSFetchedResultsController alloc] initWithFetchRequest:orderingRequest
-                                        managedObjectContext:context
-                                          sectionNameKeyPath:nil
-                                                   cacheName:nil];
+  = [coreData copyFetchedResultsControllerWithEntity:CLREntityOrdering fetchRequest:orderingRequest];
   
   NSError *error = nil;
   if (![rootFetchedResultsController performFetch:&error]) {
@@ -252,31 +201,12 @@
   }
   
   // TagからStreamListを更新
-  NSFetchRequest *tagRequest = [[NSFetchRequest alloc] init];
-  [tagRequest setFetchBatchSize:20];
-  NSEntityDescription *tagEntity = [NSEntityDescription entityForName:@"Tag"
-                                                    inManagedObjectContext:context];
-  [tagRequest setEntity:tagEntity];
   NSPredicate *tagPredidate = [NSPredicate predicateWithFormat:@"type == %d", CLRTypeEnumerationTagNormal];
-  [tagRequest setPredicate:tagPredidate];
-  [tagRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
   
-  NSFetchedResultsController *tagFetchedResultsController
-  = [[NSFetchedResultsController alloc] initWithFetchRequest:tagRequest
-                                        managedObjectContext:context
-                                          sectionNameKeyPath:nil
-                                                   cacheName:nil];
-  
-  if (![tagFetchedResultsController performFetch:&error]) {
-    CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    abort();
-  }
-
   NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-  NSArray *tagArray = [tagFetchedResultsController fetchedObjects];
+  NSArray *tagArray = [coreData copyResultForEntity:CLREntityTag predicate:tagPredidate];
   for (CLRTag *tagObject in tagArray) {
-    //
-    CLRStreamCursor *streamCursorObject = [NSEntityDescription insertNewObjectForEntityForName:@"StreamCursor" inManagedObjectContext:context];
+    CLRStreamCursor *streamCursorObject = [coreData insertNewObjectForEntity:CLREntityStreamCursor];
     streamCursorObject.stream = tagObject;
     streamCursorObject.sortId = tagObject.sortId;
     streamCursorObject.type = CLRTypeEnumerationTagNormal;
@@ -287,31 +217,7 @@
   // TODO: FeedからStreamCursorを更新
   
   // 古いオブジェクトを削除
-  NSFetchRequest *deleteRequest = [[NSFetchRequest alloc] init];
-  [deleteRequest setFetchBatchSize:20];
-  NSEntityDescription *streamCursorEntity = [NSEntityDescription entityForName:@"StreamCursor"
-                                               inManagedObjectContext:context];
-  [deleteRequest setEntity:streamCursorEntity];
-  
-  NSPredicate *deletePredidate = [NSPredicate predicateWithFormat:@"update != %@", [NSDate dateWithTimeIntervalSinceReferenceDate:now]];
-  [deleteRequest setPredicate:deletePredidate];
-  [deleteRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-  
-  NSFetchedResultsController *deleteFetchedResultsController
-  = [[NSFetchedResultsController alloc] initWithFetchRequest:deleteRequest
-                                        managedObjectContext:context
-                                          sectionNameKeyPath:nil
-                                                   cacheName:nil];
-  
-  if (![deleteFetchedResultsController performFetch:&error]) {
-    CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    abort();
-  }
-  
-  NSArray *arrayToDelete = [deleteFetchedResultsController fetchedObjects];
-  for (NSManagedObject *object in arrayToDelete) {
-    [context deleteObject:object];
-  }
+  [coreData deleteForEntity:CLREntityStreamCursor timestamp:now];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -364,7 +270,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  // TODO: とりあえずiPhoneのみ
+  // TODO: とりあえずiPhoneに限定
   /*
   if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
     NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
@@ -390,26 +296,15 @@
   }
   
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  // Edit the entity name as appropriate.
-  NSEntityDescription *streamCursorEntity = [NSEntityDescription entityForName:@"StreamCursor" inManagedObjectContext:self.managedObjectContext];
-  [fetchRequest setEntity:streamCursorEntity];
-  
-  // Set the batch size to a suitable number.
-  [fetchRequest setFetchBatchSize:20];
-  
   NSPredicate *predidate = [NSPredicate predicateWithFormat:@"type == %d", CLRTypeEnumerationTagNormal];
   [fetchRequest setPredicate:predidate];
   
-  // Edit the sort key as appropriate.
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];
-  
   [fetchRequest setSortDescriptors:sortDescriptors];
   
-  // Edit the section name key path and cache name if appropriate.
-  // nil for section name key path means "no sections".
-  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-  aFetchedResultsController.delegate = self;
+  NSFetchedResultsController *aFetchedResultsController = [self.coreData copyFetchedResultsControllerWithEntity:CLREntityStreamCursor fetchRequest:fetchRequest];
+  
   self.fetchedResultsController = aFetchedResultsController;
   
 	NSError *error = nil;
@@ -480,8 +375,9 @@
  */
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-  CLRStreamCursor *streamListObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.textLabel.text = streamListObject.stream.title;
+  CLRStreamCursor *streamCursorObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  CLRStream *streamObject = streamCursorObject.stream;
+  cell.textLabel.text = streamObject.title;
 }
 
 @end
