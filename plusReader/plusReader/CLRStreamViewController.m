@@ -12,6 +12,7 @@
 #import "CLRGoogleOAuth.h"
 #import "CLRGRRetrieve.h"
 #import "CLRTag.h"
+#import "CLRFeed.h"
 #import "CLROrdering.h"
 #import "CLRStreamCursor.h"
 #import "CLRCoreData.h"
@@ -63,7 +64,7 @@
   // Orderingの取得・更新
   [grRetrieve listStreamPreference:^(NSDictionary *JSON) {
     NSDictionary *streamprefs = [JSON valueForKey:@"streamprefs"];
-    NSMutableDictionary *orderings = [NSMutableDictionary dictionary];
+    NSMutableDictionary *tempOrderings = [NSMutableDictionary dictionary];
     for (NSString *streamId in [streamprefs keyEnumerator]) {
       // 無関係の設定を除外
       // TODO: 不要かも...
@@ -86,18 +87,19 @@
         orderingObject.value = value;
         orderingObject.update = now;
         
-        [orderings setObject:orderingObject forKey:streamId];
+        // 参照用に保持
+        [tempOrderings setObject:orderingObject forKey:streamId];
       }
     }
     
     // Tagの取得・更新
-    [grRetrieve listTag:^(NSDictionary *JSON) {      
+    [grRetrieve listTag:^(NSDictionary *JSON) {
+      NSMutableDictionary *tempTags = [NSMutableDictionary dictionary];
       NSArray *tags = [JSON valueForKey:@"tags"];
       for (NSDictionary *tag in tags) {
         NSString *streamId = [tag valueForKey:@"id"];
-        
         NSString *sortidString = [tag valueForKey:@"sortid"];
-        unsigned int sortid = CLRHexStringToUInt(sortidString);
+        int sortid = CLRIntForHexString(sortidString);
         NSString *title = [tag valueForKey:@"title"];
         if (title == nil) {
           NSRange range = [streamId rangeOfString:@"/" options:NSBackwardsSearch];
@@ -123,37 +125,82 @@
         }
         
         // ordering の設定
-        CLROrdering *ordering = [orderings objectForKey:streamId];
+        CLROrdering *ordering = [tempOrderings objectForKey:streamId];
         if (ordering != nil) {
           tagObject.ordering = ordering;
         }
+        
+        // 参照用に保持
+        [tempTags setObject:tagObject forKey:streamId];
       }
             
-      // 古いオブジェクトを削除
-      [coreData deleteForEntity:CLREntityTag timestamp:now];
-      [coreData deleteForEntity:CLREntityOrdering timestamp:now];
-      
-      // TODO: Feedの取得・更新
-      // TODO: 未読件数の更新
-      // 保存
-      [coreData saveContext];
-      
-      // StreamListの更新
-      [self updateStreamList];
-      
-      // 保存
-      [coreData saveContext];
+      // Feedの取得・更新
+      [grRetrieve listSubscription:^(NSDictionary *JSON) {
+        NSMutableDictionary *tempFeeds = [NSMutableDictionary dictionary];
+        NSArray *subscriptions = [JSON valueForKey:@"subscriptions"];
+        for (NSDictionary *subscription in subscriptions) {
+          NSString *streamId = [subscription valueForKey:@"id"];
+          NSString *sortidString = [subscription valueForKey:@"sortid"];
+          int sortid = CLRIntForHexString(sortidString);
+          NSString *title = [subscription valueForKey:@"title"];
+          NSString *htmlUrl = [subscription valueForKey:@"htmlUrl"];
+          
+          CLRFeed *feedObject = [coreData insertNewObjectForEntity:CLREntityFeed];
+          feedObject.streamId = streamId;
+          feedObject.sortId = sortid;
+          feedObject.title = title;
+          feedObject.htmlUrl = htmlUrl;
+          feedObject.update = now;
+          
+          // categories の設定
+          NSArray *categories = [subscription valueForKey:@"categories"];
+          for (NSDictionary *category in categories) {
+            NSString *categoryId = [category valueForKey:@"id"];
+            CLRTag *tagObject = [tempTags objectForKey:categoryId];
+            if (tagObject != nil) {
+              [feedObject addTagObject:tagObject];
+            }
+          }
+          
+          // 参照用に保持
+          [tempFeeds setObject:feedObject forKey:streamId];
+        }
+        // 未読件数の更新
+        [grRetrieve listUnreadCount:^(NSDictionary *JSON) {
+          NSArray *unreadcounts = [JSON valueForKey:@"unreadcounts"];
+          for (NSDictionary *unreadcount in unreadcounts) {
+            NSString *streamId = [unreadcount valueForKey:@"id"];
+            NSString *countString = [unreadcount valueForKey:@"count"];
+            int count = [countString intValue];
+            CLRTag *tagObject = [tempTags objectForKey:streamId];
+            if (tagObject != nil) {
+              tagObject.unreadCount = count;
+            }
+            CLRFeed *feedObject = [tempFeeds objectForKey:streamId];
+            if (feedObject != nil) {
+              feedObject.unreadCount = count;
+            }
+          }
+          
+          // 古いオブジェクトを削除
+          [coreData deleteForEntity:CLREntityFeed timestamp:now];
+          [coreData deleteForEntity:CLREntityTag timestamp:now];
+          [coreData deleteForEntity:CLREntityOrdering timestamp:now];
+          
+          // StreamListの更新
+          [self updateStreamList];
+          
+          // 保存
+          [coreData saveContext];
+        }];
+      }];
     }];
   }];
   
   // 未使用メソッド
   /*
-  // subscription/list
-  [grRetrieve listSubscription];
   // preference/list
   [grRetrieve listPreference];
-  // unread-count
-  [grRetrieve listUnreadCount];
   
   // Stream Contents API
   // stream-contents-feed
@@ -177,34 +224,22 @@
 }
 
 - (void)updateStreamList {
-  // ルート階層を取得
-  NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"update" ascending:YES];
   CLRCoreData *coreData = self.coreData;
-  NSFetchRequest *orderingRequest = [[NSFetchRequest alloc] init];
-  NSPredicate *orderingPredidate =  [NSPredicate predicateWithFormat:@"%K like %@", @"streamId", @"*/state/com.google/root"];
-  [orderingRequest setPredicate:orderingPredidate];
-  [orderingRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
   
-  NSFetchedResultsController *rootFetchedResultsController
-  = [coreData copyFetchedResultsControllerWithEntity:CLREntityOrdering fetchRequest:orderingRequest];
-  
-  NSError *error = nil;
-  if (![rootFetchedResultsController performFetch:&error]) {
-    CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    abort();
-  }
-  
+  // ルート階層を取得
   CLROrdering* rootOrder = nil;
-  NSArray *orderingArray = [rootFetchedResultsController fetchedObjects];
+  NSArray *orderingArray = [coreData arrayForEntity:CLREntityOrdering predicate:nil];
   for (CLROrdering *object in orderingArray) {
-    rootOrder = object;
+    if ([object.streamId hasSuffix:@"/state/com.google/root"]) {
+      rootOrder = object;
+    }
   }
-  
+    
+  NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+
   // TagからStreamListを更新
   NSPredicate *tagPredidate = [NSPredicate predicateWithFormat:@"type == %d", CLRTypeEnumerationTagNormal];
-  
-  NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-  NSArray *tagArray = [coreData copyResultForEntity:CLREntityTag predicate:tagPredidate];
+  NSArray *tagArray = [coreData arrayForEntity:CLREntityTag predicate:tagPredidate];
   for (CLRTag *tagObject in tagArray) {
     CLRStreamCursor *streamCursorObject = [coreData insertNewObjectForEntity:CLREntityStreamCursor];
     streamCursorObject.stream = tagObject;
@@ -214,7 +249,19 @@
     streamCursorObject.index = [rootOrder indexWithSortid:tagObject.sortId];
   }
   
-  // TODO: FeedからStreamCursorを更新
+  // FeedからStreamCursorを更新
+  NSArray *feedArray = [coreData arrayForEntity:CLREntityFeed predicate:nil];
+  for (CLRFeed *feedObject in feedArray) {
+    int rootIndex = [rootOrder indexWithSortid:feedObject.sortId];
+    if (rootIndex != -1) {
+      CLRStreamCursor *streamCursorObject = [coreData insertNewObjectForEntity:CLREntityStreamCursor];
+      streamCursorObject.stream = feedObject;
+      streamCursorObject.sortId = feedObject.sortId;
+      streamCursorObject.type = CLRTypeEnumerationFeedNormal;
+      streamCursorObject.update = now;
+      streamCursorObject.index = rootIndex;     
+    }
+  }
   
   // 古いオブジェクトを削除
   [coreData deleteForEntity:CLREntityStreamCursor timestamp:now];
@@ -236,8 +283,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  // TODO: Cellの種類を変更する
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tagCell" forIndexPath:indexPath];
+  // Cellの種類を変更する
+  UITableViewCell *cell = nil;
+  CLRStreamCursor *streamCursorObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  switch (streamCursorObject.type) {
+    case CLRTypeEnumerationFeedNormal:
+      cell = [tableView dequeueReusableCellWithIdentifier:@"itemCell" forIndexPath:indexPath];
+      break;
+    default:
+      cell = [tableView dequeueReusableCellWithIdentifier:@"tagCell" forIndexPath:indexPath];
+      break;
+  }
   [self configureCell:cell atIndexPath:indexPath];
   return cell;
 }
@@ -296,14 +352,16 @@
   }
   
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  NSPredicate *predidate = [NSPredicate predicateWithFormat:@"type == %d", CLRTypeEnumerationTagNormal];
+//  short predidateArray[2] = {[CLRTypeEnumerationTagNormal,CLRTypeEnumerationFeedNormal};
+  NSArray *predidateArray = @[@(CLRTypeEnumerationTagNormal), @(CLRTypeEnumerationFeedNormal)];
+  NSPredicate *predidate = [NSPredicate predicateWithFormat:@"type IN %@", predidateArray];
   [fetchRequest setPredicate:predidate];
   
   NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
   NSArray *sortDescriptors = @[sortDescriptor];
   [fetchRequest setSortDescriptors:sortDescriptors];
   
-  NSFetchedResultsController *aFetchedResultsController = [self.coreData copyFetchedResultsControllerWithEntity:CLREntityStreamCursor fetchRequest:fetchRequest];
+  NSFetchedResultsController *aFetchedResultsController = [self.coreData fetchedResultsControllerWithEntity:CLREntityStreamCursor fetchRequest:fetchRequest];
   
   self.fetchedResultsController = aFetchedResultsController;
   aFetchedResultsController.delegate = self;
@@ -378,7 +436,9 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
   CLRStreamCursor *streamCursorObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
   CLRStream *streamObject = streamCursorObject.stream;
-  cell.textLabel.text = streamObject.title;
+  // TODO: 暫定的に連結して表示
+  NSString *text = [NSString stringWithFormat:@"%@ - %d", streamObject.title, streamObject.unreadCount];
+  cell.textLabel.text = text;
 }
 
 @end

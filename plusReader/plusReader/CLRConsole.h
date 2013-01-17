@@ -20,13 +20,13 @@ void CLRConsole(const char *function, int line, const char *fileName, NSString *
 NSString *CLREncodeURL(NSString *plainString);
 NSString *CLRDecodeURL(NSString *encodedString);
 
-unsigned int CLRHexStringToUInt(NSString *hexString);
-NSString *CLRUIntToHexString(unsigned int number);
+int CLRIntForHexString(NSString *hexString);
+NSString *CLRHexStringForInt(int number);
 
 #endif
 
 // TODO: 実機で単体テストを実行するための暫定対策
 @interface CLRUtils : NSObject
-+(unsigned int)CLRHexStringToUInt:(NSString *)hexString;
-+(NSString *)CLRUIntToHexString:(unsigned int)number;
++ (int)CLRIntForHexString:(NSString *)hexString;
++ (NSString *)CLRHexStringForInt:(int)number;
 @end

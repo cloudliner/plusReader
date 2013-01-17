@@ -20,13 +20,13 @@ typedef NS_ENUM(NSInteger, CLREntityEnumerations) {
 
 @interface CLRCoreData : NSObject
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (readonly, strong, nonatomic) NSManagedObjectContext *context;
+@property (readonly, strong, nonatomic) NSManagedObjectModel *model;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *coordinator;
 
-- (NSFetchedResultsController *)copyFetchedResultsControllerWithEntity:(CLREntityEnumerations)entity fetchRequest:(NSFetchRequest *)fetchRequest;
+- (NSFetchedResultsController *)fetchedResultsControllerWithEntity:(CLREntityEnumerations)entity fetchRequest:(NSFetchRequest *)fetchRequest;
 - (id)insertNewObjectForEntity:(CLREntityEnumerations)entity;
 - (void)deleteForEntity:(CLREntityEnumerations)entity timestamp:(NSTimeInterval)timestamp;
-- (NSArray *)copyResultForEntity:(CLREntityEnumerations)entity predicate:(NSPredicate *)predicate;
+- (NSArray *)arrayForEntity:(CLREntityEnumerations)entity predicate:(NSPredicate *)predicate;
 - (void)saveContext;
 @end

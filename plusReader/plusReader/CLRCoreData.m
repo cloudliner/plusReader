@@ -10,25 +10,25 @@
 
 @implementation CLRCoreData
 
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+@synthesize context = _context;
+@synthesize model = _model;
+@synthesize coordinator = _coordinator;
 
-- (NSFetchedResultsController *)copyFetchedResultsControllerWithEntity:(CLREntityEnumerations)entity fetchRequest:(NSFetchRequest *)fetchRequest {
+- (NSFetchedResultsController *)fetchedResultsControllerWithEntity:(CLREntityEnumerations)entity fetchRequest:(NSFetchRequest *)fetchRequest {
   NSEntityDescription *entityDescription = [self entityForEnumerations:entity];
   [fetchRequest setEntity:entityDescription];
   [fetchRequest setFetchBatchSize:20];
 
   // Edit the section name key path and cache name if appropriate.
   // nil for section name key path means "no sections".
-  NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+  NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
   
   return fetchedResultsController;
 }
 
 - (id)insertNewObjectForEntity:(CLREntityEnumerations)entity {
   NSString *entityName = [self entityNameForEnumerations:entity];
-  id object = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self.managedObjectContext];
+  id object = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self.context];
   return object;
 }
 
@@ -47,7 +47,7 @@
   
   NSFetchedResultsController *fetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:self.managedObjectContext
+                                        managedObjectContext:self.context
                                           sectionNameKeyPath:nil
                                                    cacheName:nil];
   
@@ -59,12 +59,11 @@
   
   NSArray *arrayToDelete = [fetchedResultsController fetchedObjects];
   for (NSManagedObject *object in arrayToDelete) {
-    [self.managedObjectContext deleteObject:object];
+    [self.context deleteObject:object];
   }
 }
 
-// TODO: このメソッドは問題ありかも？
-- (NSArray *)copyResultForEntity:(CLREntityEnumerations)entity predicate:(NSPredicate *)predicate {
+- (NSArray *)arrayForEntity:(CLREntityEnumerations)entity predicate:(NSPredicate *)predicate {
   NSEntityDescription *entityDescription = [self entityForEnumerations:entity];
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   [fetchRequest setEntity:entityDescription];
@@ -72,11 +71,13 @@
   
   NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"update" ascending:YES];
   [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-  [fetchRequest setPredicate:predicate];
+  if (predicate != nil) {
+    [fetchRequest setPredicate:predicate];
+  }
   
   NSFetchedResultsController *fetchedResultsController
   = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:self.managedObjectContext
+                                        managedObjectContext:self.context
                                           sectionNameKeyPath:nil
                                                    cacheName:nil];
   
@@ -92,33 +93,27 @@
 
 - (NSString *)entityNameForEnumerations:(CLREntityEnumerations)enumerations {
   switch (enumerations) {
-    case CLREntityItem: {
+    case CLREntityItem:
       return @"Item";
-    }
-    case CLREntityOrdering: {
+    case CLREntityOrdering:
       return @"Ordering";
-    }
-    case CLREntityItemCursor: {
+    case CLREntityItemCursor:
       return @"ItemCursor";
-    }
-    case CLREntityStreamCursor: {
+    case CLREntityStreamCursor:
       return @"StreamCursor";
-    }
-    case CLREntityFeed: {
+    case CLREntityFeed:
       return @"Feed";
-    }
-    case CLREntityTag: {
+    case CLREntityTag:
       return @"Tag";
-    }
-    default: {
+    default:
       return nil;
-    }
   }
 }
+
 - (NSEntityDescription *)entityForEnumerations:(CLREntityEnumerations)enumerations {
   NSString *entityName = [self entityNameForEnumerations:enumerations];
   if (entityName != nil) {
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.context];
     return entity;
   } else {
     return nil;
@@ -127,7 +122,7 @@
 
 - (void)saveContext {
   NSError *error = nil;
-  NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+  NSManagedObjectContext *managedObjectContext = self.context;
   if (managedObjectContext != nil) {
     if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
       // Replace this implementation with code to handle the error appropriately.
@@ -142,42 +137,42 @@
 
 // Returns the managed object context for the application.
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext {
-  if (_managedObjectContext != nil) {
-    return _managedObjectContext;
+- (NSManagedObjectContext *)context {
+  if (_context != nil) {
+    return _context;
   }
   
-  NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+  NSPersistentStoreCoordinator *coordinator = [self coordinator];
   if (coordinator != nil) {
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+    _context = [[NSManagedObjectContext alloc] init];
+    [_context setPersistentStoreCoordinator:coordinator];
   }
-  return _managedObjectContext;
+  return _context;
 }
 
 // Returns the managed object model for the application.
 // If the model doesn't already exist, it is created from the application's model.
-- (NSManagedObjectModel *)managedObjectModel {
-  if (_managedObjectModel != nil) {
-    return _managedObjectModel;
+- (NSManagedObjectModel *)model {
+  if (_model != nil) {
+    return _model;
   }
   NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"plusReader" withExtension:@"momd"];
-  _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-  return _managedObjectModel;
+  _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+  return _model;
 }
 
 // Returns the persistent store coordinator for the application.
 // If the coordinator doesn't already exist, it is created and the application's store added to it.
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-  if (_persistentStoreCoordinator != nil) {
-    return _persistentStoreCoordinator;
+- (NSPersistentStoreCoordinator *)coordinator {
+  if (_coordinator != nil) {
+    return _coordinator;
   }
   
   NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"plusReader.sqlite"];
   
   NSError *error = nil;
-  _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-  if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+  _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
+  if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
     
     CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
     
@@ -188,8 +183,8 @@
       // @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
       
       // データストアを再作成
-      _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-      if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+      _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
+      if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
       }
@@ -198,7 +193,7 @@
     }
   }
   
-  return _persistentStoreCoordinator;
+  return _coordinator;
 }
 
 #pragma mark - Application's Documents directory

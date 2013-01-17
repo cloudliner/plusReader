@@ -37,7 +37,7 @@ const int kSORTID_LENGTH = 8;
   // TODO: mallocした配列の初期化は必要？
   for (int i = 0; i < arraySize; i ++) {
     NSString *sortidString = [value substringWithRange:NSMakeRange(i * kSORTID_LENGTH, kSORTID_LENGTH)];
-    unsigned int sortid = CLRHexStringToUInt(sortidString);
+    unsigned int sortid = CLRIntForHexString(sortidString);
     sortidArray[i] = sortid;
   }
   // TODO: メモリを解放する際の順序はこれでいいのか？

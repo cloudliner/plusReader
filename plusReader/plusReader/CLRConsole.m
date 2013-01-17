@@ -14,8 +14,8 @@ extern void CLRConsole(const char *function, int line, const char *fileName, NSS
 extern NSString *CLREncodeURL(NSString *plainString);
 extern NSString *CLRDecodeURL(NSString *encodedString);
 
-extern unsigned int CLRHexStringToUInt(NSString *hexString);
-extern NSString *CLRUIntToHexString(unsigned int number);
+extern int CLRIntForHexString(NSString *hexString);
+extern NSString *CLRHexStringForInt(int number);
 
 void CLRConsole(const char *function, int line, const char *fileName, NSString *format, ...) {
   va_list ap;
@@ -65,24 +65,25 @@ NSString *CLRDecodeURL(NSString *encodedString) {
   return decodedString;
 }
 
-unsigned int CLRHexStringToUInt(NSString *hexString) {
+int CLRIntForHexString(NSString *hexString) {
   NSScanner *scan = [NSScanner scannerWithString:hexString];
   unsigned int number;
   [scan scanHexInt:&number];
-  return number;
+  return (int)number;
 }
 
-NSString *CLRUIntToHexString(unsigned int number) {
-  NSString *hexString = [NSString stringWithFormat:@"%X", number];
+NSString *CLRHexStringForInt(int number) {
+  unsigned int uint = (unsigned int)number;
+  NSString *hexString = [NSString stringWithFormat:@"%X", uint];
   return hexString;
 }
 
 // TODO: 実機で単体テストを実行するための暫定対策
 @implementation CLRUtils
-+(unsigned int)CLRHexStringToUInt:(NSString *)hexString {
-  return CLRHexStringToUInt(hexString);
++ (int)CLRIntForHexString:(NSString *)hexString {
+  return CLRIntForHexString(hexString);
 }
-+(NSString *)CLRUIntToHexString:(unsigned int)number {
-  return CLRUIntToHexString(number);
++ (NSString *)CLRHexStringForInt:(int)number {
+  return CLRHexStringForInt(number);
 }
 @end
