@@ -276,12 +276,12 @@
                                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                     NSDictionary *json = (NSDictionary *)JSON;
                                                     CLRLog(@"success:%@ %@", request.description, json.description);
-                                                    NSArray *idList = [json valueForKey:@"results"];
+                                                    NSArray *idList = json[@"results"];
                                                     
                                                     // TODO: 複数パラメータの送信
                                                     // NSMutableArray *idArray = [NSMutableArray array];
                                                     // for (NSDictionary *idItem in idList) {
-                                                    //   [idArray addObject:[idItem valueForKey:@"id"]];
+                                                    //   [idArray addObject:idItem[@"id"]];
                                                     // }
                                                     // NSMutableDictionary *params = [NSMutableDictionary dictionary];
                                                     // [params setObject:idArray forKey:@"i"];
@@ -289,7 +289,7 @@
                                                     NSMutableString *path = [NSMutableString string];
                                                     [path appendString:@"https://www.google.com/reader/api/0/stream/items/contents?output=json"];
                                                     for (NSDictionary *idItem in idList) {
-                                                      [path appendFormat:@"&i=%@", [idItem valueForKey:@"id"]];
+                                                      [path appendFormat:@"&i=%@", idItem[@"id"]];
                                                     }
                                                     
                                                     // search-contents

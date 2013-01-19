@@ -63,7 +63,7 @@
   
   // Orderingの取得・更新
   [grRetrieve listStreamPreference:^(NSDictionary *JSON) {
-    NSDictionary *streamprefs = [JSON valueForKey:@"streamprefs"];
+    NSDictionary *streamprefs = JSON[@"streamprefs"];
     NSMutableDictionary *tempOrderings = [NSMutableDictionary dictionary];
     for (NSString *streamId in [streamprefs keyEnumerator]) {
       // 無関係の設定を除外
@@ -73,11 +73,11 @@
         continue;
       }
       NSString *value = nil;
-      NSArray *prefArray = [streamprefs valueForKey:streamId];
+      NSArray *prefArray = streamprefs[streamId];
       for (NSDictionary *pref in prefArray) {
-        NSString *prefKey = [pref valueForKey:@"id"] ;
+        NSString *prefKey = pref[@"id"] ;
         if ([prefKey isEqualToString:@"subscription-ordering"]) {
-          value = [pref valueForKey:@"value"];
+          value = pref[@"value"];
           break;
         }
       }
@@ -95,12 +95,12 @@
     // Tagの取得・更新
     [grRetrieve listTag:^(NSDictionary *JSON) {
       NSMutableDictionary *tempTags = [NSMutableDictionary dictionary];
-      NSArray *tags = [JSON valueForKey:@"tags"];
+      NSArray *tags = JSON[@"tags"];
       for (NSDictionary *tag in tags) {
-        NSString *streamId = [tag valueForKey:@"id"];
-        NSString *sortidString = [tag valueForKey:@"sortid"];
+        NSString *streamId = tag[@"id"];
+        NSString *sortidString = tag[@"sortid"];
         int sortid = CLRIntForHexString(sortidString);
-        NSString *title = [tag valueForKey:@"title"];
+        NSString *title = tag[@"title"];
         if (title == nil) {
           NSRange range = [streamId rangeOfString:@"/" options:NSBackwardsSearch];
           title = [streamId substringWithRange:NSMakeRange(range.location + 1, streamId.length - range.location - 1)];
@@ -137,13 +137,13 @@
       // Feedの取得・更新
       [grRetrieve listSubscription:^(NSDictionary *JSON) {
         NSMutableDictionary *tempFeeds = [NSMutableDictionary dictionary];
-        NSArray *subscriptions = [JSON valueForKey:@"subscriptions"];
+        NSArray *subscriptions = JSON[@"subscriptions"];
         for (NSDictionary *subscription in subscriptions) {
-          NSString *streamId = [subscription valueForKey:@"id"];
-          NSString *sortidString = [subscription valueForKey:@"sortid"];
+          NSString *streamId = subscription[@"id"];
+          NSString *sortidString = subscription[@"sortid"];
           int sortid = CLRIntForHexString(sortidString);
-          NSString *title = [subscription valueForKey:@"title"];
-          NSString *htmlUrl = [subscription valueForKey:@"htmlUrl"];
+          NSString *title = subscription[@"title"];
+          NSString *htmlUrl = subscription[@"htmlUrl"];
           
           CLRFeed *feedObject = [coreData insertNewObjectForEntity:CLREntityFeed];
           feedObject.streamId = streamId;
@@ -153,10 +153,10 @@
           feedObject.update = now;
           
           // categories の設定
-          NSArray *categories = [subscription valueForKey:@"categories"];
+          NSArray *categories = subscription[@"categories"];
           for (NSDictionary *category in categories) {
-            NSString *categoryId = [category valueForKey:@"id"];
-            CLRTag *tagObject = [tempTags objectForKey:categoryId];
+            NSString *categoryId = category[@"id"];
+            CLRTag *tagObject = tempTags[categoryId];
             if (tagObject != nil) {
               [feedObject addTagObject:tagObject];
             }
@@ -167,16 +167,16 @@
         }
         // 未読件数の更新
         [grRetrieve listUnreadCount:^(NSDictionary *JSON) {
-          NSArray *unreadcounts = [JSON valueForKey:@"unreadcounts"];
+          NSArray *unreadcounts = JSON[@"unreadcounts"];
           for (NSDictionary *unreadcount in unreadcounts) {
-            NSString *streamId = [unreadcount valueForKey:@"id"];
-            NSString *countString = [unreadcount valueForKey:@"count"];
+            NSString *streamId = unreadcount[@"id"];
+            NSString *countString = unreadcount[@"count"];
             int count = [countString intValue];
-            CLRTag *tagObject = [tempTags objectForKey:streamId];
+            CLRTag *tagObject = tempTags[streamId];
             if (tagObject != nil) {
               tagObject.unreadCount = count;
             }
-            CLRFeed *feedObject = [tempFeeds objectForKey:streamId];
+            CLRFeed *feedObject = tempFeeds[streamId];
             if (feedObject != nil) {
               feedObject.unreadCount = count;
             }
