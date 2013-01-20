@@ -112,7 +112,7 @@ void CLRGAIInit() {
     return;
   }
 #ifdef DEBUG
-  [GAI sharedInstance].debug = YES;
+  [GAI sharedInstance].debug = NO;
   [GAI sharedInstance].trackUncaughtExceptions = YES;
   [GAI sharedInstance].dispatchInterval = 30;
 #else

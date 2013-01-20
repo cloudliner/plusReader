@@ -372,41 +372,6 @@
             <point key="canvasLocation" x="1314" y="76"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="CLRConfigViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRConfigViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="closeModalDialog:"/>
-                <relationship kind="action" name="deleteCredential:"/>
-            </relationships>
-        </class>
-        <class className="CLRConsoleViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRConsoleViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="clearConsole:"/>
-                <relationship kind="action" name="closeModalDialog:"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="CLRDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRDetailViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CLRItemViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRItemViewController.h"/>
-        </class>
-        <class className="CLRLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRLoginViewController.h"/>
-        </class>
-        <class className="CLRStreamViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRStreamViewController.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
