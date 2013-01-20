@@ -17,6 +17,11 @@
 - (IBAction)closeModalDialog:(id)sender {
   [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
+- (IBAction)clearConsole:(id)sender {
+  CLRConsoleClear();
+  
+  self.textView.text = @"";
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,11 +33,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  if (plusReader_CLConsole_textView != nil) {
-    _textView.text = plusReader_CLConsole_textView.text;
-    plusReader_CLConsole_textView = nil;
-  }
-	plusReader_CLConsole_textView = _textView;
+  self.textView.text = CLRConsoleText();
   
   CLRGAITrack();
 }

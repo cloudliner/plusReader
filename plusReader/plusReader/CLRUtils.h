@@ -11,8 +11,9 @@
 #define __file__ (strrchr(__FILE__, '/') + 1)
 #define CLRLog(format, ...) CLRConsole(__PRETTY_FUNCTION__, __LINE__, __file__, format, ##__VA_ARGS__)
 
-UITextView *plusReader_CLConsole_textView;
 void CLRConsole(const char *function, int line, const char *fileName, NSString *format, ...) NS_FORMAT_FUNCTION(4,5);
+void CLRConsoleClear();
+NSString *CLRConsoleText();
 
 NSString *CLREncodeURL(NSString *plainString);
 NSString *CLRDecodeURL(NSString *encodedString);

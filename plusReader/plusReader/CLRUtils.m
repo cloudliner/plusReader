@@ -8,8 +8,10 @@
 
 #import "CLRUtils.h"
 
-extern UITextView *plusReader_CLConsole_textView;
+NSMutableString *CLRConsoleBuffer = nil;
 extern void CLRConsole(const char *function, int line, const char *fileName, NSString *format, ...) NS_FORMAT_FUNCTION(4,5);
+extern void CLRConsoleClear();
+extern NSString *CLRConsoleText();
 
 extern NSString *CLREncodeURL(NSString *plainString);
 extern NSString *CLRDecodeURL(NSString *encodedString);
@@ -17,9 +19,9 @@ extern NSString *CLRDecodeURL(NSString *encodedString);
 extern int CLRIntForHexString(NSString *hexString);
 extern NSString *CLRHexStringForInt(int number);
 
+id<GAITracker> CLRGAI_tracker = nil;
 extern void CLRGAIInit();
 extern void CLRGAITrackWithFunction(const char *function);
-static id<GAITracker> CLRGAI_tracker = nil;
 
 void CLRConsole(const char *function, int line, const char *fileName, NSString *format, ...) {
   va_list ap;
@@ -35,8 +37,21 @@ void CLRConsole(const char *function, int line, const char *fileName, NSString *
   // ログ出力
   NSLog(@"%@", text);
   
-  if (plusReader_CLConsole_textView == nil) {
+  const int kBUFFER_SIZE = (512 * 256);
+  const int kCLEAR_SIZE = (512 * 32);
+  
+  if (CLRConsoleBuffer == nil) {
+#ifdef DEBUG
+    CLRConsoleBuffer = [NSMutableString stringWithCapacity:(kBUFFER_SIZE)];
+#else
     return;
+#endif
+  }
+  
+  if (kBUFFER_SIZE < [CLRConsoleBuffer length]) {
+    // コンソールクリア
+    NSRange clearRange = [CLRConsoleBuffer lineRangeForRange:NSMakeRange(0, kCLEAR_SIZE)];
+    [CLRConsoleBuffer deleteCharactersInRange:clearRange];
   }
   
   // コンソール出力
@@ -44,9 +59,19 @@ void CLRConsole(const char *function, int line, const char *fileName, NSString *
   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
   [dateFormatter setDateFormat:@"[HH:mm:ss]"];
   [text insertString:[dateFormatter stringFromDate:now] atIndex:0];
-  [text insertString:@"\r\n" atIndex:0];
-  [text insertString:plusReader_CLConsole_textView.text atIndex:0];
-  [plusReader_CLConsole_textView setText:text];
+  [text insertString:@"\n" atIndex:0];
+  [CLRConsoleBuffer appendString:text];
+}
+
+void CLRConsoleClear() {
+  [CLRConsoleBuffer setString:@""];
+}
+
+NSString *CLRConsoleText() {
+  if (CLRConsoleBuffer == nil) {
+    return @"";
+  }
+  return CLRConsoleBuffer;
 }
 
 NSString *CLREncodeURL(NSString *plainString) {
@@ -108,8 +133,9 @@ void CLRGAITrackWithFunction(const char *function) {
     int classNameSize = position_middle - position_start - 1;
     int methodNameSize = position_end - position_middle - 1;
     char classNameBuffer[classNameSize + 1];
-    memset(classNameBuffer, NULL, sizeof(classNameBuffer));
     char methodNameBuffer[methodNameSize + 1];
+    // メモリを初期化しないと不正な文字が出力される
+    memset(classNameBuffer, NULL, sizeof(classNameBuffer));
     memset(methodNameBuffer, NULL, sizeof(methodNameBuffer));
     strncpy(classNameBuffer, (position_start + 1), classNameSize);
     strncpy(methodNameBuffer, (position_middle + 1), methodNameSize);
