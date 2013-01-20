@@ -240,13 +240,13 @@
     streamCursorObject.sortId = tagObject.sortId;
     streamCursorObject.type = CLRTypeEnumerationTagNormal;
     streamCursorObject.update = now;
-    streamCursorObject.index = [rootOrder indexWithSortid:tagObject.sortId];
+    streamCursorObject.index = [rootOrder indexWithSortId:tagObject.sortId];
   }
   
   // FeedからStreamCursorを更新
   NSArray *feedArray = [coreData arrayForEntity:CLREntityFeed predicate:nil];
   for (CLRFeed *feedObject in feedArray) {
-    int rootIndex = [rootOrder indexWithSortid:feedObject.sortId];
+    int rootIndex = [rootOrder indexWithSortId:feedObject.sortId];
     if (rootIndex != -1) {
       CLRStreamCursor *streamCursorObject = [coreData insertNewObjectForEntity:CLREntityStreamCursor];
       streamCursorObject.stream = feedObject;

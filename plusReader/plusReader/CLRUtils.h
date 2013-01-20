@@ -30,4 +30,3 @@ void CLRGAITrackWithFunction(const char *function);
 + (int)CLRIntForHexString:(NSString *)hexString;
 + (NSString *)CLRHexStringForInt:(int)number;
 @end
-

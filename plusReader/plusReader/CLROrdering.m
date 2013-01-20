@@ -12,7 +12,7 @@
 const int kSORTID_LENGTH = 8;
 
 @interface CLROrdering() {
-  unsigned int *_sortidArray;
+  int *_sortidArray;
   int _arraySize;
 }
 @end
@@ -33,15 +33,14 @@ const int kSORTID_LENGTH = 8;
     return;
   }
   int arraySize = value.length/kSORTID_LENGTH;
-  unsigned int *sortidArray = (unsigned int *)malloc(sizeof(unsigned int) * arraySize);
-  // TODO: mallocした配列の初期化は必要？
+  int *sortidArray = (int *)malloc(sizeof(int) * arraySize);
+  memset(sortidArray, NULL, sizeof(int) * arraySize);
   for (int i = 0; i < arraySize; i ++) {
     NSString *sortidString = [value substringWithRange:NSMakeRange(i * kSORTID_LENGTH, kSORTID_LENGTH)];
-    unsigned int sortid = CLRIntForHexString(sortidString);
+    int sortid = CLRIntForHexString(sortidString);
     sortidArray[i] = sortid;
   }
-  // TODO: メモリを解放する際の順序はこれでいいのか？
-  unsigned int *arrayToDelete = _sortidArray;
+  int *arrayToDelete = _sortidArray;
   _sortidArray = sortidArray;
   _arraySize = arraySize;
   if (arrayToDelete != NULL) {
@@ -49,11 +48,11 @@ const int kSORTID_LENGTH = 8;
   }
 }
 
--(int)indexWithSortid:(unsigned int)sortid {
+-(int)indexWithSortId:(int)sortId {
   // TODO: スレッドセーフじゃない？
   if (_sortidArray != NULL) {
     for (int i = 0; i < _arraySize; i ++) {
-      if (sortid == _sortidArray[i]) {
+      if (sortId == _sortidArray[i]) {
         return i;
       }
     }

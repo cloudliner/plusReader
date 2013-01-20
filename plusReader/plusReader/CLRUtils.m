@@ -28,7 +28,7 @@ void CLRConsole(const char *function, int line, const char *fileName, NSString *
   va_end(ap);
   
   // 関数名、コード行の追加
-  NSMutableString *text = [NSMutableString stringWithCapacity: 0];
+  NSMutableString *text = [NSMutableString string];
   [text appendFormat:@"%s (%s:%d) ", function, fileName, line];
   [text appendString:message];
   
@@ -95,9 +95,9 @@ void CLRGAIInit() {
   [GAI sharedInstance].trackUncaughtExceptions = NO;
   [GAI sharedInstance].dispatchInterval = 180;
 #endif
-  [GAI sharedInstance].defaultTracker.useHttps = YES;
   
   CLRGAI_tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-11599435-3"];
+  CLRGAI_tracker.useHttps = YES;
 }
 
 void CLRGAITrackWithFunction(const char *function) {
@@ -116,10 +116,10 @@ void CLRGAITrackWithFunction(const char *function) {
     NSString *className = [NSString stringWithCString:classNameBuffer encoding:NSASCIIStringEncoding];
     NSString *methodName = [NSString stringWithCString:methodNameBuffer encoding:NSASCIIStringEncoding];
     
-    [[GAI sharedInstance].defaultTracker trackEventWithCategory:className
-                                                     withAction:methodName
-                                                      withLabel:nil
-                                                      withValue:nil];
+    [CLRGAI_tracker trackEventWithCategory:className
+                                withAction:methodName
+                                 withLabel:nil
+                                 withValue:nil];
   }
 }
 
