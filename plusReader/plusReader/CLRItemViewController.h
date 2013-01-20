@@ -9,14 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @class CLRDetailViewController;
+@class CLRStreamCursor;
+@class CLRCoreData;
 
 @interface CLRItemViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) id streamCursor;
+@property (strong, nonatomic) CLRStreamCursor* streamCursor;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) CLRCoreData *coreData;
 
 @property (strong, nonatomic) CLRDetailViewController *detailViewController;
-
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

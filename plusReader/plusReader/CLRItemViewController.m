@@ -7,6 +7,10 @@
 //
 
 #import "CLRItemViewController.h"
+#import "CLRAppDelegate.h"
+#import "CLRStreamCursor.h"
+#import "CLRStream.h"
+#import "CLRGRRetrieve.h"
 
 @interface CLRItemViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -22,6 +26,25 @@
   [super viewDidLoad];
   
   CLRGAITrack();
+}
+
+- (void)setStreamCursor:(CLRStreamCursor *)streamCursor {
+  if (_streamCursor != streamCursor) {
+    _streamCursor = streamCursor;
+    
+    // 表示を更新
+    NSString *streamId = streamCursor.stream.streamId;
+    
+    CLRAppDelegate *delegate = (CLRAppDelegate *)[[UIApplication sharedApplication] delegate];
+    CLRGRRetrieve *grRetrieve = delegate.grRetrieve;
+    CLRCoreData *coreData = delegate.coreData;
+    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+    
+    // Orderingの取得・更新
+    [grRetrieve streamContentsWithId:streamId success:^(NSDictionary *JSON) {
+      // TODO: 処理作成
+    }];
+  }
 }
 
 - (void)didReceiveMemoryWarning {

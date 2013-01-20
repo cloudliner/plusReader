@@ -7,9 +7,8 @@
 //
 
 #import "CLRStreamViewController.h"
-
-#import "CLRDetailViewController.h"
 #import "CLRGoogleOAuth.h"
+#import "CLRAppDelegate.h"
 #import "CLRGRRetrieve.h"
 #import "CLRTag.h"
 #import "CLRFeed.h"
@@ -36,11 +35,14 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	
+  // Do any additional setup after loading the view, typically from a nib.
   self.navigationItem.leftBarButtonItem = self.editButtonItem;
-  self.detailViewController = (CLRDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
   
-  // OpenConfig
+  // TODO: 一旦削除（iPad版では必要かも...）
+  // self.detailViewController = (CLRDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+  
+  // 認証情報がなかったときにConfig画面を自動的に開く
   AFOAuthCredential *storedCredential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
   if (storedCredential == nil) {
     [self performSegueWithIdentifier:@"openConfigView" sender:self];
@@ -50,10 +52,13 @@
 }
 
 - (IBAction)loadFeeds:(id)sender {
-  // ツリーを生成する
-  CLRGRRetrieve *grRetrieve = [[CLRGRRetrieve alloc] init];
+  // TODO: 読み込みタイミングを適切なものにする（起動時、ネットワーク接続時）
+  // TODO: 削除・追加ではなく更新するようにする
+  
+  CLRAppDelegate *delegate = (CLRAppDelegate *)[[UIApplication sharedApplication] delegate];  
+  CLRGRRetrieve *grRetrieve = delegate.grRetrieve;
+  CLRCoreData *coreData = delegate.coreData;
   NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-  CLRCoreData *coreData = self.coreData;
   
   // Orderingの取得・更新
   [grRetrieve listStreamPreference:^(NSDictionary *JSON) {
@@ -218,7 +223,8 @@
 }
 
 - (void)updateStreamList {
-  CLRCoreData *coreData = self.coreData;
+  CLRAppDelegate *delegate = (CLRAppDelegate *)[[UIApplication sharedApplication] delegate];
+  CLRCoreData *coreData = delegate.coreData;
   
   // ルート階層を取得
   CLROrdering* rootOrder = nil;
@@ -355,7 +361,8 @@
   NSArray *sortDescriptors = @[sortDescriptor];
   [fetchRequest setSortDescriptors:sortDescriptors];
   
-  NSFetchedResultsController *aFetchedResultsController = [self.coreData fetchedResultsControllerWithEntity:CLREntityStreamCursor fetchRequest:fetchRequest];
+  CLRAppDelegate *delegate = (CLRAppDelegate *)[[UIApplication sharedApplication] delegate];
+  NSFetchedResultsController *aFetchedResultsController = [delegate.coreData fetchedResultsControllerWithEntity:CLREntityStreamCursor fetchRequest:fetchRequest];
   
   self.fetchedResultsController = aFetchedResultsController;
   aFetchedResultsController.delegate = self;

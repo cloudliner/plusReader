@@ -142,10 +142,14 @@ void CLRGAITrackWithFunction(const char *function) {
     NSString *className = [NSString stringWithCString:classNameBuffer encoding:NSASCIIStringEncoding];
     NSString *methodName = [NSString stringWithCString:methodNameBuffer encoding:NSASCIIStringEncoding];
     
-    [CLRGAI_tracker trackEventWithCategory:className
-                                withAction:methodName
-                                 withLabel:nil
-                                 withValue:nil];
+    if ([methodName isEqualToString:@"viewDidLoad"]) {
+      [CLRGAI_tracker trackView:className];
+    } else {
+      [CLRGAI_tracker trackEventWithCategory:className
+                                  withAction:methodName
+                                   withLabel:nil
+                                   withValue:nil];      
+    }
   }
 }
 

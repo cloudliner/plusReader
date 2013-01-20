@@ -31,65 +31,73 @@
 
 -(void)listTag:(CLGRRetrieveSuccessBlock)successBlock {
   // tag/list
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                              path:@"https://www.google.com/reader/api/0/tag/list?output=json"
-                                                        parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:@"https://www.google.com/reader/api/0/tag/list?output=json"
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                    successBlock(json);
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             // CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
+                             successBlock(json);
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   [self.queue addOperation:operation];
 }
 
 -(void)listSubscription:(CLGRRetrieveSuccessBlock)successBlock {
   // subscription/list
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                              path:@"https://www.google.com/reader/api/0/subscription/list?output=json"
-                                                        parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:@"https://www.google.com/reader/api/0/subscription/list?output=json"
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                    successBlock(json);
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             // CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
+                             successBlock(json);
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   [self.queue addOperation:operation];
 }
 
 -(void)listPreference {
   // preference/list
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                              path:@"https://www.google.com/reader/api/0/preference/list?output=json"
-                                                        parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:@"https://www.google.com/reader/api/0/preference/list?output=json"
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             CLRLog(@"success:%@ %@", request.description, json.description);
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   [self.queue addOperation:operation];  
 }
@@ -103,42 +111,47 @@
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                    successBlock(json);
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             // CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
+                             successBlock(json);
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   [self.queue addOperation:operation];
 }
 
 -(void)listUnreadCount:(CLGRRetrieveSuccessBlock)successBlock {
   // unread-count
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                              path:@"https://www.google.com/reader/api/0/unread-count?output=json"
-                                                        parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:@"https://www.google.com/reader/api/0/unread-count?output=json"
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                    successBlock(json);
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             // CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
+                             successBlock(json);
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   [self.queue addOperation:operation];
 }
 
--(void)streamContentsWithFeed:(NSString *)feedUrl {
+-(void)streamContentsWithFeed:(NSString *)feedUrl success:(CLGRRetrieveSuccessBlock)successBlock {
   // stream-contents-feed
   
   NSMutableString *path = [NSMutableString string];
@@ -150,21 +163,24 @@
   [path appendString:CLREncodeURL(feedUrl)];
   [path appendFormat:@"?n=%d", 10];
   
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                              path:path
-                                                        parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:path
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             CLRLog(@"success:%@ %@", request.description, json.description);
+                             successBlock(json);
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   [self.queue addOperation:operation];
 }
@@ -182,26 +198,28 @@
   [path appendFormat:@"?n=%d", 10];
   [path appendFormat:@"&xt=%@", CLREncodeURL(@"user/-/state/com.google/read")];
 
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                              path:path
-                                                        parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:path
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             CLRLog(@"success:%@ %@", request.description, json.description);
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   [self.queue addOperation:operation];
 }
 
--(void)streamContentsWithId:(NSString *)streamId {
+-(void)streamContentsWithId:(NSString *)streamId success:(CLGRRetrieveSuccessBlock)successBlock {
   // stream-contents-reading-list
   // stream-contents-starred
   // stream-contents-tag
@@ -211,21 +229,24 @@
   [path appendString:CLREncodeURL(streamId)];
   [path appendFormat:@"?n=%d", 10];
   
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                              path:path
-                                                        parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:path
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             CLRLog(@"success:%@ %@", request.description, json.description);
+                             successBlock(json);
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   
   [self.queue addOperation:operation];
@@ -239,21 +260,23 @@
   [path appendString:CLREncodeURL(streamId)];
   [path appendFormat:@"&output=json&n=%d", 40];
 
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                         path:path
-                                                   parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:path
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             CLRLog(@"success:%@ %@", request.description, json.description);
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   [self.queue addOperation:operation];
 }
@@ -265,55 +288,57 @@
   [path appendString:CLREncodeURL(keyword)];
   [path appendFormat:@"&output=json&num=%d", 20];
   
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                              path:path
-                                                        parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:path
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
   AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                    NSDictionary *json = (NSDictionary *)JSON;
-                                                    CLRLog(@"success:%@ %@", request.description, json.description);
-                                                    NSArray *idList = json[@"results"];
+  [AFJSONRequestOperation
+   JSONRequestOperationWithRequest:request
+                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                             NSDictionary *json = (NSDictionary *)JSON;
+                             CLRLog(@"success:%@ %@", request.description, json.description);
+                             NSArray *idList = json[@"results"];
                                                     
-                                                    // TODO: 複数パラメータの送信
-                                                    // NSMutableArray *idArray = [NSMutableArray array];
-                                                    // for (NSDictionary *idItem in idList) {
-                                                    //   [idArray addObject:idItem[@"id"]];
-                                                    // }
-                                                    // NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                                                    // [params setObject:idArray forKey:@"i"];
-                                                    
-                                                    NSMutableString *path = [NSMutableString string];
-                                                    [path appendString:@"https://www.google.com/reader/api/0/stream/items/contents?output=json"];
-                                                    for (NSDictionary *idItem in idList) {
-                                                      [path appendFormat:@"&i=%@", idItem[@"id"]];
-                                                    }
-                                                    
-                                                    // search-contents
-                                                    NSMutableURLRequest *contentsRequest =[self.httpClient requestWithMethod:@"GET"
-                                                                                                                        path:path
-                                                                                                                  parameters:nil];
-                                                    
-                                                    [self setTokenToRequest:contentsRequest];
-                                                    
-                                                    AFJSONRequestOperation *contentsOperation =
-                                                    [AFJSONRequestOperation JSONRequestOperationWithRequest:contentsRequest
-                                                                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                                      NSDictionary *json = (NSDictionary *)JSON;
-                                                                                                      CLRLog(@"success:%@ %@", request.description, json.description);
-                                                                                                    }
-                                                                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                                      CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                                                                    }];
-                                                    
-                                                    [self.queue addOperation:contentsOperation];
-                                                  }
-                                                  failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                    CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                  }];
+                             // TODO: 複数パラメータの送信
+                             // NSMutableArray *idArray = [NSMutableArray array];
+                             // for (NSDictionary *idItem in idList) {
+                             //   [idArray addObject:idItem[@"id"]];
+                             // }
+                             // NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                             // [params setObject:idArray forKey:@"i"];
+                             
+                             NSMutableString *path = [NSMutableString string];
+                             [path appendString:@"https://www.google.com/reader/api/0/stream/items/contents?output=json"];
+                             for (NSDictionary *idItem in idList) {
+                               [path appendFormat:@"&i=%@", idItem[@"id"]];
+                             }
+                             
+                             // search-contents
+                             NSMutableURLRequest *contentsRequest =[self.httpClient requestWithMethod:@"GET"
+                                                                                                 path:path
+                                                                                           parameters:nil];
+                             
+                             [self setTokenToRequest:contentsRequest];
+                             
+                             AFJSONRequestOperation *contentsOperation =
+                             [AFJSONRequestOperation JSONRequestOperationWithRequest:contentsRequest
+                                                                             success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                               NSDictionary *json = (NSDictionary *)JSON;
+                                                                               CLRLog(@"success:%@ %@", request.description, json.description);
+                                                                             }
+                                                                             failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                               CLRLog(@"failure:%@ %@", request.description, error.description);
+                                                                             }];
+                             
+                             [self.queue addOperation:contentsOperation];
+                           }
+                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                             CLRLog(@"failure:%@ %@", request.description, error.description);
+                           }];
   
   [self.queue addOperation:operation];
 }

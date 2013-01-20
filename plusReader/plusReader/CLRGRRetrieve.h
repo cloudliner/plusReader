@@ -22,9 +22,9 @@ typedef void (^CLGRRetrieveSuccessBlock)(NSDictionary* JSON);
 -(void)listStreamPreference:(CLGRRetrieveSuccessBlock)successBlock;
 -(void)listUnreadCount:(CLGRRetrieveSuccessBlock)successBlock;
 
--(void)streamContentsWithFeed:(NSString *)feedUrl;
+-(void)streamContentsWithFeed:(NSString *)feedUrl success:(CLGRRetrieveSuccessBlock)successBlock;
 -(void)streamUnreadContentsWithFeed:(NSString *)feedUrl;
--(void)streamContentsWithId:(NSString *)streamId;
+-(void)streamContentsWithId:(NSString *)streamId success:(CLGRRetrieveSuccessBlock)successBlock;
 -(void)streamIdsWithId:(NSString *)streamId;
 
 -(void)searchWithKeyword:(NSString *)keyword;

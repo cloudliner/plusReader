@@ -11,6 +11,7 @@
 #import "CLRStreamViewController.h"
 #import "CLRGoogleOAuth.h"
 #import "CLRCoreData.h"
+#import "CLRGRRetrieve.h"
 
 @implementation CLRAppDelegate
 
@@ -21,18 +22,15 @@
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
     UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
     splitViewController.delegate = (id)navigationController.topViewController;
-      
-    UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
-    CLMasterViewController *controller = (CLMasterViewController *)masterNavigationController.topViewController;
-    controller.managedObjectContext = self.managedObjectContext;
+    
   } else {
-  */
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    CLRStreamViewController *controller = (CLRStreamViewController *)navigationController.topViewController;
-    controller.coreData = [[CLRCoreData alloc] init];
-  /*
+    
   }
   */
+  // CoreDataの設定
+  self.coreData = [[CLRCoreData alloc] init];
+  // GRRetrieveの設定
+  self.grRetrieve = [[CLRGRRetrieve alloc] init];
   
   // GAI
   CLRGAIInit();
