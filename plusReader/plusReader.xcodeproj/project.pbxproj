@@ -61,7 +61,7 @@
 		41928B90168A0CA900311837 /* CLRConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41928B8F168A0CA900311837 /* CLRConsoleViewController.m */; };
 		41A5FE6C168A26C1002AD223 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A5FE6A168A26AA002AD223 /* SystemConfiguration.framework */; };
 		41A5FE6F168A2702002AD223 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A5FE6D168A26D4002AD223 /* MobileCoreServices.framework */; };
-		41A5FE81168A3841002AD223 /* CLRConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A5FE80168A3841002AD223 /* CLRConsole.m */; };
+		41A5FE81168A3841002AD223 /* CLRUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A5FE80168A3841002AD223 /* CLRUtils.m */; };
 		41A698BD16980CDC000010C9 /* CLRGRRetrieve.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A698BC16980CDC000010C9 /* CLRGRRetrieve.m */; };
 		41B8E60D1699C65500E7D51A /* CLROrdering.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8E60C1699C65500E7D51A /* CLROrdering.m */; };
 		41C3ABE016A767C7005E2F44 /* CLRCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C3ABDF16A767C6005E2F44 /* CLRCoreData.m */; };
@@ -169,8 +169,8 @@
 		41A5FE6A168A26AA002AD223 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		41A5FE6D168A26D4002AD223 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		41A5FE74168A27C2002AD223 /* CLRGoogleOAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLRGoogleOAuth.h; sourceTree = "<group>"; };
-		41A5FE7D168A3688002AD223 /* CLRConsole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLRConsole.h; sourceTree = "<group>"; };
-		41A5FE80168A3841002AD223 /* CLRConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRConsole.m; sourceTree = "<group>"; };
+		41A5FE7D168A3688002AD223 /* CLRUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLRUtils.h; sourceTree = "<group>"; };
+		41A5FE80168A3841002AD223 /* CLRUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRUtils.m; sourceTree = "<group>"; };
 		41A698BB16980CDC000010C9 /* CLRGRRetrieve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRGRRetrieve.h; sourceTree = "<group>"; };
 		41A698BC16980CDC000010C9 /* CLRGRRetrieve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRGRRetrieve.m; sourceTree = "<group>"; };
 		41B8E60B1699C65500E7D51A /* CLROrdering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLROrdering.h; sourceTree = "<group>"; };
@@ -361,8 +361,8 @@
 		4176699F168FDB4500C33609 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				41A5FE7D168A3688002AD223 /* CLRConsole.h */,
-				41A5FE80168A3841002AD223 /* CLRConsole.m */,
+				41A5FE7D168A3688002AD223 /* CLRUtils.h */,
+				41A5FE80168A3841002AD223 /* CLRUtils.m */,
 				411215761681FF8800794F99 /* CLRAppDelegate.h */,
 				411215771681FF8800794F99 /* CLRAppDelegate.m */,
 				41A5FE74168A27C2002AD223 /* CLRGoogleOAuth.h */,
@@ -584,7 +584,7 @@
 				41928B8A168A04A700311837 /* CLRConfigViewController.m in Sources */,
 				41928B8D168A097400311837 /* CLRLoginViewController.m in Sources */,
 				41928B90168A0CA900311837 /* CLRConsoleViewController.m in Sources */,
-				41A5FE81168A3841002AD223 /* CLRConsole.m in Sources */,
+				41A5FE81168A3841002AD223 /* CLRUtils.m in Sources */,
 				416087D6168FC6F300BCDAEE /* AFHTTPClient.m in Sources */,
 				416087D7168FC6F300BCDAEE /* AFHTTPRequestOperation.m in Sources */,
 				416087D8168FC6F300BCDAEE /* AFImageRequestOperation.m in Sources */,

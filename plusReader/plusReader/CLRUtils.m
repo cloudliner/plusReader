@@ -1,12 +1,12 @@
 //
-//  CLRConsole.m
+//  CLRUtils.m
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/26.
 //  Copyright (c) 2012年 cloudliner.jp. All rights reserved.
 //
 
-#import "CLRConsole.h"
+#import "CLRUtils.h"
 
 extern UITextView *plusReader_CLConsole_textView;
 extern void CLRConsole(const char *function, int line, const char *fileName, NSString *format, ...) NS_FORMAT_FUNCTION(4,5);

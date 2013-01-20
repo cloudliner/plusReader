@@ -1,5 +1,5 @@
 //
-//  CLRConsole.h
+//  CLRUtils.h
 //  plusReader
 //
 //  Created by 大野 廉 on 2012/12/26.
@@ -7,9 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#ifndef plusReader_CLConsole_h
-#define plusReader_CLConsole_h
 
 #define __file__ (strrchr(__FILE__, '/') + 1)
 #define CLRLog(format, ...) CLRConsole(__PRETTY_FUNCTION__, __LINE__, __file__, format, ##__VA_ARGS__)
@@ -23,10 +20,9 @@ NSString *CLRDecodeURL(NSString *encodedString);
 int CLRIntForHexString(NSString *hexString);
 NSString *CLRHexStringForInt(int number);
 
-#endif
-
 // TODO: 実機で単体テストを実行するための暫定対策
 @interface CLRUtils : NSObject
 + (int)CLRIntForHexString:(NSString *)hexString;
 + (NSString *)CLRHexStringForInt:(int)number;
 @end
+
