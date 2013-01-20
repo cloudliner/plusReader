@@ -430,9 +430,13 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
   CLRStreamCursor *streamCursorObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
   CLRStream *streamObject = streamCursorObject.stream;
-  // TODO: 暫定的に連結して表示
-  NSString *text = [NSString stringWithFormat:@"%@ - %d", streamObject.title, streamObject.unreadCount];
-  cell.textLabel.text = text;
+
+  UILabel *titleLabel = (UILabel*)[cell viewWithTag:2];
+  UILabel *countLabel = (UILabel*)[cell viewWithTag:3];
+  
+  titleLabel.text = streamObject.title;
+  countLabel.text = [NSString stringWithFormat:@"%d", streamObject.unreadCount];
+  // TODO: アイコン表示
 }
 
 @end
