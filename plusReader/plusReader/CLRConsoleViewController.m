@@ -33,6 +33,8 @@
     plusReader_CLConsole_textView = nil;
   }
 	plusReader_CLConsole_textView = _textView;
+  
+  CLRGAITrack();
 }
 
 - (void)didReceiveMemoryWarning {

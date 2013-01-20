@@ -47,13 +47,7 @@
   
   [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]]];
   
-  // GAI
-  /*
-  [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Login"
-                                                   withAction:@"load"
-                                                    withLabel:nil
-                                                    withValue:nil];
-  */
+  CLRGAITrack();
 }
 
 - (BOOL)webView:(UIWebView*) webView shouldStartLoadWithRequest:(NSURLRequest *) request navigationType:(UIWebViewNavigationType) navigationType {

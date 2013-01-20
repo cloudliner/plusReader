@@ -20,6 +20,11 @@ NSString *CLRDecodeURL(NSString *encodedString);
 int CLRIntForHexString(NSString *hexString);
 NSString *CLRHexStringForInt(int number);
 
+#define CLRGAITrack() CLRGAITrackWithFunction(__PRETTY_FUNCTION__)
+
+void CLRGAIInit();
+void CLRGAITrackWithFunction(const char *function);
+
 // TODO: 実機で単体テストを実行するための暫定対策
 @interface CLRUtils : NSObject
 + (int)CLRIntForHexString:(NSString *)hexString;

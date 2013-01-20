@@ -40,19 +40,13 @@
   self.navigationItem.leftBarButtonItem = self.editButtonItem;
   self.detailViewController = (CLRDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
   
-  // GAI
-  /*
-  [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Master"
-                                                   withAction:@"load"
-                                                    withLabel:nil
-                                                    withValue:nil];
-  */
-  
   // OpenConfig
   AFOAuthCredential *storedCredential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
   if (storedCredential == nil) {
     [self performSegueWithIdentifier:@"openConfigView" sender:self];
   }
+  
+  CLRGAITrack();
 }
 
 - (IBAction)loadFeeds:(id)sender {

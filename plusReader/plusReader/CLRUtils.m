@@ -17,6 +17,10 @@ extern NSString *CLRDecodeURL(NSString *encodedString);
 extern int CLRIntForHexString(NSString *hexString);
 extern NSString *CLRHexStringForInt(int number);
 
+extern void CLRGAIInit();
+extern void CLRGAITrackWithFunction(const char *function);
+static id<GAITracker> CLRGAI_tracker = nil;
+
 void CLRConsole(const char *function, int line, const char *fileName, NSString *format, ...) {
   va_list ap;
   va_start(ap, format);
@@ -76,6 +80,47 @@ NSString *CLRHexStringForInt(int number) {
   unsigned int uint = (unsigned int)number;
   NSString *hexString = [NSString stringWithFormat:@"%X", uint];
   return hexString;
+}
+
+void CLRGAIInit() {
+  if (CLRGAI_tracker != nil) {
+    return;
+  }
+#ifdef DEBUG
+  [GAI sharedInstance].debug = YES;
+  [GAI sharedInstance].trackUncaughtExceptions = YES;
+  [GAI sharedInstance].dispatchInterval = 30;
+#else
+  [GAI sharedInstance].debug = NO;
+  [GAI sharedInstance].trackUncaughtExceptions = NO;
+  [GAI sharedInstance].dispatchInterval = 180;
+#endif
+  [GAI sharedInstance].defaultTracker.useHttps = YES;
+  
+  CLRGAI_tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-11599435-3"];
+}
+
+void CLRGAITrackWithFunction(const char *function) {
+  const char *position_start = strstr(function, "[");
+  const char *position_middle = strstr(function, " ");
+  const char *position_end  = strstr(function, "]");
+  if (position_start != NULL && position_middle != NULL && position_end != NULL) {
+    int classNameSize = position_middle - position_start - 1;
+    int methodNameSize = position_end - position_middle - 1;
+    char classNameBuffer[classNameSize + 1];
+    memset(classNameBuffer, NULL, sizeof(classNameBuffer));
+    char methodNameBuffer[methodNameSize + 1];
+    memset(methodNameBuffer, NULL, sizeof(methodNameBuffer));
+    strncpy(classNameBuffer, (position_start + 1), classNameSize);
+    strncpy(methodNameBuffer, (position_middle + 1), methodNameSize);
+    NSString *className = [NSString stringWithCString:classNameBuffer encoding:NSASCIIStringEncoding];
+    NSString *methodName = [NSString stringWithCString:methodNameBuffer encoding:NSASCIIStringEncoding];
+    
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:className
+                                                     withAction:methodName
+                                                      withLabel:nil
+                                                      withValue:nil];
+  }
 }
 
 // TODO: 実機で単体テストを実行するための暫定対策

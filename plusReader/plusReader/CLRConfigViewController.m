@@ -42,14 +42,6 @@
   // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
   // self.navigationItem.rightBarButtonItem = self.editButtonItem;
   
-  // GAI
-  /*
-  [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Config"
-                                                   withAction:@"load"
-                                                    withLabel:nil
-                                                    withValue:nil];
-  */
-  
   // TODO: 動作しない
   // OpenLogin
   /*
@@ -58,6 +50,7 @@
     [self performSegueWithIdentifier:@"openLoginView" sender:self];
   }
   */
+  CLRGAITrack();
 }
 
 - (void)didReceiveMemoryWarning {

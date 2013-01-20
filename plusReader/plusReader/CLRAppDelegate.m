@@ -35,19 +35,7 @@
   */
   
   // GAI
-#ifdef DEBUG
-  [GAI sharedInstance].debug = YES;
-  [GAI sharedInstance].trackUncaughtExceptions = YES;
-  [GAI sharedInstance].dispatchInterval = 30;
-#else
-  [GAI sharedInstance].debug = NO;
-  [GAI sharedInstance].trackUncaughtExceptions = NO;
-  [GAI sharedInstance].dispatchInterval = 120;
-#endif
-  [GAI sharedInstance].defaultTracker.useHttps = YES;
-  
-  // TODO: GAIはしばらく使用しない
-  // self.tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-11599435-3"];
+  CLRGAIInit();
   
   // Google OAuthの初期化
   _googleOAuthClient = [AFOAuth2Client clientWithBaseURL:[NSURL URLWithString:@"https://accounts.google.com/"]

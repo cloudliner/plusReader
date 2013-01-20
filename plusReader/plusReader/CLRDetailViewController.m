@@ -43,13 +43,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
   [self configureView];
   
-  // GAI
-  /*
-  [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Detail"
-                                                   withAction:@"load"
-                                                    withLabel:nil
-                                                    withValue:nil];
-  */
+  CLRGAITrack();
 }
 
 - (void)didReceiveMemoryWarning
