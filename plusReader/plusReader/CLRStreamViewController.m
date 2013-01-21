@@ -352,7 +352,6 @@
   }
   
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//  short predidateArray[2] = {[CLRTypeEnumerationTagNormal,CLRTypeEnumerationFeedNormal};
   NSArray *predidateArray = @[@(CLRTypeEnumerationTagNormal), @(CLRTypeEnumerationFeedNormal)];
   NSPredicate *predidate = [NSPredicate predicateWithFormat:@"type IN %@", predidateArray];
   [fetchRequest setPredicate:predidate];

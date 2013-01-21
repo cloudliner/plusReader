@@ -161,7 +161,7 @@
     [path appendString:CLREncodeURL(@"feed/")];
   }
   [path appendString:CLREncodeURL(feedUrl)];
-  [path appendFormat:@"?n=%d", 10];
+  [path appendFormat:@"?n=%d", 20];
   
   NSMutableURLRequest *request =
   [self.httpClient requestWithMethod:@"GET"
@@ -195,7 +195,7 @@
     [path appendString:CLREncodeURL(@"feed/")];
   }
   [path appendString:CLREncodeURL(feedUrl)];
-  [path appendFormat:@"?n=%d", 10];
+  [path appendFormat:@"?n=%d", 20];
   [path appendFormat:@"&xt=%@", CLREncodeURL(@"user/-/state/com.google/read")];
 
   NSMutableURLRequest *request =
@@ -227,7 +227,7 @@
   NSMutableString *path = [NSMutableString string];
   [path appendString:@"https://www.google.com/reader/api/0/stream/contents/"];
   [path appendString:CLREncodeURL(streamId)];
-  [path appendFormat:@"?n=%d", 10];
+  [path appendFormat:@"?n=%d", 20];
   
   NSMutableURLRequest *request =
   [self.httpClient requestWithMethod:@"GET"
