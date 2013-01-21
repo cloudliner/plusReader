@@ -51,28 +51,30 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="9999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gd-Bq-DwP">
-                                            <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FO8-rW-24P">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="46" id="XPt-iU-Qsj"/>
+                                                <constraint firstAttribute="height" constant="32" type="user" id="KTQ-dF-Thi"/>
+                                                <constraint firstAttribute="width" constant="50" id="T5E-nZ-QqW"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                            <state key="normal" title="9999">
+                                                <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="tpk-EA-dry" kind="push" identifier="showTagItems" id="DdZ-g2-Udf"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="8gd-Bq-DwP" firstAttribute="baseline" secondItem="lL0-PA-M78" secondAttribute="baseline" type="default" id="BDY-Pj-Z1M"/>
-                                    <constraint firstItem="8gd-Bq-DwP" firstAttribute="leading" secondItem="lL0-PA-M78" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="LDr-rZ-LRa"/>
-                                    <constraint firstItem="lL0-PA-M78" firstAttribute="top" secondItem="lJ0-d7-vTF" secondAttribute="top" constant="11" id="SEI-qN-lOk"/>
+                                    <constraint firstItem="FO8-rW-24P" firstAttribute="centerY" secondItem="lJ0-d7-vTF" secondAttribute="centerY" type="default" id="Tfc-2P-cBF"/>
+                                    <constraint firstItem="lL0-PA-M78" firstAttribute="top" secondItem="lJ0-d7-vTF" secondAttribute="top" constant="11" id="byw-Ir-QF7"/>
                                     <constraint firstItem="lL0-PA-M78" firstAttribute="leading" secondItem="lJ0-d7-vTF" secondAttribute="leading" constant="10" id="mqc-9K-hJh"/>
+                                    <constraint firstItem="FO8-rW-24P" firstAttribute="leading" secondItem="lL0-PA-M78" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="rPY-mE-7Ec"/>
                                 </constraints>
-                                <connections>
-                                    <segue destination="tpk-EA-dry" kind="push" identifier="showItem" id="Yn6-4v-aGe"/>
-                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="itemCell" id="POV-qj-74e">
                                 <rect key="frame" x="0.0" y="66" width="320" height="44"/>
@@ -89,36 +91,38 @@
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Feed Title -----------------------------" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="210" translatesAutoresizingMaskIntoConstraints="NO" id="cMU-lg-HPR">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="42" id="6c4-4X-VUy"/>
+                                                <constraint firstAttribute="height" constant="42" id="4Th-jC-nt2"/>
                                                 <constraint firstAttribute="width" constant="210" id="GW2-44-vMW"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="9999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmz-gP-xZq">
-                                            <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SxZ-6T-xtS">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="46" id="dPM-ma-YLN"/>
+                                                <constraint firstAttribute="width" constant="50" id="XQS-gH-qQI"/>
+                                                <constraint firstAttribute="height" constant="32" type="user" id="YmB-7Y-Xwu"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                            <state key="normal" title="9999">
+                                                <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="tpk-EA-dry" kind="push" identifier="showFeedItems" id="0Zn-re-zEy"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="cMU-lg-HPR" firstAttribute="leading" secondItem="POV-qj-74e" secondAttribute="leading" constant="30" id="6pO-BZ-M6Q"/>
-                                    <constraint firstItem="dmz-gP-xZq" firstAttribute="leading" secondItem="cMU-lg-HPR" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="OAf-KF-nSc"/>
-                                    <constraint firstItem="dmz-gP-xZq" firstAttribute="top" secondItem="POV-qj-74e" secondAttribute="top" constant="10" id="e3O-cT-NqE"/>
+                                    <constraint firstItem="SxZ-6T-xtS" firstAttribute="leading" secondItem="cMU-lg-HPR" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="1g9-xJ-R6h"/>
+                                    <constraint firstItem="SxZ-6T-xtS" firstAttribute="centerY" secondItem="cMU-lg-HPR" secondAttribute="centerY" type="default" id="Qsj-jK-uAL"/>
+                                    <constraint firstItem="cMU-lg-HPR" firstAttribute="leading" secondItem="POV-qj-74e" secondAttribute="leading" constant="30" id="d97-2U-Sh5"/>
                                     <constraint firstItem="5Ew-xC-lPg" firstAttribute="leading" secondItem="POV-qj-74e" secondAttribute="leading" constant="8" id="e6A-k1-p7y"/>
                                     <constraint firstItem="cMU-lg-HPR" firstAttribute="centerY" secondItem="5Ew-xC-lPg" secondAttribute="centerY" type="default" id="iIg-n8-zqg"/>
-                                    <constraint firstItem="cMU-lg-HPR" firstAttribute="centerY" secondItem="POV-qj-74e" secondAttribute="centerY" type="default" id="sLz-5C-a2K"/>
+                                    <constraint firstItem="SxZ-6T-xtS" firstAttribute="centerY" secondItem="POV-qj-74e" secondAttribute="centerY" type="default" id="uU4-Kr-6uQ"/>
                                 </constraints>
-                                <connections>
-                                    <segue destination="tpk-EA-dry" kind="push" id="IJj-6m-Jzu"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -410,12 +414,41 @@
             <point key="canvasLocation" x="1314" y="76"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CLRConfigViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRConfigViewController.h"/>
+        </class>
+        <class className="CLRConsoleViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRConsoleViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="CLRDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CLRItemViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRItemViewController.h"/>
+        </class>
+        <class className="CLRLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRLoginViewController.h"/>
+        </class>
+        <class className="CLRStreamViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CLRStreamViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="IJj-6m-Jzu"/>
+        <segue reference="0Zn-re-zEy"/>
     </inferredMetricsTieBreakers>
 </document>

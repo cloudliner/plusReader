@@ -337,8 +337,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   // TODO: 遷移処理の変更
-  if ([[segue identifier] isEqualToString:@"showItem"]) {
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+  if ([[segue identifier] isEqualToString:@"showTagItems"] ||
+      [[segue identifier] isEqualToString:@"showFeedItems"]) {
+    CLRLog(@"sender:%@", [sender description]);
+    UIButton *countButton = sender;
+    UITableViewCell *cell = (UITableViewCell *)[[countButton superview] superview];
+    CLRLog(@"superview:%@", [cell description]);
+    // NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     CLRStreamCursor *streamCursorObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     [[segue destinationViewController] setStreamCursor:streamCursorObject];
   }
@@ -438,10 +444,10 @@
   CLRStream *streamObject = streamCursorObject.stream;
 
   UILabel *titleLabel = (UILabel*)[cell viewWithTag:2];
-  UILabel *countLabel = (UILabel*)[cell viewWithTag:3];
+  UIButton *countButton = (UIButton*)[cell viewWithTag:3];
   
   titleLabel.text = streamObject.title;
-  countLabel.text = [NSString stringWithFormat:@"%d", streamObject.unreadCount];
+  countButton.titleLabel.text = [NSString stringWithFormat:@"%d", streamObject.unreadCount];
   // TODO: アイコン表示
 }
 
