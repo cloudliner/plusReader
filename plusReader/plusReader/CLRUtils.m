@@ -31,9 +31,16 @@ void CLRConsole(const char *function, int line, const char *fileName, NSString *
   NSString *message = [[NSString alloc] initWithFormat:format arguments:ap];
   va_end(ap);
   
-  // 関数名、コード行の追加
   NSMutableString *text = [NSMutableString string];
-  [text appendFormat:@"%s (%s:%d) ", function, fileName, line];
+  // スレッド名の追加
+  if([NSThread isMainThread]) {
+    [text appendString:@"[main]"];
+  } else {
+    NSThread *currentThread = [NSThread currentThread];
+    [text appendFormat:@"[%@]", currentThread];
+  }
+  // 関数名、コード行の追加
+  [text appendFormat:@"%s (%s:%d)\n  ", function, fileName, line];
   [text appendString:message];
   
   // ログ出力

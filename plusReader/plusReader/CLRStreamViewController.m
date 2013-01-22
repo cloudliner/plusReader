@@ -217,15 +217,15 @@
   
   // Stream Contents API
   // stream-contents-feed
-  [grRetrieve streamContentsWithFeed:@"feed/http://lkhjkljkljdkljl.hatenablog.com/feed"];
+  [grRetrieve streamContentsWithFeed:@"feed/http://lkhjkljkljdkljl.hatenablog.com/feed" success:^(NSDictionary *JSON) {}];
   // stream-contents-feed-unread
   [grRetrieve streamUnreadContentsWithFeed:@"feed/http://lkhjkljkljdkljl.hatenablog.com/feed"];
   // stream-contents-reading-list
-  [grRetrieve streamContentsWithId:@"user/-/state/com.google/reading-list"];
+  [grRetrieve streamContentsWithId:@"user/-/state/com.google/reading-list" success:^(NSDictionary *JSON) {}];
   // stream-contents-starred
-  [grRetrieve streamContentsWithId:@"user/-/state/com.google/starred"];
+  [grRetrieve streamContentsWithId:@"user/-/state/com.google/starred" success:^(NSDictionary *JSON) {}];
   // stream-contents-tag
-  [grRetrieve streamContentsWithId:@"user/-/label/Business"];
+  [grRetrieve streamContentsWithId:@"user/-/label/Business" success:^(NSDictionary *JSON) {}];
   
   // Stream Items API
   // stream-ids-read

@@ -95,7 +95,7 @@
    JSONRequestOperationWithRequest:request
                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                              NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
@@ -181,7 +181,7 @@
    JSONRequestOperationWithRequest:request
                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                              NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
                              successBlock(json);
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -217,7 +217,7 @@
    JSONRequestOperationWithRequest:request
                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                              NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
@@ -249,7 +249,7 @@
    JSONRequestOperationWithRequest:request
                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                              NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
                              successBlock(json);
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -281,7 +281,7 @@
    JSONRequestOperationWithRequest:request
                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                              NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
@@ -310,7 +310,7 @@
    JSONRequestOperationWithRequest:request
                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                              NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@ %@", request.description, json.description);
+                             CLRLog(@"success:%@", request.description);
                              NSArray *idList = json[@"results"];
                                                     
                              // TODO: 複数パラメータの送信
@@ -338,7 +338,7 @@
                              [AFJSONRequestOperation JSONRequestOperationWithRequest:contentsRequest
                                                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                NSDictionary *json = (NSDictionary *)JSON;
-                                                                               CLRLog(@"success:%@ %@", request.description, json.description);
+                                                                               CLRLog(@"success:%@", request.description);
                                                                              }
                                                                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                CLRLog(@"failure:%@ %@", request.description, error.description);
