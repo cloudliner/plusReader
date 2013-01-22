@@ -28,6 +28,10 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  // TODO: 処理作成
+  UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+  self.refreshControl = refreshControl;
+  
   CLRGAITrack();
 }
 

@@ -48,10 +48,22 @@
     [self performSegueWithIdentifier:@"openConfigView" sender:self];
   }
   
+  UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+  [refreshControl addTarget:self action:@selector(refreshOccured:) forControlEvents:UIControlEventValueChanged];
+  self.refreshControl = refreshControl;
+  
   CLRGAITrack();
 }
 
+- (void)refreshOccured:(id)sender {
+  [self refreshFeeds];
+}
+
 - (IBAction)loadFeeds:(id)sender {
+  [self refreshFeeds];
+}
+
+- (void)refreshFeeds {
   // TODO: 読み込みタイミングを適切なものにする（起動時、ネットワーク接続時）
   // TODO: 削除・追加ではなく更新するようにする
   
@@ -191,6 +203,8 @@
           
           // 保存
           [coreData saveContext];
+          
+          [self.refreshControl endRefreshing];
         }];
       }];
     }];
