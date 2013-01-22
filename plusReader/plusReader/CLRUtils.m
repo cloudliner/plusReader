@@ -21,7 +21,9 @@ extern NSString *CLRHexStringForInt(int number);
 
 id<GAITracker> CLRGAI_tracker = nil;
 extern void CLRGAIInit();
-extern void CLRGAITrackWithFunction(const char *function);
+extern BOOL CLRGAITrackWithFunction(const char *function);
+extern BOOL CLRGAITrackErrorWithFunction(const char *function, NSString *format, ...);
+extern BOOL CLRGAITrackExceptionWithFunction(const char *function, id exception);
 
 void CLRConsole(const char *function, int line, const char *fileName, NSString *format, ...) {
   va_list ap;
@@ -125,7 +127,7 @@ void CLRGAIInit() {
   CLRGAI_tracker.useHttps = YES;
 }
 
-void CLRGAITrackWithFunction(const char *function) {
+BOOL CLRGAITrackWithFunction(const char *function) {
   const char *position_start = strstr(function, "[");
   const char *position_middle = strstr(function, " ");
   const char *position_end  = strstr(function, "]");
@@ -143,13 +145,39 @@ void CLRGAITrackWithFunction(const char *function) {
     NSString *methodName = [NSString stringWithCString:methodNameBuffer encoding:NSASCIIStringEncoding];
     
     if ([methodName isEqualToString:@"viewDidLoad"]) {
-      [CLRGAI_tracker trackView:className];
+      return [CLRGAI_tracker trackView:className];
     } else {
-      [CLRGAI_tracker trackEventWithCategory:className
-                                  withAction:methodName
-                                   withLabel:nil
-                                   withValue:nil];      
+      return [CLRGAI_tracker trackEventWithCategory:className
+                                         withAction:methodName
+                                          withLabel:nil
+                                          withValue:nil];      
     }
+  }
+  return NO;
+}
+
+BOOL CLRGAITrackErrorWithFunction(const char *function, NSString *format, ...) {
+  va_list ap;
+  va_start(ap, format);
+  NSString *message = [[NSString alloc] initWithFormat:format arguments:ap];
+  va_end(ap);
+  
+  return [CLRGAI_tracker trackException:NO withDescription:@"%s %@", function, message];
+}
+
+BOOL CLRGAITrackExceptionWithFunction(const char *function, id exception) {
+  if ([exception isKindOfClass:[NSException class]]) {
+    NSException *nsexception = (NSException *)exception;
+    return [CLRGAI_tracker trackException:NO
+                          withDescription:@"%s NSException:name=%@,reason=%@,userInfo=%@", function, nsexception.name, nsexception.reason, nsexception.userInfo];
+  } else if ([exception isKindOfClass:[NSError class]]) {
+    NSError *nserror = (NSError *)exception;
+    return [CLRGAI_tracker trackException:NO
+                          withDescription:@"%s NSError:domain=%@,code=%d,description=%@", function, nserror.domain, nserror.code, nserror.description];
+  } else {
+    return [CLRGAI_tracker trackException:NO
+                           withDescription:@"%s NSObject:%@", function, exception];
+
   }
 }
 

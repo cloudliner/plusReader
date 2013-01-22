@@ -49,6 +49,7 @@
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   [self.queue addOperation:operation];
@@ -74,6 +75,7 @@
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   [self.queue addOperation:operation];
@@ -97,6 +99,7 @@
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   [self.queue addOperation:operation];  
@@ -104,9 +107,10 @@
 
 -(void)listStreamPreference:(CLGRRetrieveSuccessBlock)successBlock {
   // preference-stream
-  NSMutableURLRequest *request =[self.httpClient requestWithMethod:@"GET"
-                                                              path:@"https://www.google.com/reader/api/0/preference/stream/list?output=json"
-                                                        parameters:nil];
+  NSMutableURLRequest *request =
+  [self.httpClient requestWithMethod:@"GET"
+                                path:@"https://www.google.com/reader/api/0/preference/stream/list?output=json"
+                          parameters:nil];
   
   [self setTokenToRequest:request];
   
@@ -121,6 +125,7 @@
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   [self.queue addOperation:operation];
@@ -146,6 +151,7 @@
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   [self.queue addOperation:operation];
@@ -180,6 +186,7 @@
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   [self.queue addOperation:operation];
@@ -214,6 +221,7 @@
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   [self.queue addOperation:operation];
@@ -246,6 +254,7 @@
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   
@@ -276,6 +285,7 @@
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   [self.queue addOperation:operation];
@@ -332,12 +342,14 @@
                                                                              }
                                                                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                CLRLog(@"failure:%@ %@", request.description, error.description);
+                                                                               CLRGAITrackException(error);
                                                                              }];
                              
                              [self.queue addOperation:contentsOperation];
                            }
                            failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                              CLRLog(@"failure:%@ %@", request.description, error.description);
+                             CLRGAITrackException(error);
                            }];
   
   [self.queue addOperation:operation];

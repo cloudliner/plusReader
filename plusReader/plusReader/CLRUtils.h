@@ -22,9 +22,13 @@ int CLRIntForHexString(NSString *hexString);
 NSString *CLRHexStringForInt(int number);
 
 #define CLRGAITrack() CLRGAITrackWithFunction(__PRETTY_FUNCTION__)
+#define CLRGAITrackError(format, ...) CLRGAITrackErrorWithFunction(__PRETTY_FUNCTION__, format, ##__VA_ARGS__)
+#define CLRGAITrackException(exception) CLRGAITrackExceptionWithFunction(__PRETTY_FUNCTION__, exception)
 
 void CLRGAIInit();
-void CLRGAITrackWithFunction(const char *function);
+BOOL CLRGAITrackWithFunction(const char *function);
+BOOL CLRGAITrackErrorWithFunction(const char *function, NSString *format, ...);
+BOOL CLRGAITrackExceptionWithFunction(const char *function, id exception);
 
 // TODO: 実機で単体テストを実行するための暫定対策
 @interface CLRUtils : NSObject

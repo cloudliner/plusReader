@@ -54,6 +54,7 @@
   NSError *error = nil;
   if (![fetchedResultsController performFetch:&error]) {
     CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    CLRGAITrackException(error);
     abort();
   }
   
@@ -84,6 +85,7 @@
   NSError *error = nil;
   if (![fetchedResultsController performFetch:&error]) {
     CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    CLRGAITrackException(error);
     abort();
   }
   
@@ -128,6 +130,7 @@
       // Replace this implementation with code to handle the error appropriately.
       // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
       CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
+      CLRGAITrackException(error);
       abort();
     }
   }
@@ -186,9 +189,11 @@
       _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self model]];
       if (![_coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        CLRGAITrackException(error);
         abort();
       }
     } else {
+      CLRGAITrackException(error);
       abort();
     }
   }
