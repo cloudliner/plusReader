@@ -12,7 +12,7 @@
 const int kSORTID_LENGTH = 8;
 
 @interface CLROrdering() {
-  int *_sortidArray;
+  int32_t *_sortidArray;
   int _arraySize;
 }
 @end
@@ -33,14 +33,13 @@ const int kSORTID_LENGTH = 8;
     return;
   }
   int arraySize = value.length/kSORTID_LENGTH;
-  int *sortidArray = (int *)malloc(sizeof(int) * arraySize);
-  memset(sortidArray, NULL, sizeof(int) * arraySize);
+  int32_t *sortidArray = (int32_t *)calloc(arraySize, sizeof(int32_t));
   for (int i = 0; i < arraySize; i ++) {
     NSString *sortidString = [value substringWithRange:NSMakeRange(i * kSORTID_LENGTH, kSORTID_LENGTH)];
-    int sortid = CLRIntForHexString(sortidString);
+    int32_t sortid = CLRIntForHexString(sortidString);
     sortidArray[i] = sortid;
   }
-  int *arrayToDelete = _sortidArray;
+  int32_t *arrayToDelete = _sortidArray;
   _sortidArray = sortidArray;
   _arraySize = arraySize;
   if (arrayToDelete != NULL) {
@@ -48,7 +47,7 @@ const int kSORTID_LENGTH = 8;
   }
 }
 
--(int)indexWithSortId:(int)sortId {
+-(int)indexWithSortId:(int32_t)sortId {
   // TODO: スレッドセーフじゃない？
   if (_sortidArray != NULL) {
     for (int i = 0; i < _arraySize; i ++) {

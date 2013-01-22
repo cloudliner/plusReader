@@ -18,8 +18,8 @@ NSString *CLRConsoleText();
 NSString *CLREncodeURL(NSString *plainString);
 NSString *CLRDecodeURL(NSString *encodedString);
 
-int CLRIntForHexString(NSString *hexString);
-NSString *CLRHexStringForInt(int number);
+int32_t CLRIntForHexString(NSString *hexString);
+NSString *CLRHexStringForInt(int32_t number);
 
 #define CLRGAITrack() CLRGAITrackWithFunction(__PRETTY_FUNCTION__)
 #define CLRGAITrackError(format, ...) CLRGAITrackErrorWithFunction(__PRETTY_FUNCTION__, format, ##__VA_ARGS__)

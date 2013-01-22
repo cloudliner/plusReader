@@ -41,7 +41,7 @@
     
     // 表示を更新
     NSString *streamId = streamCursor.stream.streamId;
-    int sortId = streamCursor.sortId;
+    int32_t sortId = streamCursor.sortId;
    
     CLRAppDelegate *delegate = (CLRAppDelegate *)[[UIApplication sharedApplication] delegate];
     CLRGRRetrieve *grRetrieve = delegate.grRetrieve;
@@ -154,7 +154,7 @@
   }
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   NSArray *predidateArray = @[@(CLRTypeEnumerationItemNormal), @(CLRTypeEnumerationItemExpanded)];
-  int sortId = self.streamCursor.sortId;
+  int32_t sortId = self.streamCursor.sortId;
   NSPredicate *predidate = [NSPredicate predicateWithFormat:@"type IN %@ AND sortId == %d", predidateArray, sortId];
   [fetchRequest setPredicate:predidate];
   

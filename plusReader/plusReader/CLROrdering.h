@@ -18,6 +18,6 @@
 @property (nonatomic, retain) NSString * value;
 @property (nonatomic, retain) CLRTag *tag;
 
--(int)indexWithSortId:(int)sortId;
+-(int)indexWithSortId:(int32_t)sortId;
 
 @end

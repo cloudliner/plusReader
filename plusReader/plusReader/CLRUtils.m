@@ -96,15 +96,15 @@ NSString *CLRDecodeURL(NSString *encodedString) {
   return decodedString;
 }
 
-int CLRIntForHexString(NSString *hexString) {
+int32_t CLRIntForHexString(NSString *hexString) {
   NSScanner *scan = [NSScanner scannerWithString:hexString];
-  unsigned int number;
+  uint32_t number;
   [scan scanHexInt:&number];
-  return (int)number;
+  return (int32_t)number;
 }
 
-NSString *CLRHexStringForInt(int number) {
-  unsigned int uint = (unsigned int)number;
+NSString *CLRHexStringForInt(int32_t number) {
+  uint32_t uint = (uint32_t)number;
   NSString *hexString = [NSString stringWithFormat:@"%X", uint];
   return hexString;
 }
