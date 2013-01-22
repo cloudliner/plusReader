@@ -132,8 +132,8 @@ BOOL CLRGAITrackWithFunction(const char *function) {
   const char *position_middle = strstr(function, " ");
   const char *position_end  = strstr(function, "]");
   if (position_start != NULL && position_middle != NULL && position_end != NULL) {
-    int classNameSize = position_middle - position_start - 1;
-    int methodNameSize = position_end - position_middle - 1;
+    intptr_t classNameSize = position_middle - position_start - 1;
+    intptr_t methodNameSize = position_end - position_middle - 1;
     char classNameBuffer[classNameSize + 1];
     char methodNameBuffer[methodNameSize + 1];
     // メモリを初期化しないと不正な文字が出力される
