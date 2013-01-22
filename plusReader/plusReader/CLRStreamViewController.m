@@ -336,7 +336,6 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  // TODO: 遷移処理の変更
   if ([[segue identifier] isEqualToString:@"showTagItems"] ||
       [[segue identifier] isEqualToString:@"showFeedItems"]) {
     CLRLog(@"sender:%@", [sender description]);
@@ -447,7 +446,14 @@
   UIButton *countButton = (UIButton*)[cell viewWithTag:3];
   
   titleLabel.text = streamObject.title;
-  countButton.titleLabel.text = [NSString stringWithFormat:@"%d", streamObject.unreadCount];
+  
+  NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+  paragraphStyle.alignment = NSTextAlignmentCenter;
+  NSDictionary* countStyle = @{NSParagraphStyleAttributeName: paragraphStyle};
+  NSAttributedString *countString =
+  [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", streamObject.unreadCount]
+                                  attributes:countStyle];
+  [countButton setAttributedTitle:countString forState:UIControlStateNormal];
   // TODO: アイコン表示
 }
 
