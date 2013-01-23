@@ -32,6 +32,8 @@
   // GRRetrieveの設定
   self.grRetrieve = [[CLRGRRetrieve alloc] init];
   
+  [Crashlytics startWithAPIKey:@"4ecfd2c6c0097b1ca8970cf5d3275af3bf6c95aa"];
+  
   // GAI
   CLRGAIInit();
   
