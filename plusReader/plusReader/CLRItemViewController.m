@@ -58,13 +58,13 @@
       NSArray *items = JSON[@"items"];
       for (NSDictionary *item in items) {
         NSString *itemIdString = item[@"id"];
-        // TODO: "tag:google.com,2005:reader/item/cf0922f5af194500" から long型への変換
+        // TODO: "tag:google.com,2005:reader/item/cf0922f5af194500" から int64_t型への変換
         
         NSString *timestampUsec = item[@"timestampUsec"];
-        long timestamp = [timestampUsec longLongValue];
+        int64_t timestamp = [timestampUsec longLongValue];
 
         CLRItemCursor *itemCursorObject = [coreData insertNewObjectForEntity:CLREntityItemCursor];
-        itemCursorObject.itemId = 0; // TODO: 仮
+        [itemCursorObject setItemIdForString:itemIdString];
         itemCursorObject.sortId = sortId;
         itemCursorObject.timestamp = timestamp;
         itemCursorObject.type = CLRTypeEnumerationItemNormal;
@@ -80,6 +80,7 @@
       }
       
       // 古いオブジェクトを削除
+      // 削除するタイミング
       [coreData deleteForEntity:CLREntityItemCursor timestamp:now];
       [coreData deleteForEntity:CLREntityItem timestamp:now];
       

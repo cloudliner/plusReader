@@ -18,6 +18,7 @@ extern NSString *CLRDecodeURL(NSString *encodedString);
 
 extern int CLRIntForHexString(NSString *hexString);
 extern NSString *CLRHexStringForInt(int number);
+extern int64_t CLRLongLongForHexString(NSString *hexString);
 
 id<GAITracker> CLRGAI_tracker = nil;
 extern void CLRGAIInit();
@@ -114,6 +115,13 @@ NSString *CLRHexStringForInt(int32_t number) {
   uint32_t uint = (uint32_t)number;
   NSString *hexString = [NSString stringWithFormat:@"%X", uint];
   return hexString;
+}
+
+int64_t CLRLongLongForHexString(NSString *hexString) {
+  NSScanner *scan = [NSScanner scannerWithString:hexString];
+  uint64_t number;
+  [scan scanHexLongLong:&number];
+  return (int64_t)number;
 }
 
 void CLRGAIInit() {

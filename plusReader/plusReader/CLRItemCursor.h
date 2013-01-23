@@ -18,4 +18,6 @@
 @property (nonatomic) int64_t timestamp;
 @property (nonatomic, retain) CLRItem *item;
 
+- (int64_t)setItemIdForString:(NSString *)itemIdString;
+
 @end
