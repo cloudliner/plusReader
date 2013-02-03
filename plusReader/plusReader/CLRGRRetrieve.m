@@ -7,7 +7,9 @@
 //
 
 #import "CLRGRRetrieve.h"
+#import "CLRAppDelegate.h"
 #import "CLRGoogleOAuth.h"
+#import "FBNetworkReachability.h"
 
 @implementation CLRGRRetrieve
 
@@ -18,15 +20,73 @@
   }
   _httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://www.google.com/"]];
   _queue = [[NSOperationQueue alloc] init];
-  _credential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
   
   return self;
 }
 
--(void)setTokenToRequest:(NSMutableURLRequest *)request {
-  [request setValue:[NSString stringWithFormat:@"%@ %@",
-                     self.credential.tokenType,
-                     self.credential.accessToken] forHTTPHeaderField:@"Authorization"];
+-(void)retrieveJSONWithAuthorizationRequest:(NSMutableURLRequest *)request success:(CLGRRetrieveSuccessBlock)successBlock {
+  // ネットワーク接続チェック
+  if ([FBNetworkReachability sharedInstance].reachable) {
+    // 認証チェック
+    AFOAuthCredential *storedCredential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
+    CLRLog(@"storedCredential expired=%d", storedCredential.expired);
+    if (storedCredential.expired) {
+      // 認証をリフレッシュ
+      CLRAppDelegate *delegate = (CLRAppDelegate *)[[UIApplication sharedApplication] delegate];
+      AFOAuth2Client *googleOAuthClient = delegate.googleOAuthClient;
+      [googleOAuthClient authenticateUsingOAuthWithPath:@"https://accounts.google.com/o/oauth2/token"
+                                           refreshToken:storedCredential.refreshToken
+                                                success:^(AFOAuthCredential *credential) {
+                                                  CLRLog(@"success:%@", credential.description);
+                                                  // 認証データを保存
+                                                  [AFOAuthCredential storeCredential:credential
+                                                                      withIdentifier:GOOGLE_OAUTH2_STORE_NAME];
+                                                  
+                                                  [self retrieveJSONWithRequest:request success:successBlock];
+                                                } failure:^(NSError *error) {
+                                                  CLRLog(@"failure:%@", error.description);
+                                                  CLRGAITrackException(error);
+                                                }];
+    } else {
+      [self retrieveJSONWithRequest:request success:successBlock];
+    }
+  } else {
+    // TODO: ネットワーク接続がない場合の実装
+    CLRLog(@"No Network Connection.");
+  }
+}
+
+-(void)retrieveJSONWithRequest:(NSMutableURLRequest *)request success:(CLGRRetrieveSuccessBlock)successBlock {
+  // 認証情報を取得・設定
+  AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:GOOGLE_OAUTH2_STORE_NAME];
+  NSString *scheme = request.URL.scheme;
+  if (credential != nil && [scheme isEqualToString:@"https"]) {
+    [request setValue:[NSString stringWithFormat:@"%@ %@",
+                       credential.tokenType,
+                       credential.accessToken] forHTTPHeaderField:@"Authorization"];
+  }
+  
+  // ネットワーク接続チェック
+  if ([FBNetworkReachability sharedInstance].reachable) {
+    AFJSONRequestOperation *operation =
+    [AFJSONRequestOperation
+     JSONRequestOperationWithRequest:request
+                             success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                               NSDictionary *json = (NSDictionary *)JSON;
+                               // CLRLog(@"success:%@ %@", request.description, json.description);
+                               CLRLog(@"success:%@", request.description);
+                               successBlock(json);
+                             }
+                             failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                               CLRLog(@"failure:%@ %@", request.description, error.description);
+                               CLRGAITrackException(error);
+                             }];
+    
+    [self.queue addOperation:operation];
+  } else {
+    // TODO: ネットワーク接続がない場合の実装
+    CLRLog(@"No Network Connection.");
+  }
 }
 
 -(void)listTag:(CLGRRetrieveSuccessBlock)successBlock {
@@ -36,23 +96,7 @@
                                 path:@"https://www.google.com/reader/api/0/tag/list?output=json"
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             // CLRLog(@"success:%@ %@", request.description, json.description);
-                             CLRLog(@"success:%@", request.description);
-                             successBlock(json);
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
-                           }];
-  
-  [self.queue addOperation:operation];
+  [self retrieveJSONWithAuthorizationRequest:request success:successBlock];
 }
 
 -(void)listSubscription:(CLGRRetrieveSuccessBlock)successBlock {
@@ -62,23 +106,7 @@
                                 path:@"https://www.google.com/reader/api/0/subscription/list?output=json"
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             // CLRLog(@"success:%@ %@", request.description, json.description);
-                             CLRLog(@"success:%@", request.description);
-                             successBlock(json);
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
-                           }];
-  
-  [self.queue addOperation:operation];
+  [self retrieveJSONWithAuthorizationRequest:request success:successBlock];
 }
 
 -(void)listPreference {
@@ -88,21 +116,8 @@
                                 path:@"https://www.google.com/reader/api/0/preference/list?output=json"
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@", request.description);
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
-                           }];
-  
-  [self.queue addOperation:operation];  
+  // TODO: 処理作成
+  [self retrieveJSONWithAuthorizationRequest:request success:nil];
 }
 
 -(void)listStreamPreference:(CLGRRetrieveSuccessBlock)successBlock {
@@ -112,23 +127,7 @@
                                 path:@"https://www.google.com/reader/api/0/preference/stream/list?output=json"
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             // CLRLog(@"success:%@ %@", request.description, json.description);
-                             CLRLog(@"success:%@", request.description);
-                             successBlock(json);
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
-                           }];
-  
-  [self.queue addOperation:operation];
+  [self retrieveJSONWithAuthorizationRequest:request success:successBlock];
 }
 
 -(void)listUnreadCount:(CLGRRetrieveSuccessBlock)successBlock {
@@ -138,23 +137,7 @@
                                 path:@"https://www.google.com/reader/api/0/unread-count?output=json"
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             // CLRLog(@"success:%@ %@", request.description, json.description);
-                             CLRLog(@"success:%@", request.description);
-                             successBlock(json);
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
-                           }];
-  
-  [self.queue addOperation:operation];
+  [self retrieveJSONWithAuthorizationRequest:request success:successBlock];
 }
 
 -(void)streamContentsWithFeed:(NSString *)feedUrl success:(CLGRRetrieveSuccessBlock)successBlock {
@@ -174,22 +157,7 @@
                                 path:path
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@", request.description);
-                             successBlock(json);
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
-                           }];
-  
-  [self.queue addOperation:operation];
+  [self retrieveJSONWithRequest:request success:successBlock];
 }
 
 -(void)streamUnreadContentsWithFeed:(NSString *)feedUrl {
@@ -210,21 +178,8 @@
                                 path:path
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@", request.description);
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
-                           }];
-  
-  [self.queue addOperation:operation];
+  // TODO: 処理作成
+  [self retrieveJSONWithAuthorizationRequest:request success:nil];
 }
 
 -(void)streamContentsWithId:(NSString *)streamId success:(CLGRRetrieveSuccessBlock)successBlock {
@@ -242,23 +197,7 @@
                                 path:path
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@", request.description);
-                             successBlock(json);
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
-                           }];
-  
-  
-  [self.queue addOperation:operation];
+  [self retrieveJSONWithAuthorizationRequest:request success:successBlock];
 }
 
 -(void)streamIdsWithId:(NSString *)streamId {
@@ -274,21 +213,8 @@
                                 path:path
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@", request.description);
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
-                           }];
-  
-  [self.queue addOperation:operation];
+  // TODO: 処理作成
+  [self retrieveJSONWithAuthorizationRequest:request success:nil];
 }
 
 -(void)searchWithKeyword:(NSString *)keyword {
@@ -303,15 +229,9 @@
                                 path:path
                           parameters:nil];
   
-  [self setTokenToRequest:request];
-  
-  AFJSONRequestOperation *operation =
-  [AFJSONRequestOperation
-   JSONRequestOperationWithRequest:request
-                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                             NSDictionary *json = (NSDictionary *)JSON;
-                             CLRLog(@"success:%@", request.description);
-                             NSArray *idList = json[@"results"];
+  [self retrieveJSONWithAuthorizationRequest:request
+                           success:^(NSDictionary *JSON) {
+                             NSArray *idList = JSON[@"results"];
                                                     
                              // TODO: 複数パラメータの送信
                              // NSMutableArray *idArray = [NSMutableArray array];
@@ -332,27 +252,12 @@
                                                                                                  path:path
                                                                                            parameters:nil];
                              
-                             [self setTokenToRequest:contentsRequest];
-                             
-                             AFJSONRequestOperation *contentsOperation =
-                             [AFJSONRequestOperation JSONRequestOperationWithRequest:contentsRequest
-                                                                             success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                               NSDictionary *json = (NSDictionary *)JSON;
-                                                                               CLRLog(@"success:%@", request.description);
-                                                                             }
-                                                                             failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                               CLRLog(@"failure:%@ %@", request.description, error.description);
-                                                                               CLRGAITrackException(error);
-                                                                             }];
-                             
-                             [self.queue addOperation:contentsOperation];
-                           }
-                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                             CLRLog(@"failure:%@ %@", request.description, error.description);
-                             CLRGAITrackException(error);
+                             [self retrieveJSONWithAuthorizationRequest:contentsRequest
+                                                                success:^(NSDictionary *JSON) {
+                                                                  NSDictionary *json = (NSDictionary *)JSON;
+                                                                  // TODO: 処理作成
+                                                                }];
                            }];
-  
-  [self.queue addOperation:operation];
 }
 
 @end

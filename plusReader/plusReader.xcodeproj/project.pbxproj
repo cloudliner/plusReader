@@ -66,6 +66,7 @@
 		41A698BD16980CDC000010C9 /* CLRGRRetrieve.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A698BC16980CDC000010C9 /* CLRGRRetrieve.m */; };
 		41B8E60D1699C65500E7D51A /* CLROrdering.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8E60C1699C65500E7D51A /* CLROrdering.m */; };
 		41C3ABE016A767C7005E2F44 /* CLRCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C3ABDF16A767C6005E2F44 /* CLRCoreData.m */; };
+		41ED479616BE7B6500ADD6AC /* FBNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ED479516BE7B6500ADD6AC /* FBNetworkReachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,8 @@
 		41B8E60C1699C65500E7D51A /* CLROrdering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLROrdering.m; sourceTree = "<group>"; };
 		41C3ABDE16A767C6005E2F44 /* CLRCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRCoreData.h; sourceTree = "<group>"; };
 		41C3ABDF16A767C6005E2F44 /* CLRCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRCoreData.m; sourceTree = "<group>"; };
+		41ED479416BE7B6500ADD6AC /* FBNetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBNetworkReachability.h; path = ../ThirdParty/FBNetworkReachability/FBNetworkReachability.h; sourceTree = "<group>"; };
+		41ED479516BE7B6500ADD6AC /* FBNetworkReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBNetworkReachability.m; path = ../ThirdParty/FBNetworkReachability/FBNetworkReachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				41A5FE39168A261B002AD223 /* AFNetworking */,
+				41ED479316BE7B4100ADD6AC /* FBNetworkReachability */,
 				41766995168FDAE200C33609 /* GoogleAnalyticsSDK */,
 				411215651681FF8800794F99 /* UIKit.framework */,
 				411215671681FF8800794F99 /* Foundation.framework */,
@@ -450,6 +454,15 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		41ED479316BE7B4100ADD6AC /* FBNetworkReachability */ = {
+			isa = PBXGroup;
+			children = (
+				41ED479416BE7B6500ADD6AC /* FBNetworkReachability.h */,
+				41ED479516BE7B6500ADD6AC /* FBNetworkReachability.m */,
+			);
+			name = FBNetworkReachability;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -627,6 +640,7 @@
 				4171D83C16A10E9000B15D36 /* CLRType.m in Sources */,
 				410359F116A6F7BD007719C0 /* CLRItemViewController.m in Sources */,
 				41C3ABE016A767C7005E2F44 /* CLRCoreData.m in Sources */,
+				41ED479616BE7B6500ADD6AC /* FBNetworkReachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

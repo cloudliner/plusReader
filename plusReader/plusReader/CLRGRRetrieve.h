@@ -14,7 +14,6 @@ typedef void (^CLGRRetrieveSuccessBlock)(NSDictionary* JSON);
 
 @property (strong, nonatomic) AFHTTPClient *httpClient;
 @property (strong, nonatomic) NSOperationQueue *queue;
-@property (strong, nonatomic) AFOAuthCredential *credential;
 
 -(void)listTag:(CLGRRetrieveSuccessBlock)successBlock;
 -(void)listSubscription:(CLGRRetrieveSuccessBlock)successBlock;
