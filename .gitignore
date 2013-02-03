@@ -1,3 +1,5 @@
 .DS_Store
-cloudliner.xcworkspace/xcuserdata
+*.xcworkspace/xcuserdata
+**/*.xcworkspace/xcuserdata
+*.xcodeproj/xcuserdata
 **/*.xcodeproj/xcuserdata

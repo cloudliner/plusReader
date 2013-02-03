@@ -9,4 +9,4 @@
 	url = https://github.com/cloudliner/AFOAuth2Client.git
 [submodule "ThirdParty/FBNetworkReachability"]
 	path = ThirdParty/FBNetworkReachability
-	url = https://github.com/dev5tec/FBNetworkReachability.git
+	url=https://github.com/cloudliner/FBNetworkReachability.git
