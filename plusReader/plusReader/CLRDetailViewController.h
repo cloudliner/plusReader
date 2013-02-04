@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) id detailItem;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+// TODO: 暫定的にWebViewに表示
+@property (weak, nonatomic) IBOutlet UIWebView *detailWebView;
 
 @end

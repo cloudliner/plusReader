@@ -7,6 +7,8 @@
 //
 
 #import "CLRDetailViewController.h"
+#import "CLRItem.h"
+#import "CLRItemCursor.h"
 
 @interface CLRDetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -33,8 +35,12 @@
 - (void)configureView {
   // Update the user interface for the detail item.
   
+  // TODO: 暫定的にWebViewに表示
   if (self.detailItem) {
-      self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"title"] description];
+    CLRItemCursor *itemCursorObject = self.detailItem;
+    NSString *href = itemCursorObject.item.href;
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:href]];
+    [self.detailWebView loadRequest:request];
   }
 }
 

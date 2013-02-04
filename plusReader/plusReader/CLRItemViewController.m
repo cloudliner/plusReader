@@ -14,6 +14,7 @@
 #import "CLRItemCursor.h"
 #import "CLRItem.h"
 #import "CLRGRRetrieve.h"
+#import "CLRDetailViewController.h"
 
 @interface CLRItemViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -74,6 +75,7 @@
         itemCursorObject.item = itemObject;
         itemObject.title = item[@"title"];
         itemObject.content = item[@"content"][@"content"];
+        itemObject.href = item[@"alternate"][0][@"href"];
         // TODO: 処理作成
         
         itemObject.update = now;
@@ -138,13 +140,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   // TODO: 遷移処理の変更
-  /*
    if ([[segue identifier] isEqualToString:@"showItem"]) {
-   NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-   CLRStreamCursor *streamCursorObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-   [[segue destinationViewController] setStreamCursor:streamCursorObject];
+     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+     CLRItemCursor *itemCursorObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+     [[segue destinationViewController] setDetailItem:itemCursorObject];
    }
-   */
 }
 
 #pragma mark - Fetched results controller
