@@ -45,6 +45,7 @@
                                                   [self retrieveJSONWithRequest:request success:successBlock];
                                                 } failure:^(NSError *error) {
                                                   CLRLog(@"failure:%@", error.description);
+                                                  [[FBNetworkReachability sharedInstance] refresh];
                                                   CLRGAITrackException(error);
                                                 }];
     } else {
@@ -79,6 +80,7 @@
                              }
                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                CLRLog(@"failure:%@ %@", request.description, error.description);
+                               [[FBNetworkReachability sharedInstance] refresh];
                                CLRGAITrackException(error);
                              }];
     
