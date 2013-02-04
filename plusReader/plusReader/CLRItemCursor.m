@@ -20,7 +20,6 @@
   NSString *kITEMID_PREFIX = @"tag:google.com,2005:reader/item/";
   NSRange lastSlash = [itemIdString rangeOfString:@"/" options:NSBackwardsSearch];
   NSString *hexString = [itemIdString substringFromIndex:(lastSlash.location + 1)];
-  CLRLog(@"hexULongLongString=%@", hexString);
   int64_t itemId = CLRLongLongForHexString(hexString);
   
   [self willChangeValueForKey:@"itemId"];
