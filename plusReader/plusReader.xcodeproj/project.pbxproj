@@ -67,6 +67,7 @@
 		41C3ABE016A767C7005E2F44 /* CLRCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C3ABDF16A767C6005E2F44 /* CLRCoreData.m */; };
 		41D8265116C1B872005560BC /* CLRItemCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D8265016C1B872005560BC /* CLRItemCursor.m */; };
 		41D8265416C1B873005560BC /* CLRItemStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D8265316C1B873005560BC /* CLRItemStatus.m */; };
+		41D8265616C1BB54005560BC /* plusReader.xcdatamodel.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 41D8265516C1BB54005560BC /* plusReader.xcdatamodel.pdf */; };
 		41ED479616BE7B6500ADD6AC /* FBNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ED479516BE7B6500ADD6AC /* FBNetworkReachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
@@ -183,6 +184,7 @@
 		41D8265016C1B872005560BC /* CLRItemCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRItemCursor.m; sourceTree = "<group>"; };
 		41D8265216C1B873005560BC /* CLRItemStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRItemStatus.h; sourceTree = "<group>"; };
 		41D8265316C1B873005560BC /* CLRItemStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRItemStatus.m; sourceTree = "<group>"; };
+		41D8265516C1BB54005560BC /* plusReader.xcdatamodel.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = plusReader.xcdatamodel.pdf; path = ../../Document/plusReader.xcdatamodel.pdf; sourceTree = "<group>"; };
 		41ED479416BE7B6500ADD6AC /* FBNetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBNetworkReachability.h; path = ../ThirdParty/FBNetworkReachability/FBNetworkReachability.h; sourceTree = "<group>"; };
 		41ED479516BE7B6500ADD6AC /* FBNetworkReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBNetworkReachability.m; path = ../ThirdParty/FBNetworkReachability/FBNetworkReachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -416,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				411215851681FF8800794F99 /* plusReader.xcdatamodeld */,
+				41D8265516C1BB54005560BC /* plusReader.xcdatamodel.pdf */,
 				4171D82B16A10E8E00B15D36 /* CLRItem.h */,
 				4171D82C16A10E8F00B15D36 /* CLRItem.m */,
 				41D8265216C1B873005560BC /* CLRItemStatus.h */,
@@ -552,6 +555,7 @@
 				41768516169091BE00A29A6D /* Icon@2x.png in Resources */,
 				41768518169091DB00A29A6D /* Icon-72.png in Resources */,
 				4176851A169091DF00A29A6D /* Icon-72@2x.png in Resources */,
+				41D8265616C1BB54005560BC /* plusReader.xcdatamodel.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

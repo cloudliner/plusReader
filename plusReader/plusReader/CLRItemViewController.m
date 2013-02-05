@@ -59,11 +59,9 @@
       NSArray *items = JSON[@"items"];
       for (NSDictionary *item in items) {
         NSString *itemIdString = item[@"id"];
-        // TODO: "tag:google.com,2005:reader/item/cf0922f5af194500" から int64_t型への変換
-        
         NSString *timestampUsec = item[@"timestampUsec"];
         int64_t timestamp = [timestampUsec longLongValue];
-
+        
         CLRItemCursor *itemCursorObject = [coreData insertNewObjectForEntity:CLREntityItemCursor];
         [itemCursorObject setItemIdForString:itemIdString];
         itemCursorObject.sortId = sortId;
@@ -139,7 +137,6 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  // TODO: 遷移処理の変更
    if ([[segue identifier] isEqualToString:@"showItem"]) {
      NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
      CLRItemCursor *itemCursorObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];

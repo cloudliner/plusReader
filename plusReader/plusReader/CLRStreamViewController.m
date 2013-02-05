@@ -248,9 +248,9 @@
       rootOrder = object;
     }
   }
-    
+  
   NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-
+  
   // TagからStreamListを更新
   NSPredicate *tagPredidate = [NSPredicate predicateWithFormat:@"type == %d", CLRTypeEnumerationTagNormal];
   NSArray *tagArray = [coreData arrayForEntity:CLREntityTag predicate:tagPredidate];
