@@ -24,6 +24,14 @@
         <attribute name="itemId" attributeType="Integer 64" indexed="YES" syncable="YES"/>
         <attribute name="timestamp" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" syncable="YES"/>
+        <relationship name="itemStatus" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="ItemStatus" inverseName="itemCursor" inverseEntity="ItemStatus" syncable="YES"/>
+    </entity>
+    <entity name="ItemStatus" representedClassName="CLRItemStatus" syncable="YES">
+        <attribute name="fresh" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="read" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="starred" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="update" attributeType="Date" indexed="YES" syncable="YES"/>
+        <relationship name="itemCursor" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ItemCursor" inverseName="itemStatus" inverseEntity="ItemCursor" syncable="YES"/>
     </entity>
     <entity name="Ordering" representedClassName="CLROrdering" syncable="YES">
         <attribute name="streamId" attributeType="String" syncable="YES"/>
@@ -54,7 +62,8 @@
         <element name="Cursor" positionX="25" positionY="273" width="128" height="60"/>
         <element name="Feed" positionX="70" positionY="-117" width="128" height="90"/>
         <element name="Item" positionX="234" positionY="-114" width="128" height="195"/>
-        <element name="ItemCursor" positionX="97" positionY="153" width="128" height="90"/>
+        <element name="ItemCursor" positionX="97" positionY="153" width="128" height="103"/>
+        <element name="ItemStatus" positionX="360" positionY="99" width="128" height="118"/>
         <element name="Ordering" positionX="-99" positionY="-252" width="128" height="105"/>
         <element name="Stream" positionX="-20" positionY="-3" width="128" height="120"/>
         <element name="StreamCursor" positionX="-47" positionY="159" width="128" height="73"/>

@@ -46,7 +46,6 @@
 		4171D82A16A10E8E00B15D36 /* CLRFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D82916A10E8E00B15D36 /* CLRFeed.m */; };
 		4171D82D16A10E8F00B15D36 /* CLRItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D82C16A10E8F00B15D36 /* CLRItem.m */; };
 		4171D83016A10E8F00B15D36 /* CLRCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D82F16A10E8F00B15D36 /* CLRCursor.m */; };
-		4171D83316A10E9000B15D36 /* CLRItemCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D83216A10E9000B15D36 /* CLRItemCursor.m */; };
 		4171D83616A10E9000B15D36 /* CLRStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D83516A10E9000B15D36 /* CLRStream.m */; };
 		4171D83916A10E9000B15D36 /* CLRTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D83816A10E9000B15D36 /* CLRTag.m */; };
 		4171D83C16A10E9000B15D36 /* CLRType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4171D83B16A10E9000B15D36 /* CLRType.m */; };
@@ -66,6 +65,8 @@
 		41A698BD16980CDC000010C9 /* CLRGRRetrieve.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A698BC16980CDC000010C9 /* CLRGRRetrieve.m */; };
 		41B8E60D1699C65500E7D51A /* CLROrdering.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8E60C1699C65500E7D51A /* CLROrdering.m */; };
 		41C3ABE016A767C7005E2F44 /* CLRCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C3ABDF16A767C6005E2F44 /* CLRCoreData.m */; };
+		41D8265116C1B872005560BC /* CLRItemCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D8265016C1B872005560BC /* CLRItemCursor.m */; };
+		41D8265416C1B873005560BC /* CLRItemStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 41D8265316C1B873005560BC /* CLRItemStatus.m */; };
 		41ED479616BE7B6500ADD6AC /* FBNetworkReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 41ED479516BE7B6500ADD6AC /* FBNetworkReachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
@@ -142,8 +143,6 @@
 		4171D82C16A10E8F00B15D36 /* CLRItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRItem.m; sourceTree = "<group>"; };
 		4171D82E16A10E8F00B15D36 /* CLRCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRCursor.h; sourceTree = "<group>"; };
 		4171D82F16A10E8F00B15D36 /* CLRCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRCursor.m; sourceTree = "<group>"; };
-		4171D83116A10E9000B15D36 /* CLRItemCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRItemCursor.h; sourceTree = "<group>"; };
-		4171D83216A10E9000B15D36 /* CLRItemCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRItemCursor.m; sourceTree = "<group>"; };
 		4171D83416A10E9000B15D36 /* CLRStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRStream.h; sourceTree = "<group>"; };
 		4171D83516A10E9000B15D36 /* CLRStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRStream.m; sourceTree = "<group>"; };
 		4171D83716A10E9000B15D36 /* CLRTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRTag.h; sourceTree = "<group>"; };
@@ -180,6 +179,10 @@
 		41B8E60C1699C65500E7D51A /* CLROrdering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLROrdering.m; sourceTree = "<group>"; };
 		41C3ABDE16A767C6005E2F44 /* CLRCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRCoreData.h; sourceTree = "<group>"; };
 		41C3ABDF16A767C6005E2F44 /* CLRCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRCoreData.m; sourceTree = "<group>"; };
+		41D8264F16C1B872005560BC /* CLRItemCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRItemCursor.h; sourceTree = "<group>"; };
+		41D8265016C1B872005560BC /* CLRItemCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRItemCursor.m; sourceTree = "<group>"; };
+		41D8265216C1B873005560BC /* CLRItemStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLRItemStatus.h; sourceTree = "<group>"; };
+		41D8265316C1B873005560BC /* CLRItemStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLRItemStatus.m; sourceTree = "<group>"; };
 		41ED479416BE7B6500ADD6AC /* FBNetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBNetworkReachability.h; path = ../ThirdParty/FBNetworkReachability/FBNetworkReachability.h; sourceTree = "<group>"; };
 		41ED479516BE7B6500ADD6AC /* FBNetworkReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBNetworkReachability.m; path = ../ThirdParty/FBNetworkReachability/FBNetworkReachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -415,6 +418,10 @@
 				411215851681FF8800794F99 /* plusReader.xcdatamodeld */,
 				4171D82B16A10E8E00B15D36 /* CLRItem.h */,
 				4171D82C16A10E8F00B15D36 /* CLRItem.m */,
+				41D8265216C1B873005560BC /* CLRItemStatus.h */,
+				41D8265316C1B873005560BC /* CLRItemStatus.m */,
+				41D8264F16C1B872005560BC /* CLRItemCursor.h */,
+				41D8265016C1B872005560BC /* CLRItemCursor.m */,
 				4171D83A16A10E9000B15D36 /* CLRType.h */,
 				4171D83B16A10E9000B15D36 /* CLRType.m */,
 				4171D83416A10E9000B15D36 /* CLRStream.h */,
@@ -427,8 +434,6 @@
 				41B8E60C1699C65500E7D51A /* CLROrdering.m */,
 				4171D82E16A10E8F00B15D36 /* CLRCursor.h */,
 				4171D82F16A10E8F00B15D36 /* CLRCursor.m */,
-				4171D83116A10E9000B15D36 /* CLRItemCursor.h */,
-				4171D83216A10E9000B15D36 /* CLRItemCursor.m */,
 				4171D82516A10E8D00B15D36 /* CLRStreamCursor.h */,
 				4171D82616A10E8D00B15D36 /* CLRStreamCursor.m */,
 			);
@@ -634,13 +639,14 @@
 				4171D82A16A10E8E00B15D36 /* CLRFeed.m in Sources */,
 				4171D82D16A10E8F00B15D36 /* CLRItem.m in Sources */,
 				4171D83016A10E8F00B15D36 /* CLRCursor.m in Sources */,
-				4171D83316A10E9000B15D36 /* CLRItemCursor.m in Sources */,
 				4171D83616A10E9000B15D36 /* CLRStream.m in Sources */,
 				4171D83916A10E9000B15D36 /* CLRTag.m in Sources */,
 				4171D83C16A10E9000B15D36 /* CLRType.m in Sources */,
 				410359F116A6F7BD007719C0 /* CLRItemViewController.m in Sources */,
 				41C3ABE016A767C7005E2F44 /* CLRCoreData.m in Sources */,
 				41ED479616BE7B6500ADD6AC /* FBNetworkReachability.m in Sources */,
+				41D8265116C1B872005560BC /* CLRItemCursor.m in Sources */,
+				41D8265416C1B873005560BC /* CLRItemStatus.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
