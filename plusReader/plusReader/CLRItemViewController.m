@@ -29,8 +29,8 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  // TODO: 処理作成
   UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+  [refreshControl addTarget:self action:@selector(refreshOccured:) forControlEvents:UIControlEventValueChanged];
   self.refreshControl = refreshControl;
   
   CLRGAITrack();
@@ -40,22 +40,34 @@
   if (_streamCursor != streamCursor) {
     _streamCursor = streamCursor;
     
+    [self updateList];
+  }
+}
+
+- (void)refreshOccured:(id)sender {
+  [self updateList];
+}
+
+- (void)updateList {
+  if (_streamCursor != nil) {
+    CLRStreamCursor *streamCursor = _streamCursor;
+    
     // 表示を更新
     NSString *streamId = streamCursor.stream.streamId;
     int32_t sortId = streamCursor.sortId;
-   
+    
     CLRAppDelegate *delegate = (CLRAppDelegate *)[[UIApplication sharedApplication] delegate];
     CLRGRRetrieve *grRetrieve = delegate.grRetrieve;
     CLRCoreData *coreData = delegate.coreData;
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
     
-    // Orderingの取得・更新
+    // StreamContentの取得・更新
     [grRetrieve streamContentsWithId:streamId success:^(NSDictionary *JSON) {
       // TODO: 以下の情報の扱い
       // author = cloudliner;
       // continuation = "CP3-zqm1y7QC";
       // direction = ltr;
-
+      
       NSArray *items = JSON[@"items"];
       for (NSDictionary *item in items) {
         NSString *itemIdString = item[@"id"];
@@ -80,12 +92,15 @@
       }
       
       // 古いオブジェクトを削除
-      // 削除するタイミング
-      [coreData deleteForEntity:CLREntityItemCursor timestamp:now];
-      [coreData deleteForEntity:CLREntityItem timestamp:now];
+      // TODO: 削除するタイミング
+      [coreData deleteForEntity:CLREntityItemCursor timestamp:now sortId:sortId];
+      // TODO: Item の削除
+      // [coreData deleteForEntity:CLREntityItem timestamp:now];
       
       // 保存
       [coreData saveContext];
+      
+      [self.refreshControl endRefreshing];
     }];
   }
 }

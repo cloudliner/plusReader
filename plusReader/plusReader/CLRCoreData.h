@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSInteger, CLREntityEnumerations) {
   CLREntityNone = 0,
   CLREntityItem,
+  CLREntityItemStatus,
   CLREntityOrdering,
   CLREntityItemCursor,
   CLREntityStreamCursor,
@@ -27,6 +28,7 @@ typedef NS_ENUM(NSInteger, CLREntityEnumerations) {
 - (NSFetchedResultsController *)fetchedResultsControllerWithEntity:(CLREntityEnumerations)entity fetchRequest:(NSFetchRequest *)fetchRequest;
 - (id)insertNewObjectForEntity:(CLREntityEnumerations)entity;
 - (void)deleteForEntity:(CLREntityEnumerations)entity timestamp:(NSTimeInterval)timestamp;
+- (void)deleteForEntity:(CLREntityEnumerations)entity timestamp:(NSTimeInterval)timestamp sortId:(int32_t)sortId;
 - (NSArray *)arrayForEntity:(CLREntityEnumerations)entity predicate:(NSPredicate *)predicate;
 - (void)saveContext;
 @end

@@ -64,6 +64,40 @@
   }
 }
 
+- (void)deleteForEntity:(CLREntityEnumerations)entity timestamp:(NSTimeInterval)timestamp sortId:(int32_t)sortId {
+  NSEntityDescription *entityDescription = [self entityForEnumerations:entity];
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  [fetchRequest setEntity:entityDescription];
+  [fetchRequest setFetchBatchSize:20];
+  
+  NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"update" ascending:YES];
+  [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+  
+  NSPredicate *predidate = [NSPredicate predicateWithFormat:@"update != %@ AND sortId == %d",
+                            [NSDate dateWithTimeIntervalSinceReferenceDate:timestamp],
+                            sortId];
+  
+  [fetchRequest setPredicate:predidate];
+  
+  NSFetchedResultsController *fetchedResultsController
+  = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:self.context
+                                          sectionNameKeyPath:nil
+                                                   cacheName:nil];
+  
+  NSError *error = nil;
+  if (![fetchedResultsController performFetch:&error]) {
+    CLRLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    CLRGAITrackException(error);
+    abort();
+  }
+  
+  NSArray *arrayToDelete = [fetchedResultsController fetchedObjects];
+  for (NSManagedObject *object in arrayToDelete) {
+    [self.context deleteObject:object];
+  }
+}
+
 - (NSArray *)arrayForEntity:(CLREntityEnumerations)entity predicate:(NSPredicate *)predicate {
   NSEntityDescription *entityDescription = [self entityForEnumerations:entity];
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
